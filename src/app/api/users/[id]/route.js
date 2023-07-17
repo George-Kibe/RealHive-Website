@@ -8,8 +8,12 @@ export const GET = async (request, {params}) => {
     console.log(id)
     try {
         await connect();
-        const User = await User.findById(id);
-        return new NextResponse(JSON.stringify(User), {status:200})
+        try {
+            const User = await User.findById(id);
+            return new NextResponse(JSON.stringify(User), {status:200})
+        } catch (error) {
+            return new NextResponse("User not Found or Invalid ID", {status:404})
+        }        
     } catch (error) {
         return new NextResponse("Database Error", { status:500})
     }

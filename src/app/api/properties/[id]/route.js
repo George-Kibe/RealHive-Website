@@ -8,8 +8,12 @@ export const GET = async (request, {params}) => {
     console.log(id)
     try {
         await connect();
-        const property = await Property.findById(id);
-        return new NextResponse(JSON.stringify(property), {status:200})
+        try {
+            const property = await Property.findById(id);
+            return new NextResponse(JSON.stringify(property), {status:200})
+        } catch (error) {
+            return new NextResponse("Property not Found or Invalid ID", {status:404})
+        } 
     } catch (error) {
         return new NextResponse("Database Error", { status:500})
     }

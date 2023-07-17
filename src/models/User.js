@@ -1,16 +1,22 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    title: { type: String, require: true},
-    description: String,
-    category: {type:mongoose.Types.ObjectId, ref:"category", require: false},
-    price: {type: Number, require:true},
-    images:{type:[String]},
-    properties:{type:Object}
+    username: { type: String, unique:true},
+    email: { type: String, require: true, unique:true},
+    password: String,
+    full_name: String,
+    phone_number: String,
+    referer: {type:mongoose.Types.ObjectId, ref:"user", require: false},
+    referees: {type:[mongoose.Types.ObjectId], ref:"referee", require: false},
+    referralCode: String,
+    homeLatitude: Number,
+    homeLongitude: Number,
+    dreamLatitude: Number,
+    dreamLongitude: Number,
 },
 {timestamps: true}
 )
 
-const User = mongoose.models.property || mongoose.model('user', UserSchema);
+const User = mongoose.models.user || mongoose.model('user', UserSchema);
 
 export default User

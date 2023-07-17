@@ -11,24 +11,21 @@ async function handler(req,res){
         if(id){
           try {
               const property = await Property.findOne({_id:id})
-              const propertyData = JSON.stringify(Property)
+              const propertyData = JSON.stringify(property)
               return new NextResponse(propertyData, {status: 200})
           } catch (error) {
               return new NextResponse('No Property with That ID', {status: 404})
           }
         }
-        const Propertys = await  Property.find()
-        const allPropertys = JSON.stringify(Propertys)
+        const properties = await  Property.find()
+        const allProperties = JSON.stringify(properties)
         // console.log(allPropertys)
-        return new NextResponse(allPropertys, {status: 200})
+        return new NextResponse(allProperties, {status: 200})
       }   
     
     if (method === "POST"){
         const body = await req.json()
-        const {title, description, category, images, price, properties} = body;
-        const newProperty = new Property({
-            title, description, properties, category, images, price:parseInt(price)
-        })
+        const newProperty = new Property(body)
         try {
             await newProperty.save();
             console.log("saved!")
@@ -40,13 +37,13 @@ async function handler(req,res){
     }
     if (method === "PUT"){
         const body = await req.json()
-        const {title, description, properties, category, images, price, _id} = body;
+        const {_id} = body;
         try {
-            await Property.updateOne({_id}, {title, description, properties,category, images, price:parseInt(price)})
+            await Property.updateOne({_id}, {...body})
             console.log("Updated!")
             return new NextResponse("Property has been Updated", {status: 200})
         } catch (error) {
-            console.log("Property saving error!")
+            console.log("Property Updating error!")
             return new NextResponse(error.message, {status: 422})
         }      
     }     

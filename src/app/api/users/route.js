@@ -11,14 +11,14 @@ async function handler(req,res){
         if(id){
           try {
               const user = await User.findOne({_id:id})
-              const userData = JSON.stringify(User)
-              return new NextResponse(UserData, {status: 200})
+              const userData = JSON.stringify(user)
+              return new NextResponse(userData, {status: 200})
           } catch (error) {
               return new NextResponse('No User with That ID', {status: 404})
           }
         }
         const users = await  User.find()
-        const allUsers = JSON.stringify(Users)
+        const allUsers = JSON.stringify(users)
         // console.log(allUsers)
         return new NextResponse(allUsers, {status: 200})
       }   
