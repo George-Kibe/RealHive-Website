@@ -25,13 +25,15 @@ async function handler(req,res){
     
     if (method === "POST"){
         const body = await req.json()
-        const {title, description, category, images, price, properties} = body;
-        const newUser = new User({
-            title, description, properties, category, images, price:parseInt(price)
-        })
+        const {username,email, referralCode} = body;
+        const existUsername = await User.findOne({username})
+        const existEmail = await User.findOne({email})
+        const existReferralCode = await User.findOne({referralCode})
+        const newUser = new User(body)      
+        console.log(!!existUsername, !!existEmail, !!existReferralCode)  
         try {
-            await newUser.save();
-            console.log("saved!")
+            await newUser.validate();
+            // await newUser.save();
             return new NextResponse("User has been created", {status: 201})
         } catch (error) {
             console.log("User saving error!")

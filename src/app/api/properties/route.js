@@ -27,8 +27,8 @@ async function handler(req,res){
         const body = await req.json()
         const newProperty = new Property(body)
         try {
+            await newProperty.validate();
             await newProperty.save();
-            console.log("saved!")
             return new NextResponse("Property has been created", {status: 201})
         } catch (error) {
             console.log("Property saving error!")
