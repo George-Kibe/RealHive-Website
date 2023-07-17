@@ -25,15 +25,19 @@ async function handler(req,res){
     
     if (method === "POST"){
         const body = await req.json()
+        // All the three fields are required fields
         const {username,email, referralCode} = body;
         const existUsername = await User.findOne({username})
         const existEmail = await User.findOne({email})
         const existReferralCode = await User.findOne({referralCode})
-        const newUser = new User(body)      
-        console.log(!!existUsername, !!existEmail, !!existReferralCode)  
+        if(existUsername || existEmail || existReferralCode){
+            return new NextResponse("Username, Referral Code or email Already Exists", {status: 422})
+        }
+      
+        const newUser = new User(body)       
         try {
             await newUser.validate();
-            // await newUser.save();
+            await newUser.save();
             return new NextResponse("User has been created", {status: 201})
         } catch (error) {
             console.log("User saving error!")

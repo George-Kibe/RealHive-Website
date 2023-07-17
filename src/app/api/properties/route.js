@@ -25,6 +25,10 @@ async function handler(req,res){
     
     if (method === "POST"){
         const body = await req.json()
+        const {title, newPrice, latitude, longitude, images} = body;
+        if(!title ||!newPrice ||! latitude ||!longitude ||!images){
+            return new NextResponse("Property Necessary Details Missing", {status: 422})
+        }
         const newProperty = new Property(body)
         try {
             await newProperty.validate();
