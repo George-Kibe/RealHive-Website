@@ -6,7 +6,7 @@ import FeatureContainer from "@/components/feature-container";
 import RentPropertiesContainer from "@/components/rent-properties-container";
 import PropertiesOfRentCard from "@/components/properties-of-rent-card";
 import ContactForm from "@/components/contact-form";
-import FooterSection from "@/components/footer-section";
+import Footer from "@/components/footer";
 
 const LandingPage = () => {
   return (
@@ -72,7 +72,7 @@ const LandingPage = () => {
         <RentPropertiesContainer />
         <PropertiesOfRentCard />
         <ContactForm />
-        <FooterSection />
+        <Footer />
       </div>
     </>
   );

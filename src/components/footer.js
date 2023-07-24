@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => {
   return (
     <div className="self-stretch overflow-hidden flex flex-row p-[50px] items-start justify-start md:self-stretch md:w-auto md:flex-row md:gap-[0px] sm:flex-col">
@@ -26,61 +28,61 @@ const Footer = () => {
             </div>
           </div>
           <div className="w-[304px] flex flex-row items-center justify-between">
-            <div className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
+            <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-[21.67px]"
                 alt=""
                 src="/social-media-logo.svg"
               />
-            </div>
-            <div className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
+            </Link>
+            <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
                 alt=""
                 src="/social-media-logo1.svg"
               />
-            </div>
-            <div className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
+            </Link>
+            <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
                 alt=""
                 src="/social-media-logo2.svg"
               />
-            </div>
-            <div className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
+            </Link>
+            <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
                 alt=""
                 src="/social-media-logo3.svg"
               />
-            </div>
-            <div className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
+            </Link>
+            <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
                 alt=""
                 src="/social-media-logo4.svg"
               />
-            </div>
+            </Link>
           </div>
         </div>
         <div className="w-[173px] h-[248px] flex flex-col items-start justify-start gap-[32px]">
           <div className="relative leading-[32px] font-semibold">Features</div>
           <div className="self-stretch h-[184px] flex flex-col items-start justify-start gap-[16px] text-base text-gray-500">
-            <div className="relative leading-[24px]">Home</div>
-            <div className="relative leading-[24px]">Become a Host</div>
-            <div className="relative leading-[24px]">Pricing</div>
-            <div className="relative leading-[24px]">Blog</div>
-            <div className="relative leading-[24px]">Contact</div>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Home</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Become a Host</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Pricing</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Blog</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Contact</Link>
           </div>
         </div>
         <div className="w-[173px] h-[248px] flex flex-col items-start justify-start gap-[32px]">
           <div className="relative leading-[32px] font-semibold">Company</div>
           <div className="self-stretch h-[184px] flex flex-col items-start justify-start gap-[16px] text-base text-gray-500">
-            <div className="relative leading-[24px]">About Us</div>
-            <div className="relative leading-[24px]">Press</div>
-            <div className="relative leading-[24px]">Contact</div>
-            <div className="relative leading-[24px]">Careers</div>
-            <div className="relative leading-[24px]">Blog</div>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">About Us</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Press</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Contact</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Careers</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Blog</Link>
           </div>
         </div>
         <div className="w-[203px] h-[168px] flex flex-col items-start justify-start gap-[32px]">
@@ -88,9 +90,9 @@ const Footer = () => {
             Team and policies
           </div>
           <div className="self-stretch h-[104px] flex flex-col items-start justify-start gap-[16px] text-base text-gray-500">
-            <div className="relative leading-[24px]">Terms of servies</div>
-            <div className="relative leading-[24px]">Privacy Policy</div>
-            <div className="relative leading-[24px]">Security</div>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Terms of servies</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Privacy Policy</Link>
+            <Link href={"#"} className="relative text-gray no-underline leading-[24px]">Security</Link>
           </div>
         </div>
       </footer>
