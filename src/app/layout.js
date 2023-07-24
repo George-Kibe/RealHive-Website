@@ -1,5 +1,7 @@
+import Header from '@/components/Header'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,25 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }
-
-import Head from "next/head";
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <React.Fragment>
-      <Head>
-        <title>JSM RealHive</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </Head>
-      <Component {...pageProps} />
-    </React.Fragment>
-  );
-}
-

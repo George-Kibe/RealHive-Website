@@ -8,9 +8,9 @@ const Footer = () => {
           <div className="flex flex-row items-center justify-center gap-[8px]">
             <img className="relative w-11 h-11" alt="" src="/houseline1.svg" />
             <div className="flex flex-col items-start justify-start">
-              <div className="relative leading-[24px] font-semibold">REIS</div>
+              <div className="relative leading-[24px] font-semibold">Buenas</div>
               <div className="relative text-sm leading-[16px] font-medium">
-                Real State
+                Consultants Group
               </div>
             </div>
           </div>
