@@ -1,11 +1,12 @@
+"use client"
 import Head from "next/head";
-import HeroContainer from "../src/components/hero-container";
-import AreasContainer from "../src/components/areas-container";
-import FeatureContainer from "../src/components/feature-container";
-import RentPropertiesContainer from "../src/components/rent-properties-container";
-import PropertiesOfRentCard from "../src/components/properties-of-rent-card";
-import ContactForm from "../src/components/contact-form";
-import FooterSection from "../src/components/footer-section";
+import HeroContainer from "@/components/hero-container";
+import AreasContainer from "@/components/areas-container";
+import FeatureContainer from "@/components/feature-container";
+import RentPropertiesContainer from "@/components/rent-properties-container";
+import PropertiesOfRentCard from "@/components/properties-of-rent-card";
+import ContactForm from "@/components/contact-form";
+import FooterSection from "@/components/footer-section";
 
 const LandingPage = () => {
   return (

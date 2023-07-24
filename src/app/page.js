@@ -1,32 +1,9 @@
-import "antd/dist/antd.min.css";
+// import "antd/dist/antd.min.css";
+"use client"
 import { Menu, Dropdown, Button } from "antd";
-import {
-  DownOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  CalendarOutlined,
-  CheckOutlined,
-  ClockCircleOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleOutlined,
-  HeartOutlined,
-  LeftOutlined,
-  LockOutlined,
-  MailOutlined,
-  PaperClipOutlined,
-  PhoneOutlined,
-  QuestionCircleOutlined,
-  ReloadOutlined,
-  RightOutlined,
-  SearchOutlined,
-  SendOutlined,
-  ShareAltOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import PropertiesGridContainer from "../src/components/properties-grid-container";
-import Footer from "../src/components/footer";
+import { DownOutlined } from "@ant-design/icons";
+import PropertiesGridContainer from "@/components/properties-grid-container";
+import Footer from "@/components/footer";
 
 const PropertiesGridView = () => {
   return (
@@ -38,7 +15,7 @@ const PropertiesGridView = () => {
             <div className="flex flex-col items-start justify-start">
               <div className="relative leading-[24px] font-semibold">REIS</div>
               <div className="relative text-sm leading-[16px] font-medium">
-                Real State
+                Real Estate
               </div>
             </div>
           </a>
