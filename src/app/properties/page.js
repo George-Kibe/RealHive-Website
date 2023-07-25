@@ -1,10 +1,16 @@
 // import "antd/dist/antd.min.css";
 "use client"
-import { Menu, Dropdown, Button } from "antd";
+import { Dropdown, Pagination } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import PropertiesGridContainer from "@/components/properties-grid-container";
 
 const PropertiesGridView = () => {
+  // const defaultOrder = [
+  //   { value: "Popular properties" },
+  //   { value: "Latest properties" },
+  //   { value: "Recommended properties" },
+  // ]
+  const defaultOrder = ["Latest"]
   return (
     <div className="relative bg-gray-white w-full flex flex-col items-start justify-start text-center text-33xl text-gray-white font-body-regular-400">
       <div className="self-stretch h-60 flex flex-col items-center justify-center bg-[url(/category@3x.png)] bg-cover bg-no-repeat bg-[top]">
@@ -27,21 +33,7 @@ const PropertiesGridView = () => {
             </div>
             <div className="relative leading-[24px]">Sort by:</div>
             <Dropdown
-              overlay={
-                <Menu>
-                  {[
-                    { value: "Popular properties" },
-                    { value: "Latest properties" },
-                    { value: "Recommended properties" },
-                  ].map((option, index) => (
-                    <Menu.Item key={index}>
-                      <a onClick={(e) => e.preventDefault()}>
-                        {option.value || ""}
-                      </a>
-                    </Menu.Item>
-                  ))}
-                </Menu>
-              }
+              menu={{items: defaultOrder}}
               placement="bottomLeft"
               trigger={["hover"]}
             >
@@ -54,37 +46,7 @@ const PropertiesGridView = () => {
         </div>
         <PropertiesGridContainer />
         <div className="flex flex-row items-end justify-center gap-[8px]">
-          <button className="cursor-pointer [border:none] p-2.5 bg-primary-50 rounded flex flex-row items-start justify-start">
-            <img className="relative w-6 h-6" alt="" src="/arrowleft.svg" />
-          </button>
-          <button className="cursor-pointer [border:none] py-2.5 px-[9px] bg-primary-500 rounded-10xs flex flex-col items-start justify-start">
-            <div className="relative text-base leading-[24px] font-semibold font-body-regular-600 text-gray-white text-center flex items-end justify-center w-[26px]">
-              1
-            </div>
-          </button>
-          <button className="cursor-pointer [border:none] py-2.5 px-[9px] bg-primary-50 rounded-10xs flex flex-col items-start justify-start">
-            <div className="relative text-base leading-[24px] font-semibold font-body-regular-600 text-primary-500 text-center flex items-end justify-center w-[26px]">
-              2
-            </div>
-          </button>
-          <button className="cursor-pointer [border:none] py-2.5 px-[9px] bg-primary-50 rounded-10xs flex flex-col items-start justify-start">
-            <div className="relative text-base leading-[24px] font-semibold font-body-regular-600 text-primary-500 text-center flex items-end justify-center w-[26px]">
-              3
-            </div>
-          </button>
-          <button className="cursor-pointer [border:none] py-2.5 px-[9px] bg-primary-50 rounded-10xs flex flex-col items-start justify-start">
-            <div className="relative text-base leading-[24px] font-semibold font-body-regular-600 text-primary-500 text-center flex items-end justify-center w-[26px]">
-              ...
-            </div>
-          </button>
-          <button className="cursor-pointer [border:none] py-2.5 px-[9px] bg-primary-50 rounded-10xs flex flex-col items-start justify-start">
-            <div className="relative text-base leading-[24px] font-semibold font-body-regular-600 text-primary-500 text-center flex items-end justify-center w-[26px]">
-              54
-            </div>
-          </button>
-          <button className="cursor-pointer [border:none] p-2.5 bg-primary-500 rounded flex flex-row items-start justify-start">
-            <img className="relative w-6 h-6" alt="" src="/arrowright.svg" />
-          </button>
+         <Pagination defaultCurrent={1} total={50} />
         </div>
       </div>
     </div>

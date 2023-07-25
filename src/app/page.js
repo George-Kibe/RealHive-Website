@@ -4,8 +4,28 @@ import FeatureContainer from "@/components/feature-container";
 import RentPropertiesContainer from "@/components/rent-properties-container";
 import PropertiesOfRentCard from "@/components/properties-of-rent-card";
 import ContactForm from "@/components/contact-form";
+import Property from "@/models/Property";
+import connect from "@/utils/db";
 
-const LandingPage = () => {
+async function getFeaturedProductDetails(id) {
+  await connect()
+  // const ids = req.body.ids;
+  // res.json(await Product.find({_id:ids}));
+  const response = await Property.findById(id);
+  const productData = JSON.parse(JSON.stringify(response))
+  return productData
+}
+
+async function getLatestProperties() {
+  await connect()
+  const response = await Property.find({}, null, {sort: {"_id": -1}, limit:10})
+  const productsData = JSON.parse(JSON.stringify(response))
+  return productsData
+}
+
+const HomePage = async() => {
+  const properties = await getLatestProperties();
+  console.log("Properties: ", properties)
   return (
     <div className="relative bg-gray-white w-full flex flex-col items-center justify-start">
       <HeroContainer />
@@ -18,4 +38,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default HomePage;
