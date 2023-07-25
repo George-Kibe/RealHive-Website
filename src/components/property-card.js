@@ -1,54 +1,29 @@
-import { useMemo } from "react";
+import Image from "next/image";
 
-const PropertyCard = ({
-  propertyImageHref,
-  car,
-  bathtub,
-  arrowsOut,
-  ellipse1,
-  shareNetwork,
-  heart,
-  plus,
-  propWidth,
-  propFlex,
-  propMinWidth,
-  propMaxWidth,
-  propBackgroundImage,
-  propCursor,
-}) => {
-  const card1Style = useMemo(() => {
-    return {
-      width: propWidth,
-      flex: propFlex,
-      minWidth: propMinWidth,
-      maxWidth: propMaxWidth,
-    };
-  }, [propWidth, propFlex, propMinWidth, propMaxWidth]);
-
-  const propertyImageStyle = useMemo(() => {
-    return {
-      backgroundImage: propBackgroundImage,
-      cursor: propCursor,
-    };
-  }, [propBackgroundImage, propCursor]);
-
+const PropertyCard = ({ title, image, price, area}) => {
+  const car="/car.svg"
+  const bathtub="/bathtub.svg"
+  const arrowsOut="/arrowsout.svg"
+  const ellipse1="/ellipse-1@2x.png"
+  const shareNetwork="/sharenetwork.svg"
+  const heart="/heart.svg"
+  const plus="/plus.svg"
   return (
     <div
       className="rounded-3xs bg-gray-white box-border w-[350px] h-[466.99px] flex flex-col py-[15px] px-[13px] items-start justify-start gap-[23px] text-left text-[14.51px] text-gray-700 font-body-regular-600 border-[1px] border-solid border-whitesmoke-100 hover:bg-gainsboro hover:cursor-pointer sm:w-[100%!important] sm:mb-5"
-      style={card1Style}
     >
-      <a
-        className="[text-decoration:none] self-stretch relative rounded-3xs h-[200px] bg-[url(/unsplashrlwe8f8anoc@3x.png)] bg-cover bg-no-repeat bg-[top]"
-        style={propertyImageStyle}
-      />
+      <a className= {`[text-decoration:none] self-stretch relative rounded-3xs h-[200px] bg-cover bg-no-repeat bg-[top]`}>
+        <Image src={image} fill className="flex rounded-md" />
+      </a>
+      
       <div className="self-stretch flex flex-row p-2.5 items-start justify-start">
         <div className="flex-1 relative leading-[20.32px] font-medium">
-          92 ALLIUM PLACE, ORLANDO FL 32827
+          {title}
         </div>
       </div>
       <div className="self-stretch flex flex-row p-2.5 items-start justify-start text-[13.55px] text-primary-500">
         <div className="relative leading-[18.98px] font-semibold">
-          $ 590,693
+          Kshs. {price}
         </div>
       </div>
       <div className="self-stretch flex flex-row py-0 px-2.5 items-start justify-start gap-[17px] text-[10.84px] text-gray-500">
@@ -71,7 +46,7 @@ const PropertyCard = ({
             src={arrowsOut}
           />
           <div className="relative leading-[16.27px] font-medium">
-            2,096.00 ft
+            {area || Math.floor(Math.random() * 10000)} ft
           </div>
         </div>
       </div>
@@ -80,7 +55,7 @@ const PropertyCard = ({
           <img
             className="relative rounded-[50%] w-[27.57px] h-[27.57px] object-cover"
             alt=""
-            src={ellipse1}
+            src={image}
           />
           <div className="relative leading-[17.42px] font-medium">
             Jenny Wilson

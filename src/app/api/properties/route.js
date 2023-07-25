@@ -41,6 +41,8 @@ async function handler(req,res){
     }
     if (method === "PUT"){
         const body = await req.json()
+        // const {_id, title, description, type, image, images, address, video, perks, amenities, views, verified, published,
+        //     area, rating, ratings, contactNumber, contactEmail, priceType, newprice, latitude, longitude} = body;
         const {_id} = body;
         try {
             await Property.updateOne({_id}, {...body})

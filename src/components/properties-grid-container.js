@@ -1,123 +1,21 @@
+
 import PropertyCard from "./property-card";
 
-const PropertiesGridContainer = () => {
+const PropertiesGridContainer = ({properties}) => {
   return (
     <div className="self-stretch flex flex-row flex-wrap items-start justify-center text-left text-[14.51px] text-gray-700 font-body-regular-600">
       <div className="flex-1 flex flex-row flex-wrap items-start justify-center gap-[8px]">
-        <PropertyCard
-          car="/car.svg"
-          bathtub="/bathtub.svg"
-          arrowsOut="/arrowsout.svg"
-          ellipse1="/ellipse-1@2x.png"
-          shareNetwork="/sharenetwork.svg"
-          heart="/heart.svg"
-          plus="/plus.svg"
-        />
-        <PropertyCard
-          car="/car1.svg"
-          bathtub="/bathtub1.svg"
-          arrowsOut="/arrowsout.svg"
-          ellipse1="/ellipse-1@2x.png"
-          shareNetwork="/sharenetwork1.svg"
-          heart="/heart1.svg"
-          plus="/plus1.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc1@3x.png")`}
-          propCursor="unset"
-        />
-        <PropertyCard
-          car="/car2.svg"
-          bathtub="/bathtub2.svg"
-          arrowsOut="/arrowsout.svg"
-          ellipse1="/ellipse-1@2x.png"
-          shareNetwork="/sharenetwork.svg"
-          heart="/heart.svg"
-          plus="/plus.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc2@3x.png")`}
-          propCursor="unset"
-        />
-        <PropertyCard
-          car="/car1.svg"
-          bathtub="/bathtub1.svg"
-          arrowsOut="/arrowsout.svg"
-          ellipse1="/ellipse-1@2x.png"
-          shareNetwork="/sharenetwork2.svg"
-          heart="/heart1.svg"
-          plus="/plus2.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc3@3x.png")`}
-          propCursor="unset"
-        />
-        <PropertyCard
-          car="/car.svg"
-          bathtub="/bathtub.svg"
-          arrowsOut="/arrowsout.svg"
-          ellipse1="/ellipse-1@2x.png"
-          shareNetwork="/sharenetwork2.svg"
-          heart="/heart2.svg"
-          plus="/plus3.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc@3x.png")`}
-          propCursor="unset"
-        />
-        <PropertyCard
-          car="/car3.svg"
-          bathtub="/bathtub3.svg"
-          arrowsOut="/arrowsout1.svg"
-          ellipse1="/ellipse-11@2x.png"
-          shareNetwork="/sharenetwork3.svg"
-          heart="/heart3.svg"
-          plus="/plus4.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc4@3x.png")`}
-          propCursor="unset"
-        />
-        <PropertyCard
-          car="/car4.svg"
-          bathtub="/bathtub4.svg"
-          arrowsOut="/arrowsout1.svg"
-          ellipse1="/ellipse-11@2x.png"
-          shareNetwork="/sharenetwork4.svg"
-          heart="/heart4.svg"
-          plus="/plus5.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc5@3x.png")`}
-          propCursor="unset"
-        />
-        <PropertyCard
-          car="/car3.svg"
-          bathtub="/bathtub3.svg"
-          arrowsOut="/arrowsout1.svg"
-          ellipse1="/ellipse-11@2x.png"
-          shareNetwork="/sharenetwork5.svg"
-          heart="/heart3.svg"
-          plus="/plus6.svg"
-          propWidth="350px"
-          propFlex="unset"
-          propMinWidth="unset"
-          propMaxWidth="unset"
-          propBackgroundImage={`url("/unsplashrlwe8f8anoc6@3x.png")`}
-          propCursor="unset"
-        />
+        {
+          properties.map((property, index) => (
+            <PropertyCard
+              key={property._id}
+              title={property.title}
+              image={property.images[Math.floor(Math.random() * property.images.length) + 1]}
+              price={property.newPrice}
+              area={property.area}
+            />
+          ))
+        }        
       </div>
     </div>
   );

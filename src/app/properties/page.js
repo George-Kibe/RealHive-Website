@@ -1,16 +1,19 @@
-// import "antd/dist/antd.min.css";
-"use client"
-import { Dropdown, Pagination } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import { Pagination } from "antd";
 import PropertiesGridContainer from "@/components/properties-grid-container";
+import Property from "@/models/Property";
+import connect from "@/utils/db";
+import { DropDown } from "@/components/DropDown";
 
-const PropertiesGridView = () => {
-  // const defaultOrder = [
-  //   { value: "Popular properties" },
-  //   { value: "Latest properties" },
-  //   { value: "Recommended properties" },
-  // ]
-  const defaultOrder = ["Latest"]
+async function getAllProperties() {
+  await connect()
+  const response = await Property.find({}, null, {sort: {"_id": -1}})
+  const productsData = JSON.parse(JSON.stringify(response))
+  return productsData
+}
+
+const PropertiesGridView = async() => {
+  const allProperties = await getAllProperties();
+  console.log("All properties: ", allProperties)
   return (
     <div className="relative bg-gray-white w-full flex flex-col items-start justify-start text-center text-33xl text-gray-white font-body-regular-400">
       <div className="self-stretch h-60 flex flex-col items-center justify-center bg-[url(/category@3x.png)] bg-cover bg-no-repeat bg-[top]">
@@ -32,19 +35,10 @@ const PropertiesGridView = () => {
               <img className="relative w-6 h-6" alt="" src="/squaresfour.svg" />
             </div>
             <div className="relative leading-[24px]">Sort by:</div>
-            <Dropdown
-              menu={{items: defaultOrder}}
-              placement="bottomLeft"
-              trigger={["hover"]}
-            >
-              <a onClick={(e) => e.preventDefault()}>
-                {`Default Order `}
-                <DownOutlined />
-              </a>
-            </Dropdown>
+            <DropDown />
           </div>
         </div>
-        <PropertiesGridContainer />
+        <PropertiesGridContainer properties={allProperties} />
         <div className="flex flex-row items-end justify-center gap-[8px]">
          <Pagination defaultCurrent={1} total={50} />
         </div>
