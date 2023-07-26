@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const AreasContainer = () => {
@@ -16,10 +17,11 @@ const AreasContainer = () => {
         <div className="self-stretch flex-1 flex flex-col items-center justify-start gap-[24px] max-w-[1300px]">
           <div className="self-stretch flex flex-row items-start justify-center gap-[26px] lg:flex-row md:flex-col">
             <Link
-              className="cursor-pointer [text-decoration:none] flex-1 rounded-lg h-[241px] flex flex-row items-start justify-start relative bg-[url(/card-1@3x.png)] bg-cover bg-no-repeat bg-[top] text-[inherit] md:flex-[unset] md:self-stretch"
+              className="cursor-pointer [text-decoration:none] flex-1 rounded-lg h-[241px] flex flex-row items-start bg-[url(/card-1@3x.png)] justify-start relative bg-cover bg-no-repeat bg-[top] text-[inherit] md:flex-[unset] md:self-stretch"
               href="/properties"
             >
               <div className="my-0 mx-[!important] absolute top-[16px] left-[16px] flex flex-col items-start justify-start gap-[11px] z-[0]">
+                {/* <Image src={"/card-1@3x.png"} alt="Nairobi Image" fill className="flex"/> */}
                 <div className="relative leading-[32px] font-semibold">
                   Nairobi Westlands
                 </div>
