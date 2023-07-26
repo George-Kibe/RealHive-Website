@@ -21,20 +21,20 @@ const AreasContainer = () => {
             >
               <div className="my-0 mx-[!important] absolute top-[16px] left-[16px] flex flex-col items-start justify-start gap-[11px] z-[0]">
                 <div className="relative leading-[32px] font-semibold">
-                  Centerville
+                  Nairobi Westlands
                 </div>
                 <div className="relative text-base leading-[24px] text-center">
-                  25 listings
+                  15 listings
                 </div>
               </div>
             </Link>
             <Link href={"/properties"} className="[text-decoration:none] flex-1 rounded-lg h-[241px] flex flex-row items-start justify-start relative bg-[url(/card-2@3x.png)] bg-cover bg-no-repeat bg-[top] text-[inherit] md:flex-[unset] md:self-stretch">
               <div className="my-0 mx-[!important] absolute top-[16px] left-[16px] flex flex-col items-start justify-start gap-[11px] z-[0]">
                 <div className="relative leading-[32px] font-semibold">
-                  Centerville
+                  Nairobi Eastlands
                 </div>
                 <div className="relative text-base leading-[24px] text-center">
-                  25 listings
+                  20 listings
                 </div>
               </div>
             </Link>
@@ -44,10 +44,10 @@ const AreasContainer = () => {
             >
               <div className="my-0 mx-[!important] absolute top-[16px] left-[16px] flex flex-col items-start justify-start gap-[11px] z-[0]">
                 <div className="relative leading-[32px] font-semibold">
-                  Centerville
+                  Thika Road
                 </div>
                 <div className="relative text-base leading-[24px] text-center">
-                  25 listings
+                  35 listings
                 </div>
               </div>
             </Link>
@@ -59,7 +59,7 @@ const AreasContainer = () => {
             >
               <div className="my-0 mx-[!important] absolute top-[16px] left-[16px] flex flex-col items-start justify-start gap-[11px] z-[0]">
                 <div className="relative leading-[32px] font-semibold">
-                  Arlington
+                  Kiambu
                 </div>
                 <div className="relative text-base leading-[24px] text-center">
                   25 listings
@@ -72,10 +72,10 @@ const AreasContainer = () => {
             >
               <div className="my-0 mx-[!important] absolute top-[16px] left-[16px] flex flex-col items-start justify-start gap-[11px] z-[0]">
                 <div className="relative leading-[32px] font-semibold">
-                  Centerville
+                  Naivasha and Nakuru
                 </div>
                 <div className="relative text-base leading-[24px] text-center">
-                  25 listings
+                  45 listings
                 </div>
               </div>
             </Link>

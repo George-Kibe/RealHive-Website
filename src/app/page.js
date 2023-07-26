@@ -33,7 +33,7 @@ const HomePage = async() => {
       <HeroContainer />
       <AreasContainer />
       <FeatureContainer />
-      <RentPropertiesContainer />
+      <RentPropertiesContainer properties={allProperties.slice(0,10)} />
       <PropertiesOfRentCard />
       <ContactForm />
     </div>

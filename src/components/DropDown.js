@@ -1,20 +1,19 @@
 "use client"
-import { DownOutlined } from '@ant-design/icons'
-import { Dropdown } from 'antd'
-import React from 'react'
+import { Select, Menu} from 'antd'
+const { Option } = Select;
 
 export const DropDown = () => {
-  const defaultOrder = ["Latest"]
   return (
-    <Dropdown
-        menu={{items: defaultOrder}}
-        placement="bottomLeft"
-        trigger={["hover"]}
-    >
-        <a onClick={(e) => e.preventDefault()}>
-        {`Default Order `}
-        <DownOutlined />
-        </a>
-    </Dropdown>
+    <div className=''>
+      <Select defaultValue="For rent" style={{ width: 120 }}>
+        <Option value="Bedsitter">Bedsitter</Option>
+        <Option value="One Bedroom">One Bedroom</Option>
+        <Option value="Two Bedroom">Two Bedroom</Option>
+        <Option value="3+ Bedroom">3+ Bedrooms</Option>
+        <Option value="Office Space">Office Space</Option>
+        <Option value="PentHouse">PentHouse</Option>
+        <Option value="For Sale">For Sale</Option>
+      </Select>
+    </div>
   )
 }

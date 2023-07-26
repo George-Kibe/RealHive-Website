@@ -1,6 +1,6 @@
 import PropertyCard from "./property-card";
 
-const RentPropertiesContainer = () => {
+const RentPropertiesContainer = ({properties}) => {
   return (
     <div className="self-stretch flex flex-col py-[86px] px-0 items-center justify-start gap-[39px] text-center text-21xl text-primary-800 font-body-regular-600">
       <div className="self-stretch flex flex-col items-center justify-start gap-[40px] max-w-[95%px] md:pl-[60px] md:pr-[60px] md:box-border">
@@ -15,70 +15,17 @@ const RentPropertiesContainer = () => {
           </div>
         </div>
         <div className="self-stretch flex flex-row flex-wrap py-0 px-2.5 items-center justify-center gap-[32px]">
-          <PropertyCard
-            propertyImageHref="/"
-            car="/car5.svg"
-            bathtub="/bathtub5.svg"
-            arrowsOut="/arrowsout2.svg"
-            ellipse1="/ellipse-1@2x.png"
-            shareNetwork="/sharenetwork6.svg"
-            heart="/heart2.svg"
-            plus="/plus7.svg"
-            propWidth="unset"
-            propFlex="1"
-            propMinWidth="355px"
-            propMaxWidth="400px"
-            propBackgroundImage={`url("/unsplashrlwe8f8anoc7@3x.png")`}
-            propCursor="pointer"
-          />
-          <PropertyCard
-            propertyImageHref="/"
-            car="/car5.svg"
-            bathtub="/bathtub5.svg"
-            arrowsOut="/arrowsout2.svg"
-            ellipse1="/ellipse-1@2x.png"
-            shareNetwork="/sharenetwork6.svg"
-            heart="/heart2.svg"
-            plus="/plus8.svg"
-            propWidth="unset"
-            propFlex="1"
-            propMinWidth="355px"
-            propMaxWidth="400px"
-            propBackgroundImage={`url("/unsplashrlwe8f8anoc8@3x.png")`}
-            propCursor="pointer"
-          />
-          <PropertyCard
-            propertyImageHref="/"
-            car="/car6.svg"
-            bathtub="/bathtub.svg"
-            arrowsOut="/arrowsout3.svg"
-            ellipse1="/ellipse-1@2x.png"
-            shareNetwork="/sharenetwork7.svg"
-            heart="/heart2.svg"
-            plus="/plus3.svg"
-            propWidth="unset"
-            propFlex="1"
-            propMinWidth="355px"
-            propMaxWidth="400px"
-            propBackgroundImage={`url("/unsplashrlwe8f8anoc9@3x.png")`}
-            propCursor="pointer"
-          />
-          <PropertyCard
-            propertyImageHref="/"
-            car="/car6.svg"
-            bathtub="/bathtub.svg"
-            arrowsOut="/arrowsout3.svg"
-            ellipse1="/ellipse-1@2x.png"
-            shareNetwork="/sharenetwork7.svg"
-            heart="/heart2.svg"
-            plus="/plus3.svg"
-            propWidth="unset"
-            propFlex="1"
-            propMinWidth="355px"
-            propMaxWidth="400px"
-            propBackgroundImage={`url("/unsplashrlwe8f8anoc10@3x.png")`}
-            propCursor="pointer"
-          />
+          {
+            properties.map((property, index) => (
+              <PropertyCard
+                key={index+property._id}
+                title={property.title}
+                image={property.image || property.images[Math.floor(Math.random() * property.images.length) + 1]}
+                price={Math.floor(property.newPrice)}
+                area={property.area}
+              />
+            ))
+          }
         </div>
       </div>
       <button className="cursor-pointer [border:none] py-3 px-6 bg-primary-500 rounded flex flex-row items-start justify-start">

@@ -11,7 +11,7 @@ const PropertiesGridContainer = ({properties}) => {
               key={property._id}
               title={property.title}
               image={property.image || property.images[Math.floor(Math.random() * property.images.length) + 1]}
-              price={property.newPrice}
+              price={Math.floor(property.newPrice)}
               area={property.area}
             />
           ))

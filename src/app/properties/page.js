@@ -32,7 +32,7 @@ const PropertiesGridView = async() => {
       </div>
       <div className="self-stretch flex flex-col pt-16 px-0 pb-2 items-center justify-start gap-[95px] text-left text-base text-gray-black font-body-regular-600 lg:pl-[120px] lg:pr-[120px] lg:box-border md:pl-[60px] md:pr-[60px] md:box-border sm:pl-5 sm:pr-5 sm:box-border">
         <div className="w-[272px] flex flex-row items-center justify-start">
-          <div className="flex flex-row items-end justify-start gap-[16px]">
+          <div className="flex flex-row items-center justify-start gap-[16px]">
             <div className="flex flex-row items-start justify-start gap-[8px]">
               <img className="relative w-6 h-6" alt="list-image" src="/listbullets.svg" />
               <img className="relative w-6 h-6" alt="four-squares-image" src="/squaresfour.svg" />
