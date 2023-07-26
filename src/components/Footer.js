@@ -6,7 +6,7 @@ const Footer = () => {
       <footer className="flex-1 flex flex-row items-start justify-between text-left text-5xl text-gray-black font-body-regular-400 md:flex-col md:gap-[50px] sm:flex-col sm:gap-[50px] sm:flex-[unset] sm:self-stretch">
         <div className="w-[312px] h-[300px] flex flex-col items-start justify-start gap-[20px] text-center text-primary-500 font-body-regular-600">
           <div className="flex flex-row items-center justify-center gap-[8px]">
-            <img className="relative w-11 h-11" alt="" src="/houseline1.svg" />
+            <img className="relative w-11 h-11" alt="company-logo" src="/color-logo.png" />
             <div className="flex flex-col items-start justify-start">
               <div className="relative leading-[24px] font-semibold">Buenas</div>
               <div className="relative text-sm leading-[16px] font-medium">
