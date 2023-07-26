@@ -28,13 +28,13 @@ const PropertyCard = ({ title, image, price, area}) => {
       </div>
       <div className="self-stretch flex flex-row py-0 px-2.5 items-start justify-start gap-[17px] text-[10.84px] text-gray-500">
         <div className="flex flex-row items-center justify-start gap-[4.35px]">
-          <img className="relative w-[17.42px] h-[17.42px]" alt="" src={car} />
+          <img className="relative w-[17.42px] h-[17.42px]" alt="parking-image" src={car} />
           <div className="relative leading-[16.27px] font-medium">4</div>
         </div>
         <div className="flex flex-row items-center justify-start gap-[4.35px]">
           <img
             className="relative w-[17.42px] h-[17.42px]"
-            alt=""
+            alt="bathtub-image"
             src={bathtub}
           />
           <div className="relative leading-[16.27px] font-medium">4</div>
@@ -42,7 +42,7 @@ const PropertyCard = ({ title, image, price, area}) => {
         <div className="flex flex-row items-center justify-start gap-[4.35px]">
           <img
             className="relative w-[17.42px] h-[17.42px]"
-            alt=""
+            alt="arrows-out-image"
             src={arrowsOut}
           />
           <div className="relative leading-[16.27px] font-medium">
@@ -54,7 +54,7 @@ const PropertyCard = ({ title, image, price, area}) => {
         <div className="flex flex-row items-center justify-start gap-[5.81px]">
           <img
             className="relative rounded-[50%] w-[27.57px] h-[27.57px] object-cover"
-            alt=""
+            alt="image"
             src={image}
           />
           <div className="relative leading-[17.42px] font-medium">
@@ -65,21 +65,21 @@ const PropertyCard = ({ title, image, price, area}) => {
           <div className="rounded-[1.45px] bg-primary-50 flex flex-row p-[2.902620315551758px] items-start justify-start">
             <img
               className="relative w-[14.51px] h-[14.51px]"
-              alt=""
+              alt="share-image"
               src={shareNetwork}
             />
           </div>
           <div className="rounded-[1.45px] bg-primary-50 flex flex-row p-[2.902620315551758px] items-start justify-start">
             <img
               className="relative w-[14.51px] h-[14.51px]"
-              alt=""
+              alt="like-image"
               src={heart}
             />
           </div>
           <div className="rounded-[1.45px] bg-primary-50 flex flex-row p-[2.902620315551758px] items-start justify-start">
             <img
               className="relative w-[14.51px] h-[14.51px]"
-              alt=""
+              alt="add-image"
               src={plus}
             />
           </div>

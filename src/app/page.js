@@ -6,6 +6,7 @@ import PropertiesOfRentCard from "@/components/properties-of-rent-card";
 import ContactForm from "@/components/contact-form";
 import Property from "@/models/Property";
 import connect from "@/utils/db";
+import getAllProperties from "@/utils/getAllProperties";
 
 async function getFeaturedProductDetails(id) {
   await connect()
@@ -25,7 +26,8 @@ async function getLatestProperties() {
 
 const HomePage = async() => {
   const properties = await getLatestProperties();
-  console.log("Properties: ", properties)
+  const allProperties = await getAllProperties()
+  // console.log("Properties: ", allProperties)
   return (
     <div className="relative bg-gray-white w-full flex flex-col items-center justify-start">
       <HeroContainer />

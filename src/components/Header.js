@@ -13,15 +13,10 @@ const CustomMobileLink = ({href, title, className="", toggle}) => {
     }
   
     return(
-      <button className={`${className} w-full px-4 text-lg uppercase py-1 [text-decoration:none] relative leading-[22px] text-[inherit]`} onClick={handleClick}>
+      <button className={`${className} w-full px-4 text-lg uppercase py-1 [text-decoration:none] 
+                relative leading-[24px] text-[inherit] ${pathname === href? "font-semibold text-blue-950" :""}`} 
+        onClick={handleClick}>
         {title}
-        <span className={`h-[1px] inline-block bg-light absolute left-0 -bottom-0.5
-          group-hover:w-full transition-[width] ease duration-300 dark:bg-dark
-          ${pathname === href? 'w-full': 'w-0'}
-          `}
-          >
-          &nbsp;
-        </span>  
       </button>
     )
   }

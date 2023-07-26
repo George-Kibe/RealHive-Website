@@ -10,7 +10,7 @@ const PropertiesGridContainer = ({properties}) => {
             <PropertyCard
               key={property._id}
               title={property.title}
-              image={property.images[Math.floor(Math.random() * property.images.length) + 1]}
+              image={property.image || property.images[Math.floor(Math.random() * property.images.length) + 1]}
               price={property.newPrice}
               area={property.area}
             />

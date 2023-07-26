@@ -16,11 +16,11 @@ const PropertyRentCard = ({ propBackgroundImage }) => {
     >
       <div className="self-stretch h-6 flex flex-row items-end justify-center gap-[32px]">
         <div className="flex flex-row items-start justify-end gap-[8px]">
-          <img className="relative w-6 h-6" alt="" src="/mappin.svg" />
+          <img className="relative w-6 h-6" alt="map-iamge" src="/mappin.svg" />
           <div className="relative leading-[24px] font-medium">Washington</div>
         </div>
         <div className="flex flex-row items-start justify-end gap-[8px]">
-          <img className="relative w-6 h-6" alt="" src="/arrowsout4.svg" />
+          <img className="relative w-6 h-6" alt="arrows-out-image" src="/arrowsout4.svg" />
           <div className="relative leading-[24px] font-medium">12000</div>
         </div>
       </div>

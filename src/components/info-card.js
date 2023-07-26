@@ -15,7 +15,7 @@ const InfoCard = ({ homeSaleRentId, homeSaleRentText, propWidth }) => {
       <div className="flex flex-col items-start justify-start gap-[24px]">
         <img
           className="relative w-[78px] h-[78px] overflow-hidden shrink-0"
-          alt=""
+          alt="sale-card-image"
           src={homeSaleRentId}
         />
         <div className="flex flex-col items-start justify-start gap-[24px]">

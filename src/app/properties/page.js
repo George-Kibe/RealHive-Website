@@ -3,8 +3,9 @@ import PropertiesGridContainer from "@/components/properties-grid-container";
 import Property from "@/models/Property";
 import connect from "@/utils/db";
 import { DropDown } from "@/components/DropDown";
+import getAllProperties from "@/utils/getAllProperties";
 
-async function getAllProperties() {
+async function getMongoProperties() {
   await connect()
   const response = await Property.find({}, null, {sort: {"_id": -1}})
   const productsData = JSON.parse(JSON.stringify(response))
@@ -12,8 +13,10 @@ async function getAllProperties() {
 }
 
 const PropertiesGridView = async() => {
-  const allProperties = await getAllProperties();
-  console.log("All properties: ", allProperties)
+  const mongoProperties = await getMongoProperties();
+  const allProperties = await getAllProperties()
+
+  // console.log("All properties: ", allProperties)
   return (
     <div className="relative bg-gray-white w-full flex flex-col items-start justify-start text-center text-33xl text-gray-white font-body-regular-400">
       <div className="self-stretch h-60 flex flex-col items-center justify-center bg-[url(/category@3x.png)] bg-cover bg-no-repeat bg-[top]">
@@ -31,14 +34,14 @@ const PropertiesGridView = async() => {
         <div className="w-[272px] flex flex-row items-center justify-start">
           <div className="flex flex-row items-end justify-start gap-[16px]">
             <div className="flex flex-row items-start justify-start gap-[8px]">
-              <img className="relative w-6 h-6" alt="" src="/listbullets.svg" />
-              <img className="relative w-6 h-6" alt="" src="/squaresfour.svg" />
+              <img className="relative w-6 h-6" alt="list-image" src="/listbullets.svg" />
+              <img className="relative w-6 h-6" alt="four-squares-image" src="/squaresfour.svg" />
             </div>
             <div className="relative leading-[24px]">Sort by:</div>
             <DropDown />
           </div>
         </div>
-        <PropertiesGridContainer properties={allProperties} />
+        <PropertiesGridContainer properties={allProperties.length > 1 ? allProperties : mongoProperties} />
         <div className="flex flex-row items-end justify-center gap-[8px]">
          <Pagination defaultCurrent={1} total={50} />
         </div>

@@ -31,35 +31,35 @@ const Footer = () => {
             <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-[21.67px]"
-                alt=""
+                alt="facebook-logo"
                 src="/social-media-logo.svg"
               />
             </Link>
             <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
-                alt=""
+                alt="dribble-logo"
                 src="/social-media-logo1.svg"
               />
             </Link>
             <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
-                alt=""
+                alt="linkedin-logo"
                 src="/social-media-logo2.svg"
               />
             </Link>
             <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
-                alt=""
+                alt="instagram-logo"
                 src="/social-media-logo3.svg"
               />
             </Link>
             <Link  href={"#"} className="rounded bg-primary-50 flex flex-col p-3.5 items-center justify-center">
               <img
                 className="relative w-5 h-5 overflow-hidden shrink-0"
-                alt=""
+                alt="be-logo"
                 src="/social-media-logo4.svg"
               />
             </Link>
