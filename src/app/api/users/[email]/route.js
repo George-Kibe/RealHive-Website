@@ -1,16 +1,26 @@
-import User from "@/models/User";
+import User, { Referee } from "@/models/User";
 import connect from "@/utils/db";
 
 import { NextResponse } from "next/server";
 
 export const GET = async (request, {params}) => {
-    const {id} = params;
-    console.log(id)
+    const { email } = params;
+    console.log(email)
     try {
         await connect();
         try {
-            const User = await User.findById(id);
-            return new NextResponse(JSON.stringify(User), {status:200})
+            const user = await User.findOne({email})
+            const {referees} = user
+            if(referees.length > 0){
+                const refs = []
+                for (let i = 0; i < referees.length; i++) {
+                    const ref = await Referee.findById(referees[i]).populate("user")
+                    console.log("Ref: ", ref)
+                    refs.push(ref)
+                  }
+                return new NextResponse(JSON.stringify({"user":user, "listOfReferees":refs}), {status:200})
+            }
+            return new NextResponse(JSON.stringify(user), {status:200})
         } catch (error) {
             return new NextResponse("User not Found or Invalid ID", {status:404})
         }        

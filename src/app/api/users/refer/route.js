@@ -43,3 +43,24 @@ export const POST = async (request,response) => {
     }
 }
 
+// update status to secondary
+export const PUT = async (request,response) => {
+    const body = await request.json();
+    console.log("Request Body: ", body)
+    const {_id, code} = body;
+    try {
+        await connect();
+        // create one referee with default status primary
+        const exisingRef = await Referee.findOneAndUpdate({user:_id}, {status: "secondary"})
+        if (exisingRef){
+            return new NextResponse("Updated successfully!", {status:200})
+        }else{
+            return new NextResponse("User not Found", {status:404})
+        }      
+    } catch (error) {
+        console.log("Error: ", error)
+        return new NextResponse("Database Error", { status:500})
+    }
+}
+
+
