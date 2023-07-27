@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const RefereeSchema = new mongoose.Schema({
-    user: {type:mongoose.Types.ObjectId, ref:"user", require: false},
+    user: {type:mongoose.Types.ObjectId, ref:"user", require: false, unique:true},
     status: String
 },
 {timestamps: true}

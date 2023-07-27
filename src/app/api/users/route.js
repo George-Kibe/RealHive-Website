@@ -37,8 +37,8 @@ async function handler(req,res){
         const newUser = new User(body)       
         try {
             await newUser.validate();
-            await newUser.save();
-            return new NextResponse("User has been created", {status: 201})
+            const userDoc = await newUser.save();
+            return new NextResponse(userDoc, {status: 201})
         } catch (error) {
             console.log("User saving error!")
             return new NextResponse(error.message, {status: 422})
@@ -46,15 +46,15 @@ async function handler(req,res){
     }
     if (method === "PUT"){
         const body = await req.json()
-        const {title, description, properties, category, images, price, _id} = body;
+        const {_id} = body;
         try {
-            await User.updateOne({_id}, {title, description, properties,category, images, price:parseInt(price)})
+            await User.findOneAndUpdate({_id}, {...body})
             console.log("Updated!")
-            return new NextResponse("User has been Updated", {status: 200})
+            return new NextResponse("user has been Updated", {status: 200})
         } catch (error) {
-            console.log("User saving error!")
+            console.log("User Updating error!")
             return new NextResponse(error.message, {status: 422})
-        }      
+        }   
     }     
 }
 
