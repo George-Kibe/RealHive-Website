@@ -38,7 +38,8 @@ async function handler(req,res){
         try {
             await newUser.validate();
             const userDoc = await newUser.save();
-            return new NextResponse(userDoc, {status: 201})
+            const user = JSON.stringify(userDoc)
+            return new NextResponse(user, {status: 201})
         } catch (error) {
             console.log("User saving error!")
             return new NextResponse(error.message, {status: 422})

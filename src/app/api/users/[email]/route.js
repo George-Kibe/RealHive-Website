@@ -20,7 +20,7 @@ export const GET = async (request, {params}) => {
                   }
                 return new NextResponse(JSON.stringify({"user":user, "listOfReferees":refs}), {status:200})
             }
-            return new NextResponse(JSON.stringify(user), {status:200})
+            return new NextResponse(JSON.stringify({"user": user}), {status:200})
         } catch (error) {
             return new NextResponse("User not Found or Invalid ID", {status:404})
         }        
