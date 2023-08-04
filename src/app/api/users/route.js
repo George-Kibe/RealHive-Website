@@ -1,6 +1,7 @@
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 import connect from "@/utils/db";
+import bcrypt from "bcryptjs"
 
 async function handler(req,res){
     const {method} = req;
@@ -26,7 +27,13 @@ async function handler(req,res){
     if (method === "POST"){
         const body = await req.json()
         // All the three fields are required fields
-        const {username,email, referralCode} = body;
+        const {email, username, password, full_name, phone_number, referralCode} = body;
+        const hashedPassword = await bcrypt.hash(password, 8)
+        console.warn("Hashed Password: ", hashedPassword)
+        const hashedUser = {
+            email, username, password, full_name, phone_number, referralCode,
+            password:hashedPassword
+        }
         const existUsername = await User.findOne({username})
         const existEmail = await User.findOne({email})
         const existReferralCode = await User.findOne({referralCode})
@@ -34,7 +41,7 @@ async function handler(req,res){
             return new NextResponse("Username, Referral Code or email Already Exists", {status: 422})
         }
       
-        const newUser = new User(body)       
+        const newUser = new User(hashedUser)       
         try {
             await newUser.validate();
             const userDoc = await newUser.save();

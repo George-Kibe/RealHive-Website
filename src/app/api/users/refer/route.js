@@ -9,8 +9,8 @@ export const POST = async (request,response) => {
     const {_id, code} = body;
     try {
         await connect();
-        // create one referee with default status primary
-        const newRef = new Referee({user: _id, status:"Primary"})
+        // create one referee with default status null
+        const newRef = new Referee({user: _id, status:"Null"})
         await newRef.validate()
         const exisingRef = await Referee.findOne({user:_id})
         console.log("ExistingRef: ", exisingRef)
@@ -47,11 +47,11 @@ export const POST = async (request,response) => {
 export const PUT = async (request,response) => {
     const body = await request.json();
     console.log("Request Body: ", body)
-    const {_id, code} = body;
+    const {_id,status} = body;
     try {
         await connect();
         // create one referee with default status primary
-        const exisingRef = await Referee.findOneAndUpdate({user:_id}, {status: "secondary"})
+        const exisingRef = await Referee.findOneAndUpdate({user:_id}, {status})
         if (exisingRef){
             return new NextResponse("Updated successfully!", {status:200})
         }else{
