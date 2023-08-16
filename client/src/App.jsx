@@ -1,28 +1,37 @@
+import { Suspense, useState } from "react";
 import "./App.css";
-import Companies from "./components/Companies/Companies";
-import Contact from "./components/Contact/Contact";
-import Footer from "./components/Footer/Footer";
-import GetStarted from "./components/GetStarted/GetStarted";
-import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero";
-import Residencies from "./components/Residencies/Residencies";
-import Value from "./components/Value/Value";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Website from "./pages/Website";
+// import Layout from "./components/Layout/Layout";
+// import Property from "./pages/Property/Property";
+// import Properties from "./pages/Properties/Properties";
+// import Bookings from "./pages/Bookings/Bookings";
+// import Favourites from "./pages/Favourites/Favourites";
 
 function App() {
   return (
-    <div className="App">
-      <div>
-        <div className="white-gradient" />
-        <Header />
-        <Hero />
-      </div>
-      <Companies />
-      <Residencies/>
-      <Value/>
-      <Contact/>
-      <GetStarted/>
-      <Footer/>
-    </div>
+    <>
+      <>
+        <BrowserRouter>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Website />}>
+                {/* <Route path="/" element={<Website />} /> */}
+                {/* <Route path="/properties">
+                  <Route index element={<Properties />} />
+                  <Route path=":propertyId" element={<Property />} />
+                </Route>
+                <Route path="/bookings" element={<Bookings />} /> */}
+                {/* <Route path="/favourites" element={<Favourites />} /> */}
+              </Route>
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+        <ToastContainer />
+      </>
+    </>
   );
 }
 

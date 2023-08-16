@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css";
-import { BiMenuAltRight } from "react-icons/bi";
+import { FaBars } from "react-icons/fa";
 import { getMenuStyles } from "../../utils/common";
 import useHeaderColor from "../../hooks/useHeaderColor";
 import OutsideClickHandler from "react-outside-click-handler";
@@ -31,7 +31,7 @@ const Header = () => {
             <a href="#contact-us">Contact Us</a>
             <a href="#get-started">Get Started</a>
             <button className="button">
-              <a href="mailto:zainkeepscode@gmail.com">Contact</a>
+              <a href="mailto:buenasconsultants@gmail.com">Contact</a>
             </button>
           </div>
         </OutsideClickHandler>
@@ -39,9 +39,9 @@ const Header = () => {
         {/* for medium and small screens */}
         <div
           className="menu-icon"
-          onClick={() => setMenuOpened((prev) => !prev)}
+          onClick={() => setMenuOpened(!menuOpened)}
         >
-          <BiMenuAltRight size={30} />
+          <FaBars size={30} />
         </div>
       </div>
     </section>
