@@ -18,28 +18,26 @@ export const createUser = asyncHandler(async (req, res) => {
 export const bookVisit = asyncHandler(async (req, res) => {
   const { email, date } = req.body;
   const { id } = req.params;
-
+  // console.log(email, date, id)
   try {
     const alreadyBooked = await prisma.user.findUnique({
       where: { email },
       select: { bookedVisits: true },
     });
-
     if (alreadyBooked.bookedVisits.some((visit) => visit.id === id)) {
-      res
-        .status(400)
-        .json({ message: "This residency is already booked by you" });
+      res.status(400).json({ message: "This residency is already booked by you" });
     } else {
+      console.log("Trting...")
       await prisma.user.update({
         where: { email: email },
         data: {
           bookedVisits: { push: { id, date } },
         },
       });
-      res.send("your visit is booked successfully");
+      res.status(201).json({success:"Your visit is booked successfully"});
     }
-  } catch (err) {
-    throw new Error(err.message);
+  } catch (error) {
+    res.status(500).json({"error": error})
   }
 });
 
@@ -52,8 +50,8 @@ export const getAllBookings = asyncHandler(async (req, res) => {
       select: { bookedVisits: true },
     });
     res.status(200).send(bookings);
-  } catch (err) {
-    throw new Error(err.message);
+  } catch (error) {
+    res.status(500).json({"error": error})
   }
 });
 
