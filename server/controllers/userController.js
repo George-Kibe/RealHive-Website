@@ -27,7 +27,6 @@ export const bookVisit = asyncHandler(async (req, res) => {
     if (alreadyBooked.bookedVisits.some((visit) => visit.id === id)) {
       res.status(400).json({ message: "This residency is already booked by you" });
     } else {
-      console.log("Trting...")
       await prisma.user.update({
         where: { email: email },
         data: {
@@ -64,9 +63,7 @@ export const cancelBooking = asyncHandler(async (req, res) => {
       where: { email: email },
       select: { bookedVisits: true },
     });
-
     const index = user.bookedVisits.findIndex((visit) => visit.id === id);
-
     if (index === -1) {
       res.status(404).json({ message: "Booking not found" });
     } else {
@@ -77,11 +74,10 @@ export const cancelBooking = asyncHandler(async (req, res) => {
           bookedVisits: user.bookedVisits,
         },
       });
-
-      res.send("Booking cancelled successfully");
+      res.status(200).json({ message: error.message});
     }
-  } catch (err) {
-    throw new Error(err.message);
+  } catch (error) {
+    res.status(500).json({ error: error.message});
   }
 });
 
@@ -94,7 +90,6 @@ export const toFav = asyncHandler(async (req, res) => {
     const user = await prisma.user.findUnique({
       where: { email },
     });
-
     if (user.favResidenciesID.includes(rid)) {
       const updateUser = await prisma.user.update({
         where: { email },
@@ -104,8 +99,7 @@ export const toFav = asyncHandler(async (req, res) => {
           },
         },
       });
-
-      res.send({ message: "Removed from favorites", user: updateUser });
+      res.status(200).json({ message: "Removed from favorites", user: updateUser });
     } else {
       const updateUser = await prisma.user.update({
         where: { email },
@@ -115,10 +109,10 @@ export const toFav = asyncHandler(async (req, res) => {
           },
         },
       });
-      res.send({ message: "Updated favorites", user: updateUser });
+      res.status(200).json({ message: "Updated favorites", user: updateUser });
     }
-  } catch (err) {
-    throw new Error(err.message);
+  } catch (error) {
+    res.status(500).json({ error: error.message});
   }
 });
 
@@ -131,7 +125,7 @@ export const getAllFavorites = asyncHandler(async (req, res) => {
       select: { favResidenciesID: true },
     });
     res.status(200).send(favResd);
-  } catch (err) {
-    throw new Error(err.message);
+  } catch (error) {
+    res.status(500).json({ error: error.message});
   }
 });
