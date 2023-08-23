@@ -21,11 +21,11 @@ import Heart from "../../components/Heart/Heart";
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
-  console.log("PropertyID: ", id)
+  // console.log("PropertyID: ", id)
   const { data, isLoading, isError } = useQuery(["property", id], () =>
     getProperty(id)
   );
-  console.log("Property Data: ", data)
+  //console.log("Property Data: ", data)
   const [modalOpened, setModalOpened] = useState(false);
   const { validateLogin } = useAuthCheck();
   const { user } = useAuth0();
@@ -90,20 +90,20 @@ const Property = () => {
             <div className="flexStart facilities">
               {/* bathrooms */}
               <div className="flexStart facility">
-                <FaShower size={20} color="#1F3E72" />
-                <span>{data?.facilities?.bathrooms} Bathrooms</span>
+                <FaShower size={20} color="#FFFFFF" />
+                <span className="text-white">{data?.facilities?.bathrooms} Bathrooms</span>
               </div>
 
               {/* parkings */}
               <div className="flexStart facility">
                 <AiTwotoneCar size={20} color="#1F3E72" />
-                <span>{data?.facilities.parkings} Parking</span>
+                <span className="text-white">{data?.facilities.parking} Parking Slot(s)</span>
               </div>
 
               {/* rooms */}
               <div className="flexStart facility">
                 <MdMeetingRoom size={20} color="#1F3E72" />
-                <span>{data?.facilities.bedrooms} Room/s</span>
+                <span className="text-white">{data?.facilities.bedrooms} Room(s)</span>
               </div>
             </div>
 

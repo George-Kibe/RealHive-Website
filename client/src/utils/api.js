@@ -15,7 +15,7 @@ export const getAllProperties = async () => {
     if (response.status !== 200) {
       throw response.data;
     }
-    console.log("Response: ", response)
+    // console.log("Response: ", response)
     return response.data;
   } catch (error) {
     toast.error("Something went wrong");
@@ -30,7 +30,7 @@ export const getProperty = async (id) => {
       timeout: 20 * 1000,
     });
 
-    console.log("Response:", response)
+    // console.log("Response:", response)
     return response.data;
   } catch (error) {
     toast.error("Something went wrong");

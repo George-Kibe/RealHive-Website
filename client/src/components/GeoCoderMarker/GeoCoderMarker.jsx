@@ -16,11 +16,12 @@ L.Marker.prototype.options.icon = DefaulIcon
 const GeoCoderMarker = ({address}) => {
 
     const map = useMap()
-    const [position, setPosition] = useState([60, 19])
+    const [position, setPosition] = useState([2, 35])
 
     useEffect(()=> {
         ELG.geocode().text(address).run((err, results, response)=> {
             if(results?.results?.length > 0){
+                console.log("Results: ",results)
                 const {lat, lng} = results?.results[0].latlng
                 setPosition([lat, lng])
                 map.flyTo([lat, lng], 6)

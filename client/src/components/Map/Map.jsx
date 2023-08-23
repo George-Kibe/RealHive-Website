@@ -4,7 +4,7 @@ import GeoCoderMarker from '../GeoCoderMarker/GeoCoderMarker'
 const Map = ({address, city, country}) => {
   return (
     <MapContainer
-    center={[53.35, 18.8]}
+    center={[0.35, 34.8]}
     zoom={1}
     scrollWheelZoom={false}
     style={{
