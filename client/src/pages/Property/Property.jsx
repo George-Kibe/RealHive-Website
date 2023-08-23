@@ -17,22 +17,21 @@ import UserDetailContext from "../../context/UserDetailContext.js";
 import { Button } from "@mantine/core";
 import { toast } from "react-toastify";
 import Heart from "../../components/Heart/Heart";
+
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
-  const { data, isLoading, isError } = useQuery(["resd", id], () =>
+  console.log("PropertyID: ", id)
+  const { data, isLoading, isError } = useQuery(["property", id], () =>
     getProperty(id)
   );
-
+  console.log("Property Data: ", data)
   const [modalOpened, setModalOpened] = useState(false);
   const { validateLogin } = useAuthCheck();
   const { user } = useAuth0();
 
-  const {
-    userDetails: { token, bookings },
-    setUserDetails,
-  } = useContext(UserDetailContext);
-
+  // const {  userDetails: { token, bookings },  setUserDetails, } = useContext(UserDetailContext);
+  const bookings = []
   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
     mutationFn: () => removeBooking(id, user?.email, token),
     onSuccess: () => {
@@ -70,7 +69,7 @@ const Property = () => {
       <div className="flexColStart paddings innerWidth property-container">
         {/* like button */}
         <div className="like">
-          <Heart id={id}/>
+          <AiFillHeart id={id}/>
         </div>
 
         {/* image */}
@@ -153,12 +152,12 @@ const Property = () => {
               </button>
             )}
 
-            <BookingModal
+            {/* <BookingModal
               opened={modalOpened}
               setOpened={setModalOpened}
               propertyId={id}
               email={user?.email}
-            />
+            /> */}
           </div>
 
           {/* right side */}

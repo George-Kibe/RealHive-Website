@@ -15,11 +15,11 @@ export const getAllProperties = async () => {
     if (response.status !== 200) {
       throw response.data;
     }
-    retu
     console.log("Response: ", response)
-    response.data;
+    return response.data;
   } catch (error) {
     toast.error("Something went wrong");
+    console.log("Error: ", error.message)
     throw error;
   }
 };
@@ -27,12 +27,10 @@ export const getAllProperties = async () => {
 export const getProperty = async (id) => {
   try {
     const response = await api.get(`/residency/${id}`, {
-      timeout: 10 * 1000,
+      timeout: 20 * 1000,
     });
 
-    if (response.status === 400 || response.status === 500) {
-      throw response.data;
-    }
+    console.log("Response:", response)
     return response.data;
   } catch (error) {
     toast.error("Something went wrong");
