@@ -1,6 +1,7 @@
 import React from 'react'
 import {Avatar, Menu} from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
+
 const ProfileMenu = ({user, logout}) => {
     const navigate = useNavigate()
   return (
