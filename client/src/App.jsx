@@ -8,13 +8,19 @@ import Layout from "./components/Layout/Layout";
 import Property from "./pages/Property/Property";
 import Properties from "./pages/Properties/Properties";
 import {QueryClient, QueryClientProvider} from "react-query"
+import UserDetailContext from "./context/UserDetailContext";
 // import Bookings from "./pages/Bookings/Bookings";
 // import Favourites from "./pages/Favourites/Favourites";
 
 function App() {
   const queryClient = new QueryClient()
+  const [userDetails, setUserDetails] = useState({
+    favourites: [],
+    bookings: [],
+    token: null
+  })
   return (
-    <>
+    <UserDetailContext.Provider value={{userDetails, setUserDetails}}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Suspense fallback={<div>Loading...</div>}>
@@ -33,7 +39,7 @@ function App() {
         </BrowserRouter>
         <ToastContainer />
       </QueryClientProvider>
-    </>
+    </UserDetailContext.Provider>
   );
 }
 

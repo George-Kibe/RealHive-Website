@@ -39,9 +39,10 @@ export const getProperty = async (id) => {
 };
 
 export const createUser = async (email, token) => {
+  console.log("Trying to create a user")
   try {
     await api.post(
-      `/user/register`,
+      `/users/register`,
       { email },
       {
         headers: {
@@ -49,6 +50,7 @@ export const createUser = async (email, token) => {
         },
       }
     );
+    console.log("User created!")
   } catch (error) {
     toast.error("Something went wrong, Please try again");
     throw error;

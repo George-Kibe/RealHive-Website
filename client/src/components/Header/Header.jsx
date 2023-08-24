@@ -38,7 +38,7 @@ const Header = () => {
             {
               !isAuthenticated ? <button onClick={loginWithRedirect} className="button">Login</button>
               :
-              <ProfileMenu />
+              <ProfileMenu user={user} logout={logout} />
             }
             
           </div>
