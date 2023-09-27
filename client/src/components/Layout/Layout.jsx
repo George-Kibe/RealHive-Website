@@ -29,7 +29,7 @@ const Layout = () => {
     const getTokenAndRegsiter = async () => {
       const res = await getAccessTokenWithPopup({
         authorizationParams: {
-          audience: "https://dev-ejjut34veu43h66o.us.auth0.com/api/v2/",
+          // audience: "http://localhost:8000",
           scope: "openid profile email",
         },
       });
