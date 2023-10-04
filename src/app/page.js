@@ -27,7 +27,7 @@ async function getLatestProperties() {
 const HomePage = async() => {
   const properties = await getLatestProperties();
   const allProperties = await getAllProperties()
-  // console.log("Properties: ", allProperties)
+  console.log("Properties: ", allProperties)
   return (
     <div className="relative bg-gray-white w-full flex flex-col items-center justify-start">
       <HeroContainer />

@@ -2,7 +2,6 @@ export const getProperties =  `
 query MyQuery {
     listProperties {
       nextToken
-      startedAt
       items {
         id
         userSub
@@ -19,8 +18,6 @@ query MyQuery {
         verified
         published
         area
-        rating
-        ratings
         contactNumber
         contactEmail
         priceType
@@ -30,10 +27,6 @@ query MyQuery {
         longitude
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        __typename
       }
     }
   }  
