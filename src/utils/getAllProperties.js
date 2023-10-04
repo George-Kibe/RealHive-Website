@@ -18,7 +18,7 @@ const getAllProperties = async () => {
       );
 
       // console.log("Response Data from AWS APPSyc API: ", response.data.data.listProperties.items)
-      return response.data.data.listProperties.items
+      return response?.data?.data?.listProperties?.items || []
     } catch (error) {
       console.error('Error:', error.message);
       return ["Error Fetching Properties"]

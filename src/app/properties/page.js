@@ -41,7 +41,7 @@ const PropertiesGridView = async() => {
             <DropDown />
           </div>
         </div>
-        <PropertiesGridContainer properties={allProperties.length > 1 ? allProperties : mongoProperties} />
+        <PropertiesGridContainer properties={allProperties?.length > 1 ? allProperties : mongoProperties} />
         <div className="flex flex-row items-end justify-center gap-[8px]">
          <Pagination defaultCurrent={1} total={50} />
         </div>

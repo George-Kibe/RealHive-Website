@@ -1,4 +1,4 @@
-import Comparable from "@/models/Property";
+import Comparable from "@/models/Comparable";
 import connect from "@/utils/db";
 
 import { NextResponse } from "next/server";
@@ -9,10 +9,10 @@ export const GET = async (request, {params}) => {
     try {
         await connect();
         try {
-            const property = await Property.findById(id);
-            return new NextResponse(JSON.stringify(property), {status:200})
+            const comparable = await Comparable.findById(id);
+            return new NextResponse(JSON.stringify(comparable), {status:200})
         } catch (error) {
-            return new NextResponse("Property not Found or Invalid ID", {status:404})
+            return new NextResponse("Comparable not Found or Invalid ID", {status:404})
         } 
     } catch (error) {
         return new NextResponse("Database Error", { status:500})
@@ -23,8 +23,8 @@ export const DELETE = async (request, {params}) => {
     const {id} = params;
     try {
         await connect();
-        await Property.findByIdAndDelete(id);
-        return new NextResponse("Property has been deleted!", {status:200})
+        await Comparable.findByIdAndDelete(id);
+        return new NextResponse("Comparable has been deleted!", {status:200})
     } catch (error) {
         return new NextResponse("Internal Server Error", { status:500})
     }
