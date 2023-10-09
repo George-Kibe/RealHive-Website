@@ -12,6 +12,7 @@ export const Referee = mongoose.models.referee || mongoose.model('referee', Refe
 
 const UserSchema = new mongoose.Schema({
     username: { type: String, unique:true},
+    bio: String,
     email: { type: String, required: true, unique:true},
     password: String,
     full_name: String,
@@ -23,6 +24,7 @@ const UserSchema = new mongoose.Schema({
     homeLongitude: Number,
     dreamLatitude: Number,
     dreamLongitude: Number,
+    clerkUserId: String,
 },
 {timestamps: true}
 )
