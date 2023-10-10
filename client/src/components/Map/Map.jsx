@@ -1,6 +1,7 @@
 import React from 'react'
 import {MapContainer, TileLayer} from 'react-leaflet'
 import GeoCoderMarker from '../GeoCoderMarker/GeoCoderMarker'
+
 const Map = ({address, city, country}) => {
   return (
     <MapContainer
@@ -16,7 +17,11 @@ const Map = ({address, city, country}) => {
     }}
     >
         <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'/>
-        <GeoCoderMarker address={`${address} ${city} ${country}`} />
+        <GeoCoderMarker // address={`${address} ${city} ${country}`}
+          country={country}
+          city={city}
+          address={address}
+        />
     </MapContainer>
   )
 }

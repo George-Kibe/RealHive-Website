@@ -34,10 +34,10 @@ const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
   }
   return (
     <form
-    onSubmit={(e)=>{
+      onSubmit={(e)=>{
         e.preventDefault();
         handleSubmit()
-    }}
+      }}
     >
       <div
         className="flexCenter"
