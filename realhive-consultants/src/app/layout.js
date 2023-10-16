@@ -1,11 +1,13 @@
 // import type { Metadata } from 'next';
 
 import './globals.css'
-import { Roboto } from 'next/font/google'
+import { Roboto, Poppins } from 'next/font/google'
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 const roboto = Roboto({ subsets: ['latin'], weight: '400'  })
+const poppins = Poppins({ subsets: ['latin'], weight: '400'  })
 
 export const metadata = {
   title: 'Realhive Consultants',
@@ -15,12 +17,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={roboto.className}>
-        <Navbar />
-        <main className="relative overflow-hidden">
-          {children}
-        </main>
-        <Footer />
+      <body className={`${poppins.className} min-h-screen`}>
+        <ThemeProvider>
+          <Navbar />
+          <main className="relative container overflow-hidden">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>        
       </body>
     </html>
   )

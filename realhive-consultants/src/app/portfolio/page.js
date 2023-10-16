@@ -2,7 +2,7 @@ import React from 'react'
 
 const PortfolioPage = () => {
   return (
-    <div>
+    <div className='padding-container max-container'>
       PortfolioPage
     </div>
   )

@@ -24,7 +24,7 @@ const ContactPage = () => {
     toast.info("Sending your message")
     const response = await emailjs.sendForm('service_zejea4b', 'template_d1kc1do', form.current, 'qO3BsJQp9qAyPG6LX')
     if(response.status === 200){
-      toast.success("Message sent successfully. George will get back to you as soon as possible.")
+      toast.success("Message sent successfully. One of us will get back to you as soon as possible.")
       e.target.reset()
     }else{
       toast.error("Message sending Error! Try sending again or send a direct Email")
@@ -32,7 +32,7 @@ const ContactPage = () => {
     }    
   };
   return (
-    <div className="items-center p-4 md:p-8">
+    <div className="padding-container max-container items-center p-4 md:p-8">
       <h5 className="text-center text-xs">Get In Touch</h5>
       <div> <ToastContainer /> </div>
       <h1 className="text-center my-4 font-bold text-2xl md:text-4xl md:my-8 lg:text-6xl">Lets get in Touch</h1>
@@ -41,20 +41,20 @@ const ContactPage = () => {
           <div className="flex flex-col items-center justify-center border-2 light:border-dark dark:border-light p-2 w-full rounded-xl">
             <MdOutlineEmail className="text-[25px] md:text-[40px]"/>
             <h4 className="text-center">Email</h4>
-            <h5 className="text-center">georgekibew@gmail.com</h5>
-            <a href="mailto:georgekibew@gmail.com" target="_blank" rel="noreferrer" className="items-center">Send an Email</a>
+            <h5 className="text-center">realhiveconsultants@gmail.com</h5>
+            <a href="mailto:realhiveconsultants@gmail.com" target="_blank" rel="noreferrer" className="items-center">Send an Email</a>
           </div>
           <article className="flex flex-col items-center justify-center border-2 light:border-dark dark:border-light p-2 w-full rounded-xl">
             <ImTwitter className="text-[25px] md:text-[40px]"/>
             <h4>Twitter</h4>
             <h5>@KibeGeorge_</h5>
-            <a href="https://twitter.com/kibegeorge_" target="_blank" rel="noreferrer">Message me on Twitter</a>
+            <a href="https://twitter.com/kibegeorge_" target="_blank" rel="noreferrer">Message our CEO on Twitter</a>
           </article>
           <article className="flex flex-col items-center justify-center border-2 light:border-dark dark:border-light p-2 w-full rounded-xl">
             <BsWhatsapp className="text-[25px] md:text-[40px]"/>
             <h4>Whatsapp</h4>
-            <h5>+254 704 817 466</h5>
-            <a href="https://wa.link/rcnr3u" target="_blank" rel="noreferrer">Whatsapp Me</a>
+            <h5>+254 795 288 155</h5>
+            <a href="https://wa.link/176li6" target="_blank" rel="noreferrer">Whatsapp Us</a>
           </article>
         </div>
         {/* Contact form */}

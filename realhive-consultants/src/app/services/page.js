@@ -2,7 +2,7 @@ import React from 'react'
 
 const ServicesPage = () => {
   return (
-    <div>ServicesPage</div>
+    <div className='padding-container max-container'>ServicesPage</div>
   )
 }
 

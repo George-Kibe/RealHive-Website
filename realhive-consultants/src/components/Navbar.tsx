@@ -11,8 +11,8 @@ const Navbar = () => {
         <div className="rounded-lg flex gap-2">
               <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='rounded-lg'/>
               <div className="flex-col">
-                <p className="text-blue-950 font-semibold">RealHive</p>
-                <p className="text-blue-950 font-semibold">Consultants</p>
+                <p className="font-semibold text-[20px]">RealHive</p>
+                <p className="font-semibold text-[20px]">Consultants</p>
               </div>              
             </div>
       </Link>
@@ -39,7 +39,7 @@ const Navbar = () => {
         alt="menu"
         width={32}
         height={32}
-        className="inline-block cursor-pointer lg:hidden"
+        className="inline-block bg-white cursor-pointer lg:hidden"
       />
     </nav>
   )

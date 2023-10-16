@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutUsPage = () => {
   return (
-    <div>AboutUsPage</div>
+    <div className='padding-container max-container'>AboutUsPage</div>
   )
 }
 
