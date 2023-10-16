@@ -3,6 +3,7 @@
 import './globals.css'
 import { Roboto, Poppins } from 'next/font/google'
 import Navbar from '@/components/Navbar';
+import NavbarTest from '@/components/NavTest';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/context/ThemeContext';
 
@@ -19,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} min-h-screen`}>
         <ThemeProvider>
-          <Navbar />
+          <NavbarTest />
           <main className="relative container overflow-hidden">
             {children}
           </main>

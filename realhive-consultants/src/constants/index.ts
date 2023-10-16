@@ -53,25 +53,29 @@ export const FOOTER_LINKS = [
   {
     title: 'Learn More',
     links: [
-      'About RealHive Cosultants',
-      'Press Releases',
-      'Environment',
-      'Jobs',
-      'Privacy Policy',
-      'Contact Us',
+      {"href": "/aboutus", "name":"About RealHive Consultants"},
+      {"href": "/careers", "name":"Jobs"},
+      {"href": "/privacy-policy", "name":"Privacy Policy"},
+      {"href": "/contactus", "name":"Contact Us"},
     ],
   },
   {
-    title: 'Our Community',
-    links: ['Climbing xixixi', 'Hiking RealHive Cosultants', 'RealHive Cosultants kinthill'],
+    title: 'Our Focus',
+    links: [
+      {"href": "/portfolio", "name":"Mobile Development"},
+      {"href": "/portfolio", "name":"Web Development"},
+      {"href": "/portfolio", "name":"Data Science"},
+      {"href": "/portfolio", "name":"Data Engineering"},
+      ],
   },
 ];
 
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
   links: [
-    { label: 'Admin Officer', value: '123-456-7890' },
-    { label: 'Email Officer', value: 'RealHive Cosultants@akinthil.com' },
+    { label: 'Our Contacts', value: '+254 795-288-155' },
+    { label: 'Our Offices', value: '+Off Kamiti Road, Bayer Apt, Suite F2' },
+    { label: 'Our Email', value: 'realHivecosultants@gmail.com' },
   ],
 };
 

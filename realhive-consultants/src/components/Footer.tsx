@@ -5,8 +5,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="flexCenter mb-24">
-      
+    <footer className="flexCenter mb-24">      
       <div className="padding-container max-container flex w-full flex-col gap-14">
         <div className="border bg-gray-20" />      
         <div className="flex flex-col items-start justify-center gap-[10%] md:flex-row">
@@ -25,8 +24,8 @@ const Footer = () => {
               <FooterColumn title={columns.title}>
                 <ul className="regular-14 flex flex-col gap-4 text-gray-30">
                   {columns.links.map((link) => (
-                    <Link href="/" key={link}>
-                      {link}
+                    <Link href={link.href || "/"} key={link.name}>
+                      {link.name}
                     </Link>
                   ))}
                 </ul>
@@ -67,7 +66,7 @@ const Footer = () => {
         </div>
 
         <div className="border bg-gray-20" />
-        <p className="regular-14 w-full text-center text-gray-30">&copy; {new Date().getFullYear()} RealHive Consultants | All rights reserved</p>
+        <p className="regular-14 w-full mb-12 text-center text-gray-30">&copy; {new Date().getFullYear()} RealHive Consultants | All rights reserved</p>
       </div>
     </footer>
   )
