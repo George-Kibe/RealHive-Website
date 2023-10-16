@@ -9,12 +9,12 @@ const Navbar = () => {
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       <Link href="/">
         <div className="rounded-lg flex gap-2">
-              <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='rounded-lg'/>
-              <div className="flex-col">
-                <p className="font-semibold text-[20px]">RealHive</p>
-                <p className="font-semibold text-[20px]">Consultants</p>
-              </div>              
-            </div>
+          <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='rounded-lg'/>
+          <div className="flex-col">
+            <p className="font-semibold text-[20px]">RealHive</p>
+            <p className="font-semibold text-[20px]">Consultants</p>
+          </div>              
+        </div>
       </Link>
 
       <ul className="hidden h-full gap-12 lg:flex">
