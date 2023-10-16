@@ -1,3 +1,4 @@
+import React from "react"
 import { NAV_LINKS } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
@@ -7,7 +8,13 @@ const Navbar = () => {
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       <Link href="/">
-        <Image src="/hilink-logo.svg" alt="logo" width={74} height={29} />
+        <div className="rounded-lg flex gap-2">
+              <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='rounded-lg'/>
+              <div className="flex-col">
+                <p className="text-blue-950 font-semibold">RealHive</p>
+                <p className="text-blue-950 font-semibold">Consultants</p>
+              </div>              
+            </div>
       </Link>
 
       <ul className="hidden h-full gap-12 lg:flex">

@@ -1,4 +1,3 @@
-// &copy; {new Date().getFullYear()} All right reserved - Design 
 import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,7 +9,13 @@ const Footer = () => {
       <div className="padding-container max-container flex w-full flex-col gap-14">
         <div className="flex flex-col items-start justify-center gap-[10%] md:flex-row">
           <Link href="/" className="mb-10">
-            <Image src="hilink-logo.svg" alt="logo" width={74} height={29}/>
+            <div className="rounded-lg flex gap-2">
+              <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='rounded-lg'/>
+              <div className="flex-col">
+                <p className="text-blue-950 font-semibold">RealHive</p>
+                <p className="text-blue-950 font-semibold">Consultants</p>
+              </div>              
+            </div>
           </Link>
 
           <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1'>
@@ -60,7 +65,7 @@ const Footer = () => {
         </div>
 
         <div className="border bg-gray-20" />
-        <p className="regular-14 w-full text-center text-gray-30">2023 Hilink | All rights reserved</p>
+        <p className="regular-14 w-full text-center text-gray-30">&copy; {new Date().getFullYear()} RealHive Consultants | All rights reserved</p>
       </div>
     </footer>
   )
