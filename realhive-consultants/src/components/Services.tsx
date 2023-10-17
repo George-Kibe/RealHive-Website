@@ -1,8 +1,8 @@
-import { FEATURES } from '@/constants'
+import { SERVICES } from '@/constants'
 import Image from 'next/image'
 import React from 'react'
 
-const Features = () => {
+const Services = () => {
   return (
     <section className="flex-col flexCenter overflow-hidden  bg-center bg-no-repeat py-24">
       <div className="max-container padding-container relative w-full flex justify-end rounded-lg ">
@@ -21,12 +21,12 @@ const Features = () => {
             <h2 className="bold-40 lg:bold-64">Our Services</h2>
           </div>
           <ul className="mt-10 grid gap-10 md:grid-cols-2 lg:mg-20 lg:gap-20">
-            {FEATURES.map((feature) => (
-              <FeatureItem 
-                key={feature.title}
-                title={feature.title} 
-                icon={feature.icon}
-                description={feature.description}
+            {SERVICES.map((service) => (
+              <ServiceItem 
+                key={service.title}
+                title={service.title} 
+                icon={service.icon}
+                description={service.description}
               />
             ))}
           </ul>
@@ -36,17 +36,17 @@ const Features = () => {
   )
 }
 
-type FeatureItem = {
+type ServiceItemProps = {
   title: string;
   icon: string;
   description: string;
 }
 
-const FeatureItem = ({ title, icon, description }: FeatureItem) => {
+const ServiceItem = ({ title, icon, description }: ServiceItemProps) => {
   return (
     <li className="flex w-full flex-1 flex-col items-start">
       <div className="rounded-full p-4 lg:p-7 bg-green-50">
-        <Image src={icon} alt="map" width={28} height={28} />
+        <Image src={icon} alt="map" width={30} height={30} className='object-contain' />
       </div>
       <h2 className="bold-20 lg:bold-32 mt-5 capitalize">
         {title}
@@ -58,4 +58,4 @@ const FeatureItem = ({ title, icon, description }: FeatureItem) => {
   )
 }
 
-export default Features
+export default Services

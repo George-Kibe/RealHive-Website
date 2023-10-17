@@ -16,35 +16,35 @@ export const PEOPLE_URL = [
   '/person-4.png',
 ];
 
-// FEATURES SECTION
-export const FEATURES = [
+// SERVICES SECTION
+export const SERVICES = [
   {
-    title: 'Real maps can be offline',
-    icon: '/map.svg',
+    title: 'Web Application Development',
+    icon: '/web.jpg',
     variant: 'green',
     description:
-      'We provide a solution for you to be able to use our application when climbing, yes offline maps you can use at any time there is no signal at the location',
+      'We offer custom web application development services, creating responsive, user-friendly web solutions for our clients. Our team of experienced developers and designers work closely with clients to build web applications tailored to their specific needs.',
   },
   {
-    title: 'Set an adventure schedule',
-    icon: '/calendar.svg',
+    title: 'Mobile Application Development',
+    icon: '/application.jpg',
     variant: 'green',
     description:
-      "Schedule an adventure with friends. On holidays, there are many interesting offers from RealHive Cosultants. That way, there's no more discussion",
+      "We specialize in developing mobile applications for iOS and Android platforms. We create native and cross-platform apps, focusing on user experience and functionality.",
   },
   {
-    title: 'Technology using augment reality',
-    icon: '/tech.svg',
+    title: 'Data Science Solutions',
+    icon: '/data.jpeg',
     variant: 'green',
     description:
-      'Technology uses augmented reality as a guide to your hiking trail in the forest to the top of the mountain. Already supported by the latest technology without an internet connection',
+      'We provide data science services, including data analysis, machine learning, predictive analytics, and data visualization. Our expertise helps clients harness the power of their data to make informed business decisions.',
   },
   {
-    title: 'Many new locations every month',
-    icon: '/location.svg',
+    title: 'Data Engineering and Cloud Computing Consultancy',
+    icon: '/big-data.png',
     variant: 'orange',
     description:
-      'Lots of new locations every month, because we have a worldwide community of climbers who share their best experiences with climbing',
+      'Our data engineering experts assist clients in setting up data pipelines, data warehousing, and ETL (Extract, Transform, Load) processes. We ensure data is well-structured, accessible, and ready for analysis.',
   },
 ];
 
@@ -82,10 +82,9 @@ export const FOOTER_CONTACT_INFO = {
 export const SOCIALS = {
   title: 'Social',
   links: [
-    '/facebook.svg',
-    '/instagram.svg',
-    '/twitter.svg',
-    '/youtube.svg',
-    '/wordpress.svg',
+    '/facebook.png',
+    '/instagram.png',
+    '/twitter.png',
+    '/youtube.png',
   ],
 };
