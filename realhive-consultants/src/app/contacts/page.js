@@ -32,7 +32,7 @@ const ContactPage = () => {
     }    
   };
   return (
-    <div className="padding-container max-container items-center p-4 md:p-8">
+    <div className="padding-container max-container items-center pt-20 md:p-8">
       <h5 className="text-center text-xs">Get In Touch</h5>
       <div> <ToastContainer /> </div>
       <h1 className="text-center my-4 font-bold text-2xl md:text-4xl md:my-8 lg:text-6xl">Lets get in Touch</h1>
