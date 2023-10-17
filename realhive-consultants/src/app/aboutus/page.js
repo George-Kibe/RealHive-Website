@@ -3,6 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 
 import WebAndMobileImage from "../../../public/web-and-mobile.png"
+import Team from '@/components/Team'
 
 const Button = ({text, url}) => {
   return (
@@ -35,13 +36,14 @@ const AboutUsPage = () => {
           <Button url={"contacts"} text={"Contact"}/>
         </div>
         <div className='py-5 flex-1'>
-          <h1 className="font-bold text-[25px] md:text-[40px]">See Our Works?</h1>
+          <h1 className="font-bold text-[25px] md:text-[40px]">Our Offering</h1>
           <p className="mb-4 text-justify">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam alias aliquam reprehenderit? Adipisci nemo aperiam, ad maxime, necessitatibus blanditiis, ipsam consequuntur nesciunt vel culpa quia omnis neque nulla. Ipsa officia doloribus, et distinctio vero eos sunt corrupti, hic ipsum aut repellat quam voluptates eius delectus natus molestiae laboriosam error. Ducimus perspiciatis facilis in vero, id veritatis modi iusto dolorem, commodi dolor quam molestias enim aliquam dicta repellendus obcaecati tempora repudiandae. Sit eligendi voluptatem ipsum ducimus dolor necessitatibus fuga totam modi iusto deserunt nihil, similique labore molestias sequi veritatis quo accusamus est voluptas dolorem, tenetur dicta fugiat maxime incidunt rerum. Nemo.
+            We engage with clients through initial consultations to understand their specific requirements and objectives. We offer flexible engagement models, such as fixed-price projects, hourly consulting, and long-term partnerships.
           </p>
           <Button url={"/portfolio"} text={"Portfolio"}/>
-        </div>
+        </div>        
       </div>
+      <Team />
     </div>
   )
 }
