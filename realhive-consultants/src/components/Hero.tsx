@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Button from './Button'
+import React from 'react'
 
 const Hero = () => {
   return (
@@ -7,16 +8,9 @@ const Hero = () => {
       <div className="hero-map" />
 
       <div className="relative z-20 flex flex-1 flex-col xl:w-1/2">
-        <Image 
-          src="/camp.svg"
-          alt="camp"
-          width={50}
-          height={50}
-          className="absolute left-[-5px] top-[-30px] w-10 lg:w-[50px]"
-        />
-        <h1 className="bold-52 lg:bold-88">Putuk Truno Camp Area</h1>
+        <h1 className="bold-40 lg:bold-88">Excellent Design and Performance for your Digital Products</h1>
         <p className="regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
-          We want to be on each of your journeys seeking the satisfaction of seeing the incorruptible beauty of nature. We can help you on an adventure around the world in just one app
+          Turning your idea into a reality. We bring together teams from the tech industry.          
         </p>
 
         <div className="my-11 flex flex-wrap gap-5">
@@ -33,23 +27,9 @@ const Hero = () => {
           </div>
 
           <p className="bold-16 lg:bold-20 text-blue-70">
-            198k
+            198
             <span className="regular-16 lg:regular-20 ml-1">Excellent Reviews</span>
           </p>
-        </div>
-
-        <div className="flex flex-col w-full gap-3 sm:flex-row">
-          <Button 
-            type="button" 
-            title="Download App" 
-            variant="btn_green" 
-          />
-          <Button 
-            type="button" 
-            title="How we work?" 
-            icon="/play.svg"
-            variant="btn_white_text" 
-          />
         </div>
       </div>
 
@@ -61,17 +41,13 @@ const Hero = () => {
               <p className="regular-16 text-gray-20">Location</p>
               <Image src="/close.svg" alt="close" width={24} height={24} />
             </div>
-            <p className="bold-20 text-white">Aguas Calientes</p>
+            <p className="bold-20 text-white">Off Kamiti Road</p>
           </div>
 
           <div className="flexBetween">
             <div className="flex flex-col">
-              <p className="regular-16 block text-gray-20">Distance</p>
-              <p className="bold-20 text-white">173.28 mi</p>
-            </div>
-            <div className="flex flex-col">
-              <p className="regular-16 block text-gray-20">Elevation</p>
-              <p className="bold-20 text-white">2.040 km</p>
+              <p className="regular-16 block text-gray-20">Distance From CBD</p>
+              <p className="bold-20 text-white">14 kms - 30 mins</p>
             </div>
           </div>
         </div>

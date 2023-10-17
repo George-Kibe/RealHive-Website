@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Camp />
+      {/* <Camp /> */}
       <Guide />
       <Features />
       <GetApp />
