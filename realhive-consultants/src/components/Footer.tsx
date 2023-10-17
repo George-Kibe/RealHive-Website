@@ -43,7 +43,7 @@ const Footer = () => {
                     <p className="whitespace-nowrap">
                       {link.label}:
                     </p>
-                    <p className="medium-14 whitespace-nowrap text-blue-70">
+                    <p className="medium-14 whitespace-nowrap ">
                       {link.value}
                     </p>
                   </Link>

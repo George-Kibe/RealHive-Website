@@ -32,33 +32,33 @@ const ServicesPage = () => {
         </div>
         <div className="flex flex-wrap -mx-4">
           <ServiceCard
-            title="Refreshing Design"
-            details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
+            title="Web Application Development"
+            details=" We offer custom web application development services, creating responsive, user-friendly web solutions for our clients. Our team of experienced developers and designers work closely with clients to build web applications tailored to their specific needs."
             image={ WebImage}
           />
           <ServiceCard
-            title="Based on Tailwind CSS"
-            details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
+            title="Mobile Application Development"
+            details=" We specialize in developing mobile applications for iOS and Android platforms. We create native and cross-platform apps, focusing on user experience and functionality."
             image={ ApplicationImage}
           />
           <ServiceCard
-            title="100+ Components"
-            details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
+            title="Data Science Solutions"
+            details="We provide data science services, including data analysis, machine learning, predictive analytics, and data visualization. Our expertise helps clients harness the power of their data to make informed business decisions."
             image={ DataImage}
           />
           <ServiceCard
-            title="Speed Optimized"
-            details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
+            title="Data Engineering Consultancy"
+            details="Our data engineering experts assist clients in setting up data pipelines, data warehousing, and ETL (Extract, Transform, Load) processes. We ensure data is well-structured, accessible, and ready for analysis."
             image={ BigDataImage}
           />
           <ServiceCard
-            title="Fully Customizable"
-            details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
+            title="Cloud Computing Consultancy"
+            details="Whether you're looking to migrate to the cloud, optimize existing cloud infrastructure, or develop a customized cloud strategy, our team will work closely with you to ensure seamless integration, improved scalability, and enhanced security."
             image={ CloudImage}
           />
           <ServiceCard
             title="Regular Updates"
-            details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
+            details=" We offer custom web application development services, creating responsive, user-friendly web solutions for our clients. Our team of experienced developers and designers work closely with clients to build web applications tailored to their specific needs."
             image={ WebImage}
           />
         </div>
