@@ -63,7 +63,7 @@ export const FOOTER_LINKS = [
     title: 'Our Focus',
     links: [
       {"href": "/portfolio", "name":"Mobile Development"},
-      {"href": "/portfolio", "name":"Web Development"},
+      {"href": "/portfolio", "name":"🌐 Web Development"},
       {"href": "/portfolio", "name":"Data Science"},
       {"href": "/portfolio", "name":"Data Engineering"},
       ],
