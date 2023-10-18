@@ -56,7 +56,7 @@ export const FOOTER_LINKS = [
       {"href": "/aboutus", "name":"About RealHive Consultants"},
       {"href": "/careers", "name":"Jobs"},
       {"href": "/privacy-policy", "name":"Privacy Policy"},
-      {"href": "/contactus", "name":"Contact Us"},
+      {"href": "/contacts", "name":"Contact Us"},
     ],
   },
   {

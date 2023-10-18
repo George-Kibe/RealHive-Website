@@ -13,6 +13,22 @@ const poppins = Poppins({ subsets: ['latin'], weight: '400'  })
 export const metadata = {
   title: 'Realhive Consultants',
   description: 'Mobile, Web, Software and Data Consultants',
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "/data.jpeg",
+        type: "image/png",
+        href: "/data.jpeg",      
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: "/data.jpeg",
+        type: "image/png",
+        href: "/data.jpeg",      
+      },
+    ]
+  } 
 }
 
 export default function RootLayout({ children }) {
