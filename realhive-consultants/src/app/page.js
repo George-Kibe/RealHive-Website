@@ -1,4 +1,3 @@
-import Camp from "@/components/Camp";
 import Features from "@/components/Services";
 import GetApp from "@/components/GetApp";
 import Guide from "@/components/Guide";
@@ -8,7 +7,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      {/* <Camp /> */}
       <Guide />
       <Features />
       <GetApp />
