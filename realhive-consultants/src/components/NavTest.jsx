@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-import DarkModeToggle from './DarkModeToggle'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { ModeToggle } from './ModeToggle';
 
 const links = [
   { id: 1, title: "Home", url: "/"},
@@ -35,13 +35,13 @@ const NavbarTest = () => {
           <div className="flex w-full items-center justify-between">
             <div className="">
               <Link href="/"  className="font-bold text-[22px] flex gap-2 items-center">
-                <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='hidden md:flex rounded-lg'/>
-                <span className="font-bold text-2xl lg:text-4xl">RealHive Consultants</span>
+                <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={60} height={25} className='hidden md:flex rounded-lg'/>
+                <span className="font-bold">RealHive Consultants</span>
               </Link>              
             </div>
-            <div className="hidden md:block">
-              <div className="ml-2 flex space-x-4">
-                <DarkModeToggle />
+            <div className="hidden md:block w-full">
+              <div className="justify-end flex space-x-4">
+                {/* <ModeToggle className="self-center justify-self-center" /> */}
                 {links.map((link, index) => (
                   <Link key={link.id} href={link.url}  className="">{link.title}</Link>
                 ))}                
@@ -81,7 +81,7 @@ const NavbarTest = () => {
             {links.map((link) => (
               <button key={link.id} onClick={() => handleNavigation(link.url)} className="self-start">{link.title}</button>))
             }
-            <DarkModeToggle />
+            <ModeToggle />
           </div>
         </div>
       )}

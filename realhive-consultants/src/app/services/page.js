@@ -9,6 +9,7 @@ import CloudImage from "../../../public/cloud.png"
 import React from 'react'
 import FAQAccordion from '@/components/FAQAccordion';
 import CallToAction from '@/components/CallToAction';
+import Testimonials from '@/components/Testimonials';
 
 const ServicesPage = () => {
   return (
@@ -65,6 +66,7 @@ const ServicesPage = () => {
       </div>
       <FAQAccordion />
       <CallToAction />
+      <Testimonials />
     </section>
   );
 };
@@ -75,7 +77,7 @@ const ServiceCard = ({ image, title, details }) => {
   return (
     <>
       <div className="w-full px-4 md:w-1/2 lg:w-1/3">
-        <div className="mb-8 rounded-[20px] bg-white p-10 shadow-md hover:shadow-lg md:px-7 xl:px-10">
+        <div className="mb-8 rounded-[20px] p-10 shadow-md hover:shadow-lg md:px-7 xl:px-10">
           <div
             className={`mb-8 flex h-[200px] w-[200px] p-3 items-center justify-center rounded-2xl bg-primary`}
           >

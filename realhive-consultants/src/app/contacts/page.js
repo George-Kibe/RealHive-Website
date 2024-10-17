@@ -35,6 +35,7 @@ const ContactPage = () => {
         toast.success("Message sent successfully. One of us will get back to you as soon as possible.")
       }
       setLoading(false);
+      setName(""); setEmail(""); setMessage(""); setPhoneNumber("");
     } catch (error) {
       toast.error("Message sending Error! Try sending again or send a direct Email");
       setLoading(false);
@@ -71,8 +72,8 @@ const ContactPage = () => {
           </div>
         </div>
 
-        <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
-          <div className="relative rounded-lg p-8 shadow-lg dark:bg-dark-2 sm:p-12">
+        <div className="w-full lg:w-1/2 xl:w-5/12">
+          <div className="relative rounded-lg px-8 shadow-lg dark:bg-dark-2 sm:px-12">
             <div>
               <div className="">
                 <p className="">Name:</p>
@@ -111,7 +112,7 @@ const ContactPage = () => {
               <div>
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-blue-500 hover:bg-blue-700 rounded border border-primary text-white dark:text-black bg-primary p-3 transition hover:bg-opacity-90"
+                  className="bg-blue-800 rounded-md p-2"
                 >
                   {
                     loading? <p className="items-center justify-center text-white flex"><FiLoader className="mr-2 animate-spin" /> Loading...</p> : <p className="text-white">Send Message</p>

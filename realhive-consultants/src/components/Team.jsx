@@ -64,8 +64,8 @@ const TeamCard = ({ image, name, profession }) => {
             </div>            
             <div className="absolute left-0 w-full text-center bottom-5">
               <div className="relative px-3 py-5 mx-5 overflow-hidden bg-white rounded-lg">
-                <h3 className="text-base font-semibold text-dark">{name}</h3>
-                <p className="text-sm text-body-color">{profession}</p>
+                <h3 className="text-base font-semibold text-black">{name}</h3>
+                <p className="text-sm text-black/70">{profession}</p>
               </div>
             </div>
           </div>

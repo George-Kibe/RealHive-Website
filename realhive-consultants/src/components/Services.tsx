@@ -4,15 +4,15 @@ import React from 'react'
 
 const Services = () => {
   return (
-    <section className="flex-col flexCenter overflow-hidden  bg-center bg-no-repeat py-24">
-      <div className="max-container padding-container relative w-full flex justify-end rounded-lg ">
-        <div className="flex flex-1 lg:min-h-[900px]">
+    <section className="flex flex-col overflow-hidden  bg-center bg-no-repeat py-24">
+      <div className="flex-col md:flex-row  max-container padding-container relative w-full flex justify-end rounded-lg ">
+        <div className="flex flex-1">
           <Image
             src="/phone.png"
             alt="phone"
-            width={440}
-            height={1000}
-            className="feature-phone"
+            width={400}
+            height={200}
+            className="object-contain rotate-6"
           />
         </div>
 
@@ -45,13 +45,13 @@ type ServiceItemProps = {
 const ServiceItem = ({ title, icon, description }: ServiceItemProps) => {
   return (
     <li className="flex w-full flex-1 flex-col items-start">
-      <div className="rounded-full p-4 lg:p-7 bg-green-50">
-        <Image src={icon} alt="map" width={30} height={30} className='object-contain' />
+      <div className="rounded-full p-1 lg:p-4 bg-green-50">
+        <Image src={icon} alt="map" width={50} height={50} className='object-contain' />
       </div>
-      <h2 className="bold-20 lg:bold-32 mt-5 capitalize">
+      <h2 className=" lg:bold-32 mt-5 capitalize">
         {title}
       </h2>
-      <p className="regular-16 mt-5 text-gray-30 lg:mt-[30px] lg:bg-none">
+      <p className="regular-16 mt-5 text-justify text-gray-30 lg:mt-[30px] lg:bg-none">
         {description}
       </p>
     </li>

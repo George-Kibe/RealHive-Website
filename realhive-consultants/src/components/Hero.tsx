@@ -1,58 +1,48 @@
 import Image from 'next/image'
-import Button from './Button'
 import React from 'react'
 
 const Hero = () => {
   return (
-    <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row">
-      <div className="hero-map" />
-
-      <div className="relative z-20 flex flex-1 flex-col xl:w-1/2">
-        <h1 className="bold-40 lg:bold-88">Excellent Design and Performance for your Digital Products</h1>
-        <p className="regular-16 mt-6 text-gray-30 xl:max-w-[520px]">
-          Turning your idea into a reality. We bring together teams from the tech industry.          
-        </p>
-
-        <div className="my-11 flex flex-wrap gap-5">
-          <div className="flex items-center gap-2">
-            {Array(5).fill(1).map((_, index) => (
-              <Image 
-                src="/star.svg"
-                key={index}
-                alt="star"
-                width={24}
-                height={24}
-              />
-            ))}
+    <div className=''>
+      <div className="">
+        <div className="max-w-5xl mx-auto px-4 xl:px-0 pt-24 lg:pt-32 pb-24">
+          <h2 className="font-semibold text-white text-5xl md:text-5xl">
+            <span className="text-[#ff0]">Realhive Consultants:</span> Transforming ideas into reality through code
+          </h2>
+          <div className="max-w-4xl">
+            <p className="mt-5 text-neutral-400 text-justify text-lg">
+            Excellent Design and Performance for your Digital Products. At Realhive Consultants, we specialize in turning conceptual visions into concrete forms, whether it be through design, artistry, or technological innovation.
+            </p>
           </div>
-
-          <p className="bold-16 lg:bold-20 text-blue-70">
-            198
-            <span className="regular-16 lg:regular-20 ml-1">Excellent Reviews</span>
-          </p>
-        </div>
-      </div>
-
-      <div className="relative flex flex-1 items-start">
-        <div className="relative z-20 flex w-[268px] flex-col gap-8 rounded-3xl bg-green-90 px-7 py-8">
-
-           <div className="flex flex-col">
-            <div className="flexBetween">
-              <p className="regular-16 text-gray-20">Location</p>
-              <Image src="/close.svg" alt="close" width={24} height={24} />
-            </div>
-            <p className="bold-20 text-white">Off Kamiti Road</p>
-          </div>
-
-          <div className="flexBetween">
-            <div className="flex flex-col">
-              <p className="regular-16 block text-gray-20">Distance From CBD</p>
-              <p className="bold-20 text-white">14 kms - 30 mins</p>
-            </div>
+          <div className="max-w-4xl">
+            <p className="mt-5 text-neutral-400 text-justify text-lg">
+            Turning your idea into a reality. We bring together teams from the tech industry.
+            </p>
           </div>
         </div>
       </div>
-    </section>
+
+      <div className="md:grid md:grid-cols-2 md:gap-10 lg:gap-16 md:items-center">
+        <div>
+          <blockquote>
+            <p className="text-justify p-4">
+            At Realhive consultants, we understand that the digital landscape is constantly evolving, and to stay ahead of the competition, your business needs to have a strong online presence. Our team of experts specializes in web development, mobile app development, and data solutions, making us your ideal partner in this digital age. We take pride in bringing your business into the digital realm, crafting innovative and user-friendly websites, creating cutting-edge mobile applications, and harnessing the power of data to drive your success. With our services, you can reach a global audience, engage customers effectively, and achieve your business goals in an increasingly online world.
+            </p>
+
+            <footer className="mt-6">
+              <div className="flex items-center">
+                <div className="md:hidden flex-shrink-0">
+                  <Image width={500} height={500} className="rounded-md" src="/hero-image.jpg" alt="Hero Image" />
+                </div>
+              </div>
+            </footer>
+          </blockquote>
+          </div>
+          <div className="hidden md:block mb-24 md:mb-0">
+            <Image width={500} height={500} className="rounded-xl" src="/hero-image.jpg" alt="Image Description" />
+          </div>
+        </div>
+    </div>
   )
 }
 

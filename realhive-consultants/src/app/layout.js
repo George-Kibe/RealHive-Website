@@ -34,8 +34,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} min-h-screen`}>
-        <ThemeProvider>
+      <body className={`${poppins.className} p-2 screen-max-width min-h-screen`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="realhive-theme"
+        >
           <NavbarTest />
           <main className="relative container overflow-hidden">
             {children}

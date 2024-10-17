@@ -2,11 +2,11 @@
 
 import React, { useState } from "react"
 import { NAV_LINKS } from "@/constants"
-import DarkModeToggle from "./DarkModeToggle"
 import Image from "next/image"
 import Link from "next/link"
 import Button from "./Button"
 import { useRouter } from "next/navigation"
+import { ModeToggle } from "./ModeToggle"
 
 const Navbar = () => {
   const router = useRouter();
@@ -34,8 +34,8 @@ const Navbar = () => {
           </div>              
         </div>
       </Link>
-      <div className="hidden h-full lg:flex gap-8">
-        <DarkModeToggle />
+      <div className="hidden items-center justify-center h-full lg:flex gap-8">
+        <ModeToggle />
         <ul className="hidden h-full gap-12 lg:flex">
           {NAV_LINKS.map((link) => (
             <Link href={link.href} key={link.key} className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
@@ -69,7 +69,7 @@ const Navbar = () => {
             {NAV_LINKS.map((link) => (
               <button key={link.key} onClick={() => handleNavigation(link.href)} className="self-start">{link.label}</button>))
             }
-            <DarkModeToggle />
+            <ModeToggle />
           </div>
         </div>
       )}

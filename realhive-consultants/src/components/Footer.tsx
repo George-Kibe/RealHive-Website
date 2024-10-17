@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="flex flex-col items-start justify-center gap-[10%] md:flex-row">
           <Link href="/" className="mb-10">
             <div className="rounded-lg flex gap-2">
-              <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={74} height={29} className='rounded-lg'/>
+              <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={60} height={25} className='rounded-lg'/>
               <div className="flex-col">
                 <p className="font-semibold text-[20px]">RealHive</p>
                 <p className="font-semibold text-[20px]">Consultants</p>
@@ -19,18 +19,20 @@ const Footer = () => {
             </div>
           </Link>
 
-          <div className='flex flex-wrap gap-10 sm:justify-between md:flex-1'>
-            {FOOTER_LINKS.map((columns, index) => (
-              <FooterColumn key={index} title={columns.title}>
-                <ul className="regular-14 flex flex-col gap-4 text-gray-30">
-                  {columns.links.map((link, index) => (
-                    <Link key={index} href={link.href || "/"} >
-                      {link.name}
-                    </Link>
-                  ))}
-                </ul>
-              </FooterColumn>
-            ))}
+          <div className='flex flex-wrap gap-4 sm:justify-around md:flex-1'>
+            <div className="flex flex-col gap-8">
+              {FOOTER_LINKS.map((columns, index) => (
+                <FooterColumn key={index} title={columns.title}>
+                  <ul className="flex flex-col gap-2">
+                    {columns.links.map((link, index) => (
+                      <Link key={index} href={link.href || "/"} >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </ul>
+                </FooterColumn>
+              ))}
+            </div>
 
             <div className="flex flex-col gap-5">
               <FooterColumn title={FOOTER_CONTACT_INFO.title}>
@@ -38,12 +40,12 @@ const Footer = () => {
                   <Link
                     href="/"
                     key={link.label}
-                    className="flex gap-4 md:flex-col lg:flex-row"
+                    className="flex-col gap-2 md:flex-col lg:flex-row"
                   >
                     <p className="whitespace-nowrap">
                       {link.label}:
                     </p>
-                    <p className="medium-14 whitespace-nowrap ">
+                    <p className="text-sm ">
                       {link.value}
                     </p>
                   </Link>
@@ -51,7 +53,7 @@ const Footer = () => {
               </FooterColumn>
             </div>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
               <FooterColumn title={SOCIALS.title}>
                 <ul className="regular-14 flex gap-4 text-gray-30">
                   {SOCIALS.links.map((link) => (

@@ -1,3 +1,4 @@
+import {Mail} from "lucide-react";
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Home' },
@@ -51,7 +52,7 @@ export const SERVICES = [
 // FOOTER SECTION
 export const FOOTER_LINKS = [
   {
-    title: 'Learn More',
+    title: 'Our Company',
     links: [
       {"href": "/aboutus", "name":"About RealHive Consultants"},
       {"href": "/careers", "name":"Jobs"},
@@ -62,10 +63,10 @@ export const FOOTER_LINKS = [
   {
     title: 'Our Focus',
     links: [
-      {"href": "/portfolio", "name":"Mobile Development"},
+      {"href": "/portfolio", "name":"📱 Mobile Development"},
       {"href": "/portfolio", "name":"🌐 Web Development"},
-      {"href": "/portfolio", "name":"Data Science"},
-      {"href": "/portfolio", "name":"Data Engineering"},
+      {"href": "/portfolio", "name":"📊 Data Science"},
+      {"href": "/portfolio", "name":"💻 ⚙️ Data Engineering"},
       ],
   },
 ];
@@ -73,9 +74,9 @@ export const FOOTER_LINKS = [
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
   links: [
-    { label: 'Our Contacts', value: '+254 795-288-155' },
-    { label: 'Our Offices', value: '+Off Kamiti Road, Bayer Apt, Suite F2' },
-    { label: 'Our Email', value: 'realHivecosultants@gmail.com' },
+    { label: 'Our Contacts', value: '📞 +254 795-288-155' },
+    { label: 'Our Offices', value: '🏣 +Off Kamiti Road, Bayer Apt, Suite F2' },
+    { label: 'Our Email', value: '📩 realHivecosultants@gmail.com' },
   ],
 };
 

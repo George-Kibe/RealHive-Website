@@ -6,7 +6,7 @@ const CallToAction = () => {
       <section className="py-20 lg:py-[120px]">
         <div className="">
           <div
-            className={`relative z-10 overflow-hidden rounded bg-primary py-12 px-8 md:p-[70px]`}
+            className={`relative z-10 overflow-hidden rounded py-12 px-8 md:p-[70px]`}
           >
             <div className="flex flex-wrap items-center -mx-4">
               <div className="w-full px-4 lg:w-2/3">
