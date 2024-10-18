@@ -9,13 +9,18 @@ export const GET = async (request) => {
     let userId;
     // console.log("Bearer header: ", bearerHeader);
     if (typeof bearerHeader !== 'undefined') {
-        const bearer = bearerHeader.split(' ');
-        const bearerToken = bearer[1];
-        const decoded = jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET)
-        userId = decoded.userId;
+        try {
+            const bearer = bearerHeader.split(' ');
+            const bearerToken = bearer[1];
+            const decoded = jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET)
+            userId = decoded.userId;
+        } catch (error) {
+            return new NextResponse("Invalid or expired Token", {status: 401})
+        }
     } else {
         return new NextResponse("Unauthorized", {status: 401})
     }
+    
     await connectDB();
     try {
         const user = await User.findById(userId).select("-password");
