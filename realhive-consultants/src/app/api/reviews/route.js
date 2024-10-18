@@ -1,59 +1,58 @@
 import { connectDB } from "@/db/connectDB";
-import { sendPropertyAddedSuccessEmail } from "@/lib/emails";
-import Property from "@/models/PropertyModel";
+import Review from "@/models/ReviewModel";
 import { NextResponse } from "next/server";
 
-// create a property
+// create a review
 export const POST = async (request) => {
-    const {property} = await request.json();
-    if (!property.title) {
+    const review = await request.json();
+    if (!review.text) {
         return new NextResponse("Please enter all fields", {status: 422})
     }
+    // TO DO Add logic to prevent users from reviewing their properties
     await connectDB();    
     try {
-        const newProperty = new Property({
-            ...property
+        const newReview = new Review({
+            ...review
         });  
-        // TO DO: send email to user
-        const savedProperty = await newProperty.save();      
-        // await propertyAddedSuccessEmail(email, property);
+        const savedReview = await newReview.save();      
         return NextResponse.json(
-            { message: 'Property created successfully', 
+            { message: 'Review created successfully', 
               success: true,
-              property: savedProperty
+              review: savedReview
             },
             { status: 201 }
         )
     } catch (error) {
-        return new NextResponse(error.message, {status: 500,})
+        return new NextResponse(error.message, {status: 500})
     }
 }
 
-// get all properties
+// get all reviews
 export const GET = async (request) => {
-    // get type
+    // get review id
     const params = new URLSearchParams(request.url.split('?')[1]);
-    const type = params.get("type")
+    const id = params.get("id")
     await connectDB();
     try {
         // check if user already exists using email to avoid duplicates
-        if (type){
-            const properties = await Property.find({type}).limit(10);
-            if (!properties.length) {
-                return new NextResponse(`Properties of type ${type} not found`, {status: 404})
+        if (id){
+            console.log("ID: ", id)
+            const reviews = await Review.find({property: id});
+            if (!reviews.length) {
+                return new NextResponse(`Reviews of property id:${id} not found`, {status: 404})
             }
             return NextResponse.json(
                 { success: true, 
-                  properties
+                  reviews
                 },
                 {status: 200}
             )
         }
-        const properties = await Property.find();
+        const reviews = await Review.find();
 
         return NextResponse.json(
             { success: true, 
-              properties
+              reviews
             },
             {status: 200}
         )
@@ -62,38 +61,38 @@ export const GET = async (request) => {
     }
 }
 
-// update property details
+// update review details
 export const PUT = async (request) => {
     const body = await request.json();
-    const {_id, updatedProperty} = body;
+    const {_id, updatedReview} = body;
     try {
-      await Property.findOneAndUpdate({_id},{...updatedProperty});
-      const property = await Property.find({_id})
+      await Review.findOneAndUpdate({_id},{...updatedReview});
+      const review = await Review.find({_id})
       return NextResponse.json(
-        { message: 'Property updated successfully', 
+        { message: 'Review updated successfully', 
           success: true, 
-          property
+          review
         }, 
         { status: 200 }
       );
     } catch (error) {
-      console.log('Property Updating error!');
+      console.log('Review Updating error!');
       return new NextResponse(error.message, {status: 422});
     }
 }
 
-// delete a Property
+// delete a Review
 export const DELETE = async (request) => {
     const params = new URLSearchParams(request.url.split('?')[1]);
     const id = params.get("id")
     await connectDB();
     try {
         // perfoem delete action
-        const property = await Property.findOneAndDelete({_id: id});
-        if (!property) {
-            return new NextResponse("Property not found", {status: 404})
+        const review = await Review.findOneAndDelete({_id: id});
+        if (!review) {
+            return new NextResponse("Review not found", {status: 404})
         }
-        return new NextResponse("Property deleted successfully", {status: 200})
+        return new NextResponse("Review deleted successfully", {status: 200})
     } catch (error) {
         return new NextResponse(error.message, {status: 500, })
     }

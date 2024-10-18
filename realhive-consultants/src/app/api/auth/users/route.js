@@ -96,11 +96,11 @@ export const PUT = async (request) => {
 // delete a user
 export const DELETE = async (request) => {
     const params = new URLSearchParams(request.url.split('?')[1]);
-    const _id = params.get("_id")
+    const id = params.get("id");
     await connectDB();
     try {
-        // check if user already exists using email to avoid duplicates
-        const user = await User.findOneAndDelete({_id});
+        // perform delete action
+        const user = await User.findOneAndDelete({_id: id});
         if (!user) {
             return new NextResponse("User not found", {status: 404})
         }

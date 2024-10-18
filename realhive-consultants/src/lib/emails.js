@@ -152,7 +152,7 @@ export const sendPasswordResetSuccessEmail = async (email, username) => {
 }
 
 // send property added success email
-export const propertyAddedSuccessEmail = async (email, property) => {
+export const sendPropertyAddedSuccessEmail = async (email, property) => {
     // Create a Nodemailer transport object (configure with your email provider)
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
