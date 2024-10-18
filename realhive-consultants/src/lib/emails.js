@@ -150,3 +150,31 @@ export const sendPasswordResetSuccessEmail = async (email, username) => {
 		throw new Error(`Error sending reset success email: ${error}`);
 	}
 }
+
+// send property added success email
+export const propertyAddedSuccessEmail = async (email, property) => {
+    // Create a Nodemailer transport object (configure with your email provider)
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.SENDER_EMAIL,
+            pass: process.env.EMAIL_PASSWORD,
+        },
+    });
+	try {
+        const mailOptions = {
+            from: process.env.SENDER_EMAIL,
+            to: email,
+            subject: `Property Added Success`,
+            html: "" // PROPERTY_ADDED_SUCCESS_TEMPLATE.replaceAll("{property}", property),
+          }
+        // Send the email
+        const response = await transporter.sendMail(mailOptions);
+		// console.log("Email sent successfully", response);
+	} catch (error) {
+		console.error(`Error sending property added success email`, error);
+		throw new Error(`Error sending property added success email: ${error}`);
+	}
+}
