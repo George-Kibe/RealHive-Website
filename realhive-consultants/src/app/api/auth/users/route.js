@@ -29,7 +29,9 @@ export const POST = async (request) => {
         await sendVerificationEmail(email, verificationToken);
         const savedUser = await newUser.save();
         return NextResponse.json(
-            { message: 'User created successfully', success: true, user: {
+            { message: 'User created successfully', 
+              success: true,
+              user: {
                 ...savedUser._doc,
                 password: undefined,
             }},
@@ -52,7 +54,7 @@ export const GET = async (request) => {
             if (!user) {
                 return new NextResponse("User not found", {status: 404})
             }
-            return new NextResponse.json(
+            return NextResponse.json(
                 { message: 'User found', success: true, 
                     user: {
                     ...savedUser._doc,
@@ -62,12 +64,11 @@ export const GET = async (request) => {
             )
         }
         const users = await User.find().select("-password");
-        const usersObject = JSON.stringify(users)
-        return new NextResponse(usersObject, {status: 200},)
+
+        return NextResponse.json(users, {status: 200},)
     } catch (error) {
         return new NextResponse(error.message, {status: 500,})
     }
-
 }
 
 // update user details
@@ -79,7 +80,7 @@ export const PUT = async (request) => {
       const updatedUserDoc = await User.findOne({
         _id: newUserDoc._id,
       }).select("-password");
-      return new NextResponse.json(
+      return NextResponse.json(
         { message: 'User updated successfully', 
           success: true, 
           user: updatedUserDoc

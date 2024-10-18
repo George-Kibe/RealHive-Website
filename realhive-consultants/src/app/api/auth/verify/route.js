@@ -12,12 +12,14 @@ export const POST = async (request) => {
     await connectDB();
     const user = await User.findOne({
         verificationToken: code, 
-        verificationTokenExpiresAt: {$gt: Date.now()}});
+        verificationTokenExpiresAt: {$gt: Date.now()}}).select("-password");
     if (!user) {
-        return res.status(404).json({
-            message: "Invalid or expired token", 
-            success: false
-        });
+        return NextResponse.json(
+            { message: 'Invalid or expired Token. No user Found', 
+              success: false
+            },
+            { status: 404 }
+        )
     }
     try {
         user.isVerified = true;
@@ -31,11 +33,9 @@ export const POST = async (request) => {
         return NextResponse.json(
             { message: 'User verified successfully',
               success: true,
-              user: {
-                ...savedUser._doc,
-                password: undefined,
-            }},
-            { status: 201 }
+              user
+            },
+            { status: 200 }
         )
     } catch (error) {
         return new NextResponse.json(error.message, {status: 500,})
