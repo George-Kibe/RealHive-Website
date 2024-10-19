@@ -2,9 +2,32 @@ import { connectDB } from "@/db/connectDB";
 import { sendPropertyAddedSuccessEmail } from "@/lib/emails";
 import Property from "@/models/PropertyModel";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
+const authenticate = async (request) => {
+    const bearerHeader = request.headers.get('authorization');
+    
+    if (typeof bearerHeader !== 'undefined') {
+        try {
+            const bearer = bearerHeader.split(' ');
+            const bearerToken = bearer[1];
+            const decoded = jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET);
+            return decoded.userId; // Return userId if token is valid
+        } catch (error) {
+            return new NextResponse("Invalid or Expired Token", { status: 401 });
+        }
+    } else {
+        return new NextResponse("No Access Token Provided", { status: 401 });
+    }
+};
 // create a property
 export const POST = async (request) => {
+    const userIdResponse = await authenticate(request);
+    if (userIdResponse instanceof NextResponse) {
+        return userIdResponse;
+    }
+    const userId = userIdResponse;
+
     const {property} = await request.json();
     if (!property.title) {
         return new NextResponse("Please enter all fields", {status: 422})
@@ -12,7 +35,8 @@ export const POST = async (request) => {
     await connectDB();    
     try {
         const newProperty = new Property({
-            ...property
+            ...property,
+            owner: userId
         });  
         // TO DO: send email to user
         const savedProperty = await newProperty.save();      
@@ -66,6 +90,7 @@ export const GET = async (request) => {
 export const PUT = async (request) => {
     const body = await request.json();
     const {_id, updatedProperty} = body;
+    await connectDB();
     try {
       await Property.findOneAndUpdate({_id},{...updatedProperty});
       const property = await Property.find({_id})

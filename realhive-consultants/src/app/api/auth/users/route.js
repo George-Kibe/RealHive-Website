@@ -3,7 +3,24 @@ import { sendVerificationEmail } from "@/lib/emails";
 import { generateVerificationCode } from "@/lib/generateTokens";
 import User from "@/models/UserModel";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
+const authenticate = async (request) => {
+    const bearerHeader = request.headers.get('authorization');
+    
+    if (typeof bearerHeader !== 'undefined') {
+        try {
+            const bearer = bearerHeader.split(' ');
+            const bearerToken = bearer[1];
+            const decoded = jwt.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET);
+            return decoded.userId; // Return userId if token is valid
+        } catch (error) {
+            return new NextResponse("Invalid or Expired Token", { status: 401 });
+        }
+    } else {
+        return new NextResponse("No Access Token Provided", { status: 401 });
+    }
+};
 // register a user
 export const POST = async (request) => {
     const {username, email, password} = await request.json();
@@ -73,10 +90,17 @@ export const GET = async (request) => {
 
 // update user details
 export const PUT = async (request) => {
+    const userIdResponse = await authenticate(request);
+    // If userIdResponse is a NextResponse, it means there was an error
+    if (userIdResponse instanceof NextResponse) {
+        return userIdResponse;
+    }
+    // If authentication is successful, userId is available
+    const userId = userIdResponse;
     const body = await request.json();
-    const {_id} = body;
+    await connectDB();
     try {
-      const newUserDoc = await User.findOneAndUpdate({_id}, {...body});
+      const newUserDoc = await User.findOneAndUpdate({_id: userId}, {...body});
       const updatedUserDoc = await User.findOne({
         _id: newUserDoc._id,
       }).select("-password");
@@ -95,17 +119,29 @@ export const PUT = async (request) => {
 
 // delete a user
 export const DELETE = async (request) => {
+    const userIdResponse = await authenticate(request);
+    if (userIdResponse instanceof NextResponse) {
+        return userIdResponse;
+    }
+    const userId = userIdResponse;
     const params = new URLSearchParams(request.url.split('?')[1]);
     const id = params.get("id");
     await connectDB();
-    try {
-        // perform delete action
-        const user = await User.findOneAndDelete({_id: id});
-        if (!user) {
-            return new NextResponse("User not found", {status: 404})
-        }
-        return new NextResponse("User deleted successfully", {status: 200})
-    } catch (error) {
-        return new NextResponse(error.message, {status: 500, })
+
+    const user = await User.findOne({_id: userId});
+    if (!user) {
+        return new NextResponse("User not found", {status: 404})
     }
+    if (user.role === "admin" || user._id === id) {
+        try {
+            // perform delete action
+            const user = await User.findOneAndDelete({_id: id});
+            if (!user) {
+                return new NextResponse("User not found", {status: 404})
+            }
+            return new NextResponse("User deleted successfully", {status: 200})
+        } catch (error) {
+            return new NextResponse(error.message, {status: 500, })
+        }
+    } 
 }
