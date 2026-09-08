@@ -1,6 +1,7 @@
 import { FOOTER_CONTACT_INFO, FOOTER_LINKS, SOCIALS } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
+import NavLink from './NavLink'
 import React from 'react'
 
 const Footer = () => {
@@ -10,12 +11,17 @@ const Footer = () => {
         <div className="border bg-gray-20" />      
         <div className="flex flex-col items-start justify-center gap-[10%] md:flex-row">
           <Link href="/" className="mb-10">
-            <div className="rounded-lg flex gap-2">
-              <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={60} height={25} className='rounded-lg'/>
-              <div className="flex-col">
-                <p className="font-semibold text-[20px]">RealHive</p>
-                <p className="font-semibold text-[20px]">Consultants</p>
-              </div>              
+            <div className="flex items-center">
+              {/* Same trimmed asset and locked aspect ratio as the header,
+                  one step larger since the footer has more room. */}
+              <Image
+                src="/logo.png"
+                alt="RealHive Consultants Ltd"
+                width={1600}
+                height={545}
+                sizes="(max-width: 639px) 165px, (max-width: 767px) 190px, (max-width: 1023px) 240px, 285px"
+                className="h-14 w-auto sm:h-16 lg:h-20 object-contain"
+              />
             </div>
           </Link>
 
@@ -25,9 +31,9 @@ const Footer = () => {
                 <FooterColumn key={index} title={columns.title}>
                   <ul className="flex flex-col gap-2">
                     {columns.links.map((link, index) => (
-                      <Link key={index} href={link.href || "/"} >
-                        {link.name}
-                      </Link>
+                      <li key={index}>
+                        <NavLink href={link.href || "/"}>{link.name}</NavLink>
+                      </li>
                     ))}
                   </ul>
                 </FooterColumn>
@@ -37,9 +43,10 @@ const Footer = () => {
             <div className="flex flex-col gap-5">
               <FooterColumn title={FOOTER_CONTACT_INFO.title}>
                 {FOOTER_CONTACT_INFO.links.map((link) => (
-                  <Link
+                  <NavLink
                     href="/"
                     key={link.label}
+                    showActive={false}
                     className="flex-col gap-2 md:flex-col lg:flex-row"
                   >
                     <p className="whitespace-nowrap">
@@ -48,7 +55,7 @@ const Footer = () => {
                     <p className="text-sm ">
                       {link.value}
                     </p>
-                  </Link>
+                  </NavLink>
                 ))}
               </FooterColumn>
             </div>
@@ -57,9 +64,14 @@ const Footer = () => {
               <FooterColumn title={SOCIALS.title}>
                 <ul className="regular-14 flex gap-4 text-gray-30">
                   {SOCIALS.links.map((link) => (
-                    <Link href="/" key={link}>
-                      <Image src={link} alt="logo" width={24} height={24} />
-                    </Link>
+                    <li key={link}>
+                      <Link
+                        href="/"
+                        className="inline-block opacity-75 transition-opacity duration-200 hover:opacity-100"
+                      >
+                        <Image src={link} alt="" width={24} height={24} />
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               </FooterColumn>

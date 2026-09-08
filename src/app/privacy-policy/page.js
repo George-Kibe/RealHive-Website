@@ -1,5 +1,13 @@
 import AnimatedText from '@/components/AnimatedText'
 import React from 'react'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
+  title: 'Privacy Policy',
+  description:
+    'How RealHive Consultants collects, uses, stores and protects the personal information you submit through this website and during client engagements.',
+  path: '/privacy-policy',
+})
 
 const PrivacyPolicyPage = () => {
   return (

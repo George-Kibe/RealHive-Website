@@ -10,10 +10,23 @@ import React from 'react'
 import FAQAccordion from '@/components/FAQAccordion';
 import CallToAction from '@/components/CallToAction';
 import Testimonials from '@/components/Testimonials';
+import { buildMetadata } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { servicesSchema } from '@/lib/schema'
+
+export const metadata = buildMetadata({
+  title: 'Software Development Services',
+  description:
+    'Web application development, iOS and Android apps, data science and cloud data engineering, delivered by a senior team that works directly with you.',
+  path: '/services',
+})
 
 const ServicesPage = () => {
   return (
     <section className="padding-container max-container pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
+      {/* Service nodes, generated from the same SERVICES constant that renders
+          this page, so markup and visible content cannot diverge. */}
+      <JsonLd schema={servicesSchema()} />
       <div className="container">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">

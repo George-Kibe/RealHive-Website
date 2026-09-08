@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
+import { buttonVariants } from '@/components/ui/button'
 import React, { useState } from 'react'
 
 
@@ -47,12 +48,13 @@ const CallToAction = () => {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-xs ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                    className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-xs ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-brand sm:text-sm sm:leading-6"
                 />
                 <button
                     type="submit"
                     onClick={handleSubscription}
-                    className="flex-none rounded-md bg-blue-800 px-3.5 py-2.5 text-sm font-semibold shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    disabled={loading}
+                    className={buttonVariants({ variant: 'brand', className: 'flex-none' })}
                 >
                     {loading? "Loading...": "Subscribe"}
                 </button>

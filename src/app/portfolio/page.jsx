@@ -1,6 +1,7 @@
 import AnimatedText from '@/components/AnimatedText'
 import Image from 'next/image'
 import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/button'
 import { SocialIcon } from 'react-social-icons';
 import React from 'react'
 import MernBnbImage from "../../../public/projects/mernbnb.png"
@@ -9,11 +10,14 @@ import CompanyImage from "../../../public/projects/company.png"
 import RealHiveImage from "../../../public/projects/realhive.png"
 import HauteCornerImage from "../../../public/projects/haute-corner.png"
 import { FramerImage } from '@/utils/FramerImage';
+import { buildMetadata } from '@/lib/seo'
 
-export const metadata = {
-    title: 'Portfolio | Projects',
-    description: 'Powered by Nextjs',
-  }
+export const metadata = buildMetadata({
+  title: 'Our Work: Web & Mobile Projects',
+  description:
+    'See the web and mobile applications we have designed, built and shipped, each with the problem it solved, the stack behind it and a live link to open.',
+  path: '/portfolio',
+})
 
 const style={width:40, height:40}
 
@@ -35,8 +39,12 @@ const FeaturedProject = ({type, title, summary, image, link, github}) => {
           <div className="border-1 dark:bg-white border-transparent dark:border-light rounded-full p-1">
             <SocialIcon url={github} style={style} target={"_blank"} />
           </div>          
-          <Link href={link} target='_blank' className='ml-4 rounded-lg bg-dark text-light p-2 px-6 text-lg 
-          font-semibold border border-1 border-transparent dark:border-light' >Live Project</Link>
+          <Link
+            href={link}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={buttonVariants({ variant: 'brand', size: 'lg', className: 'ml-4' })}
+          >Live Project</Link>
         </div>
       </div>
     </article>
@@ -60,8 +68,12 @@ const Project = ({type, title, summary, image, link, github}) => {
           <div className="border-1 dark:bg-white border-transparent dark:border-light rounded-full p-1">
             <SocialIcon url={github} style={style} target={"_blank"} />
           </div>          
-          <Link href={link} target='_blank' className='ml-4 rounded-lg bg-dark text-light p-2 px-6 text-lg 
-          font-semibold border border-1 border-transparent dark:border-light' >Live Project</Link>
+          <Link
+            href={link}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={buttonVariants({ variant: 'brand', size: 'lg', className: 'ml-4' })}
+          >Live Project</Link>
         </div>
       </div>
     </article>

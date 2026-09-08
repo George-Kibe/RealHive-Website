@@ -1,5 +1,13 @@
 import AnimatedText from '@/components/AnimatedText'
 import React from 'react'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
+  title: 'Engineering Careers & Open Roles',
+  description:
+    'RealHive Consultants is an equal opportunity employer. No roles are listed right now, so check back here for engineering and data positions as they open.',
+  path: '/careers',
+})
 
 const CareersPage = () => {
   return (

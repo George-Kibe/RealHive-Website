@@ -7,7 +7,8 @@ import { FiLoader } from "react-icons/fi";
 import React, { useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
+import axios from "axios"
+import { buttonVariants } from "@/components/ui/button";
 
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
@@ -112,10 +113,13 @@ const ContactPage = () => {
               <div>
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-800 rounded-md p-2"
+                  disabled={loading}
+                  className={buttonVariants({ variant: "brand", size: "lg" })}
                 >
                   {
-                    loading? <p className="items-center justify-center text-white flex"><FiLoader className="mr-2 animate-spin" /> Loading...</p> : <p className="text-white">Send Message</p>
+                    loading
+                      ? <><FiLoader className="mr-2 animate-spin" /> Sending...</>
+                      : "Send Message"
                   }
                 </button>
               </div>

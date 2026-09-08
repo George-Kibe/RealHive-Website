@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/button'
 import React from "react";
 
 const CallToAction = () => {
@@ -19,18 +21,18 @@ const CallToAction = () => {
               </div>
               <div className="w-full px-4 lg:w-1/3">
                 <div className="flex flex-wrap space-x-4 lg:justify-end">
-                  <a
+                  <Link
                     href="/contacts"
-                    className={`my-1 cursor-pointer inline-block rounded bg-info py-4 px-6 text-base font-medium  transition md:px-9 lg:px-6 xl:px-9`}
+                    className={buttonVariants({ variant: 'brand', size: 'xl', className: 'my-1' })}
                   >
                     Get Quotation
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/contacts"
-                    className={`my-1 cursor-pointer inline-block rounded py-4 px-6 text-base font-medium transition md:px-9 lg:px-6 xl:px-9`}
+                    className={buttonVariants({ variant: 'brandOutline', size: 'xl', className: 'my-1' })}
                   >
                     Book Consultation
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

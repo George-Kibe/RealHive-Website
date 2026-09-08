@@ -1,9 +1,9 @@
 "use client"
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ModeToggle } from './ModeToggle';
+import NavLink from './NavLink';
 
 const links = [
   { id: 1, title: "Home", url: "/"},
@@ -16,34 +16,48 @@ const links = [
   { id: 6, title: "Contact Us", url: "/contacts"},
 ]
 
-const NavbarTest = () => {
-  const router = useRouter();
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
-  const handleNavigation = (link) => {
-    setIsOpen(!isOpen);
-    router.push(link);
-  }
-  console.log(isOpen)
+  const closeNavbar = () => {
+    setIsOpen(false);
+  };
   return (
     <nav className="max-container padding-container bg-transparent">
       <div className="w-full mx-auto p-2">
-        <div className="flex w-full items-center justify-between h-16">
+        <div className="flex w-full items-center justify-between h-20 sm:h-24 md:h-28 lg:h-32">
           <div className="flex w-full items-center justify-between">
             <div className="">
-              <Link href="/"  className="font-bold text-[22px] flex gap-2 items-center">
-                <Image src="/RealHive-Cosultants-logo.png" alt="logo" width={60} height={25} className='hidden md:flex rounded-lg'/>
-                <span className="font-bold">RealHive Consultants</span>
+              <Link href="/" className="flex items-center" aria-label="RealHive Consultants Ltd — home">
+                {/* /logo.png is the padding-trimmed display asset (1600x545,
+                    2.94:1). The original had ~40% transparent vertical padding,
+                    so a given CSS height rendered only 60% as much visible
+                    logo; the untrimmed master is kept at
+                    /RealHive-Consultants-logo.png.
+                    Intrinsic width/height are the file's true pixels so the
+                    aspect ratio is locked; the h-* steps below set the rendered
+                    size, and width stays auto so it can never stretch. */}
+                <Image
+                  src="/logo.png"
+                  alt="RealHive Consultants Ltd"
+                  width={1600}
+                  height={545}
+                  sizes="(max-width: 639px) 145px, (max-width: 767px) 190px, (max-width: 1023px) 240px, 285px"
+                  className="h-12 w-auto sm:h-16 lg:h-20 object-contain"
+                  priority
+                />
               </Link>              
             </div>
             <div className="hidden md:block w-full">
-              <div className="justify-end flex space-x-4">
+              <div className="justify-end flex items-center space-x-6">
                 {/* <ModeToggle className="self-center justify-self-center" /> */}
-                {links.map((link, index) => (
-                  <Link key={link.id} href={link.url}  className="">{link.title}</Link>
+                {links.map((link) => (
+                  <NavLink key={link.id} href={link.url} className="font-medium">
+                    {link.title}
+                  </NavLink>
                 ))}                
               </div>
             </div>
@@ -79,8 +93,15 @@ const NavbarTest = () => {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 sm:px-3 flex font-bold text-xl flex-col gap-2">
             {links.map((link) => (
-              <button key={link.id} onClick={() => handleNavigation(link.url)} className="self-start">{link.title}</button>))
-            }
+              <NavLink
+                key={link.id}
+                href={link.url}
+                onClick={closeNavbar}
+                className="self-start"
+              >
+                {link.title}
+              </NavLink>
+            ))}
             <ModeToggle />
           </div>
         </div>
@@ -89,4 +110,4 @@ const NavbarTest = () => {
   )
 }
 
-export default NavbarTest;
+export default Navbar;

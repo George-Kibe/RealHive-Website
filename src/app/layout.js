@@ -2,10 +2,12 @@
 
 import './globals.css'
 import { Poppins } from 'next/font/google'
-import Navbar from '@/components/Navbar';
-import NavbarTest from '@/components/NavTest';
+import NavbarTest from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { SITE } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { organizationSchema, websiteSchema } from '@/lib/schema';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,30 +17,45 @@ const poppins = Poppins({
 })
 
 export const metadata = {
-  title: 'Realhive Consultants',
-  description: 'Mobile, Web, Software and Data Consultants',
+  metadataBase: new URL(SITE.url),
+  title: {
+    // Used by the homepage and as the fallback for any route that forgets.
+    default: SITE.defaultTitle,
+    // Every child route's `title` string gets the brand appended automatically,
+    // so no page ever hand-writes " | RealHive Consultants".
+    template: `%s | ${SITE.name}`,
+  },
+  description: SITE.defaultDescription,
+  applicationName: SITE.name,
+  // NOTE: no `alternates.canonical` here on purpose. Page metadata inherits
+  // from the layout, so a canonical set here would make every page that forgot
+  // to declare its own silently self-identify as a duplicate of the homepage.
+  // Canonicals are declared per-route via buildMetadata() in lib/seo.js.
   icons: {
-    icon: [
-      {
-        media: "(prefers-color-scheme: light)",
-        url: "/data.jpeg",
-        type: "image/png",
-        href: "/data.jpeg",      
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: "/data.jpeg",
-        type: "image/png",
-        href: "/data.jpeg",      
-      },
-    ]
-  } 
+    // Square crops of the sphere mark from the brand logo. The full logo is a
+    // 2.09:1 wordmark, which a browser would squash into an illegible tab icon,
+    // so the mark alone is used here.
+    icon: [{ url: '/icon.png', type: 'image/png', sizes: '512x512' }],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
+  },
 }
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#020817' },
+  ],
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} font-sans p-2 screen-max-width min-h-screen`}>
+        {/* Sitewide entity graph, server-rendered into the initial HTML. */}
+        <JsonLd schema={organizationSchema()} />
+        <JsonLd schema={websiteSchema()} />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
