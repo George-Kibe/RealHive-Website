@@ -88,12 +88,14 @@
 }
 
 :root {
-  --background: 0 0% 100%;
+  /* Light mode sits on a soft grey page (the shade the portfolio cards used
+     to use) with white surfaces on top, rather than white-on-white. */
+  --background: 210 40% 96%;
   --foreground: 222.2 84% 4.9%;
 
-  /* was 0 0% 100%, identical to --background, so bg-card painted no surface
-     at all. A slight tint gives cards a real edge in light mode. */
-  --card: 210 40% 96%;
+  /* White on the grey page. Must stay distinct from --background or bg-card
+     paints nothing (that bug is why these two were swapped). */
+  --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
 
   --popover: 0 0% 100%;
@@ -105,7 +107,8 @@
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
 
-  --muted: 210 40% 96.1%;
+  /* Inputs and chips: white so they lift off the grey page. */
+  --muted: 0 0% 100%;
   /* 46.9% gave only 4.34:1 on the tinted --card; 44% clears AA on both the
      card (4.81:1) and the page (5.27:1) */
   --muted-foreground: 215.4 16.3% 44%;
@@ -123,8 +126,10 @@
 
   --radius: 0.5rem;
 
-  /* hue 196.2deg of the logo blue, darkened to pass AA on white (4.58:1) */
-  --brand: #007EAD;
+  /* Logo hue (196.2deg) darkened to clear AA on BOTH the grey page (4.60:1)
+     and white cards (5.04:1). The previous #007EAD only made 4.18:1 once the
+     page background became grey. */
+  --brand: #0077A3;
   /* white on #007EAD = 4.58:1 (AA) */
   --brand-foreground: #FFFFFF;
 

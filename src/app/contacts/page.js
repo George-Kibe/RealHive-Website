@@ -74,14 +74,14 @@ const ContactPage = () => {
         </div>
 
         <div className="w-full lg:w-1/2 xl:w-5/12">
-          <div className="relative rounded-lg px-8 shadow-lg bg-card sm:px-12">
-            <div>
-              <div className="">
+          <div className="relative rounded-lg px-8 shadow-lg sm:px-12">
+            <div className="py-6 sm:py-8 lg:py-12 bg-transparent">
+              <div className="bg-transparent">
                 <p className="">Name:</p>
                 <input type="text" placeholder='Name' 
                   value={name}
                   onChange={ev => setName(ev.target.value)}
-                  className="border-2 bg-transparent border-gray-300 rounded-md p-1 w-full 
+                  className="border-2 border-gray-300 rounded-md p-1 w-full 
                   mb-2 focus:border-blue-900" 
                 /> 
               </div>
