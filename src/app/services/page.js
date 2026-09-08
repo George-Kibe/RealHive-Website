@@ -34,10 +34,10 @@ const ServicesPage = () => {
               <span className="block mb-2 text-lg font-semibold text-primary">
                 Our Services
               </span>
-              <h2 className="mb-4 text-3xl font-bold text-dark sm:text-4xl md:text-[40px]">
+              <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl md:text-[40px]">
                 <AnimatedText text={"What We Offer"} />
               </h2>
-              <p className="text-base text-body-color">
+              <p className="text-base text-muted-foreground">
                 There are many variations of passages of Lorem Ipsum available
                 but the majority have suffered alteration in some form
               </p>
@@ -96,8 +96,8 @@ const ServiceCard = ({ image, title, details }) => {
           >
             <FramerImage image={image} title={image} />
           </div>
-          <h4 className="mb-3 text-xl font-semibold text-dark">{title}</h4>
-          <p className="text-body-color">{details}</p>
+          <h4 className="mb-3 text-xl font-semibold text-foreground">{title}</h4>
+          <p className="text-muted-foreground">{details}</p>
         </div>
       </div>
     </>

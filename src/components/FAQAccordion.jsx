@@ -92,11 +92,11 @@ const FAQAccordion = () => {
             <span className="mb-2 block text-lg font-semibold text-primary">
               FAQS
             </span>
-            <h2 className="mb-4 text-3xl font-bold text-dark sm:text-4xl md:text-[40px]">
+            <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl md:text-[40px]">
               <AnimatedText text={"Any Questions?"} />
               
             </h2>
-            <p className="text-base text-body-color">
+            <p className="text-base text-muted-foreground">
               Look Here for some of the frequently answered questions about our services.
             </p>
           </div>

@@ -24,7 +24,7 @@ const style={width:40, height:40}
 const FeaturedProject = ({type, title, summary, image, link, github}) => {
   return(
     <article className="w-full flex flex-col md:flex-row md:items-center justify-between relative rounded-br-2xl
-        rounded-3xl border border-solid border-dark dark:border-light bg-light dark:bg-black shadow-2xl p-4 md:p-10">
+        rounded-3xl border border-solid border-border bg-card shadow-2xl p-4 md:p-10">
       <Link href={link} target='_blank' className='w-full cursor-pointer overflow-hidden rounded-lg'>
         <FramerImage title={title} image={image}
         />
@@ -36,7 +36,7 @@ const FeaturedProject = ({type, title, summary, image, link, github}) => {
         </Link>
         <p className="my-2 font-medium">{summary}</p>
         <div className="mt-2 flex items-center">
-          <div className="border-1 dark:bg-white border-transparent dark:border-light rounded-full p-1">
+          <div className="border border-border bg-white rounded-full p-1">
             <SocialIcon url={github} style={style} target={"_blank"} />
           </div>          
           <Link
@@ -53,7 +53,7 @@ const FeaturedProject = ({type, title, summary, image, link, github}) => {
 const Project = ({type, title, summary, image, link, github}) => {
   return(
     <article className="w-full flex flex-col gap-4 items-center justify-center
-     rounded-3xl border border-solid border-dark dark:border-light bg-light dark:bg-dark shadow-2xl p-4 md:p-10">
+     rounded-3xl border border-solid border-border bg-card shadow-2xl p-4 md:p-10">
       <Link href={link} target='_blank' className='w-full cursor-pointer overflow-hidden rounded-lg'>
         <FramerImage title={title} image={image}
         />
@@ -65,7 +65,7 @@ const Project = ({type, title, summary, image, link, github}) => {
         </Link>
         <p className="my-2 font-medium">{summary}</p>
         <div className="mt-2 flex items-center">
-          <div className="border-1 dark:bg-white border-transparent dark:border-light rounded-full p-1">
+          <div className="border border-border bg-white rounded-full p-1">
             <SocialIcon url={github} style={style} target={"_blank"} />
           </div>          
           <Link

@@ -32,7 +32,7 @@ const singleWord = {
 const AnimatedText = ({text, className=""}) => {
   return (
     <div className='flex-wrap mx-auto py-2 flex items-center justify-center text-justify overflow-hidden m-4'>
-      <motion.h1 className={`${className} inline-block text-dark dark:text-light font-bold capitalize text-[40px] lg:text-[60px] self-center`}
+      <motion.h1 className={`${className} inline-block text-foreground font-bold capitalize text-[40px] lg:text-[60px] self-center`}
         variants={quote}
         initial="initial"
         animate="animate"

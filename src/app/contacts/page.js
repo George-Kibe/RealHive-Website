@@ -52,19 +52,19 @@ const ContactPage = () => {
       <div className="-mx-4 flex flex-wrap lg:justify-between">
         <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
           <div className="flex flex-col flex-1 md:items-center gap-4 mb-4 sm:mx-4 md:mx-0 xl:mx-24">
-            <div className="flex flex-col items-center justify-center border-2 light:border-dark dark:border-light p-2 w-full rounded-xl">
+            <div className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
               <MdOutlineEmail className="text-[25px] md:text-[40px]"/>
               <h4 className="text-center">Email</h4>
               <h5 className="text-center">realhiveconsultants@gmail.com</h5>
               <a href="mailto:realhiveconsultants@gmail.com" target="_blank" rel="noreferrer" className="items-center">Send an Email</a>
             </div>
-            <article className="flex flex-col items-center justify-center border-2 light:border-dark dark:border-light p-2 w-full rounded-xl">
+            <article className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
               <ImTwitter className="text-[25px] md:text-[40px]"/>
               <h4>Twitter</h4>
               <h5>@KibeGeorge_</h5>
               <a href="https://twitter.com/kibegeorge_" target="_blank" rel="noreferrer">Message our CEO on Twitter</a>
             </article>
-            <article className="flex flex-col items-center justify-center border-2 light:border-dark dark:border-light p-2 w-full rounded-xl">
+            <article className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
               <BsWhatsapp className="text-[25px] md:text-[40px]"/>
               <h4>Whatsapp</h4>
               <h5>+254 795 288 155</h5>
@@ -74,7 +74,7 @@ const ContactPage = () => {
         </div>
 
         <div className="w-full lg:w-1/2 xl:w-5/12">
-          <div className="relative rounded-lg px-8 shadow-lg dark:bg-dark-2 sm:px-12">
+          <div className="relative rounded-lg px-8 shadow-lg bg-card sm:px-12">
             <div>
               <div className="">
                 <p className="">Name:</p>

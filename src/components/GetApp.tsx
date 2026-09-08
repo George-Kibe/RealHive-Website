@@ -48,7 +48,7 @@ const CallToAction = () => {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 shadow-xs ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-brand sm:text-sm sm:leading-6"
+                    className="min-w-0 flex-auto rounded-md border-0 bg-muted text-foreground placeholder:text-muted-foreground px-3.5 py-2 shadow-xs ring-1 ring-inset ring-border focus:ring-2 focus:ring-inset focus:ring-brand sm:text-sm sm:leading-6"
                 />
                 <button
                     type="submit"
@@ -62,7 +62,7 @@ const CallToAction = () => {
             </div>
             <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
                 <div className="flex flex-col items-start">
-                <div className="rounded-md p-2 ring-1 ring-white/10">
+                <div className="rounded-md p-2 ring-1 ring-border">
                     <CalendarDaysIcon aria-hidden="true" className="h-6 w-6" />
                 </div>
                 <dt className="mt-4 font-semibold ">Weekly articles</dt>
@@ -71,7 +71,7 @@ const CallToAction = () => {
                 </dd>
                 </div>
                 <div className="flex flex-col items-start">
-                <div className="rounded-md p-2 ring-1 ring-white/10">
+                <div className="rounded-md p-2 ring-1 ring-border">
                     <HandRaisedIcon aria-hidden="true" className="h-6 w-6" />
                 </div>
                 <dt className="mt-4 font-semibold ">No spam</dt>

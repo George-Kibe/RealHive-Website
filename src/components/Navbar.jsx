@@ -53,12 +53,12 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block w-full">
               <div className="justify-end flex items-center space-x-6">
-                {/* <ModeToggle className="self-center justify-self-center" /> */}
                 {links.map((link) => (
                   <NavLink key={link.id} href={link.url} className="font-medium">
                     {link.title}
                   </NavLink>
-                ))}                
+                ))}
+                <ModeToggle />
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@ const Navbar = () => {
             <button
               onClick={toggleNavbar}
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-hidden focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-brand hover:bg-muted focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand transition duration-150 ease-in-out"
             >
               <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 {isOpen ? (

@@ -6,16 +6,16 @@ const Hero = () => {
     <div className=''>
       <div className="">
         <div className="max-w-5xl mx-auto px-4 xl:px-0 pt-24 lg:pt-32 pb-24">
-          <h2 className="font-semibold text-white text-5xl md:text-5xl">
-            <span className="text-[#ff0]">Realhive Consultants:</span> Transforming ideas into reality through code
+          <h2 className="font-semibold text-foreground text-5xl md:text-5xl">
+            <span className="text-brand">Realhive Consultants:</span> Transforming ideas into reality through code
           </h2>
           <div className="max-w-4xl">
-            <p className="mt-5 text-neutral-400 text-justify text-lg">
+            <p className="mt-5 text-muted-foreground text-justify text-lg">
             Excellent Design and Performance for your Digital Products. At Realhive Consultants, we specialize in turning conceptual visions into concrete forms, whether it be through design, artistry, or technological innovation.
             </p>
           </div>
           <div className="max-w-4xl">
-            <p className="mt-5 text-neutral-400 text-justify text-lg">
+            <p className="mt-5 text-muted-foreground text-justify text-lg">
             Turning your idea into a reality. We bring together teams from the tech industry.
             </p>
           </div>
