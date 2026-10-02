@@ -17,7 +17,7 @@ export default async function AdminTestimonialsPage() {
     role: t.role ?? "",
     company: t.company ?? "",
     quote: t.quote,
-    avatarUrl: t.avatarUrl ?? "",
+    avatarPublicId: t.avatarPublicId ?? "",
     published: t.published,
     order: t.order ?? 0,
   }));

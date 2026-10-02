@@ -1,3 +1,4 @@
+import TestimonialAvatar from "@/components/TestimonialAvatar";
 import { getPublishedTestimonials } from "@/lib/testimonials";
 
 const initials = (name) =>
@@ -23,9 +24,8 @@ export default async function Testimonials() {
                   <p>&ldquo;{testimonial.quote}&rdquo;</p>
                 </blockquote>
                 <figcaption className="mt-8 flex items-center gap-x-4">
-                  {testimonial.avatarUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element -- admin-supplied URLs from any host
-                    <img alt="" src={testimonial.avatarUrl} className="h-10 w-10 rounded-full object-cover" />
+                  {testimonial.avatarPublicId ? (
+                    <TestimonialAvatar publicId={testimonial.avatarPublicId} size={40} className="h-10 w-10" />
                   ) : (
                     <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-sm font-semibold text-muted-foreground ring-1 ring-border">
                       {initials(testimonial.name)}

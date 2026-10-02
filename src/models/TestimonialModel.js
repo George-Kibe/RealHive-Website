@@ -23,8 +23,8 @@ const TestimonialSchema = new mongoose.Schema({
     trim: true,
     maxlength: 1000,
   },
-  avatarUrl: {
-    type: String,
+  avatarPublicId: {
+    type: String, // Cloudinary public ID of the person's photo (uploaded from the admin panel)
     trim: true,
   },
   published: {

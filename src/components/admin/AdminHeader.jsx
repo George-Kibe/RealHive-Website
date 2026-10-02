@@ -5,6 +5,8 @@ const links = [
   { href: "/admin", label: "Subscribers" },
   { href: "/admin/testimonials", label: "Testimonials" },
   { href: "/admin/blog", label: "Blog" },
+  { href: "/admin/quotes", label: "Quotes" },
+  { href: "/admin/calendar", label: "Calendar" },
 ];
 
 const AdminHeader = ({ title, email, current }) => (

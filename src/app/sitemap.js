@@ -38,6 +38,8 @@ const HINTS = {
   "/portfolio": { changeFrequency: "monthly", priority: 0.8 },
   "/aboutus": { changeFrequency: "monthly", priority: 0.7 },
   "/contacts": { changeFrequency: "yearly", priority: 0.6 },
+  "/quote": { changeFrequency: "monthly", priority: 0.8 },
+  "/book": { changeFrequency: "monthly", priority: 0.7 },
   "/blog": { changeFrequency: "weekly", priority: 0.8 },
   "/careers": { changeFrequency: "weekly", priority: 0.5 },
   "/privacy-policy": { changeFrequency: "yearly", priority: 0.2 },

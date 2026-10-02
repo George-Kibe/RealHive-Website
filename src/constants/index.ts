@@ -68,6 +68,8 @@ export const FOOTER_LINKS = [
       {"href": "/aboutus", "name":"About RealHive Consultants"},
       {"href": "/blog", "name":"Blog"},
       {"href": "/careers", "name":"Careers"},
+      {"href": "/quote", "name":"Get a Quote"},
+      {"href": "/book", "name":"Book a Consultation"},
       {"href": "/privacy-policy", "name":"Privacy Policy"},
       {"href": "/contacts", "name":"Contact Us"},
     ],
@@ -92,12 +94,13 @@ export const FOOTER_CONTACT_INFO = {
   ],
 };
 
+// `href: null` = no profile yet; the icon is shown without a link.
 export const SOCIALS = {
   title: 'Social',
   links: [
-    '/facebook.png',
-    '/instagram.png',
-    '/twitter.png',
-    '/youtube.png',
+    { name: 'Facebook', icon: '/facebook.png', href: null },
+    { name: 'Instagram', icon: '/instagram.png', href: 'https://www.instagram.com/realhiveconsultants/' },
+    { name: 'X', icon: '/x.svg', href: 'https://x.com/kibegeorge_' },
+    { name: 'YouTube', icon: '/youtube.png', href: null },
   ],
 };

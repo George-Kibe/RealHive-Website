@@ -22,13 +22,13 @@ const CallToAction = () => {
               <div className="w-full px-4 lg:w-1/3">
                 <div className="flex flex-wrap space-x-4 lg:justify-end">
                   <Link
-                    href="/contacts"
+                    href="/quote"
                     className={buttonVariants({ variant: 'brand', size: 'xl', className: 'my-1' })}
                   >
                     Get Quotation
                   </Link>
                   <Link
-                    href="/contacts"
+                    href="/book"
                     className={buttonVariants({ variant: 'brandOutline', size: 'xl', className: 'my-1' })}
                   >
                     Book Consultation

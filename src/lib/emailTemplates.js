@@ -266,8 +266,8 @@ export const WELCOME_EMAIL_TEMPLATE = `
                 Realhive Consultants, Off Kamiti Road, Nairobi <br>
                 Follow us on:
                 <a href="https://facebook.com" target="_blank">Facebook</a> |
-                <a href="https://twitter.com" target="_blank">Twitter</a> |
-                <a href="https://instagram.com" target="_blank">Instagram</a>
+                <a href="https://x.com/kibegeorge_" target="_blank">X</a> |
+                <a href="https://www.instagram.com/realhiveconsultants/" target="_blank">Instagram</a>
             </p>
 
             <!-- Unsubscribe link -->
@@ -278,5 +278,31 @@ export const WELCOME_EMAIL_TEMPLATE = `
     </div>
 </body>
 
+</html>
+`;
+// Quotation email to the visitor. {placeholders} are HTML-escaped by sendQuoteEmail.
+export const QUOTE_EMAIL_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your project estimate</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #0f172a; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f1f5f9;">
+    <div style="background-color: #ffffff; padding: 28px; border-radius: 8px;">
+        <h1 style="margin: 0 0 4px; font-size: 22px; color: #0077A3;">Your project estimate</h1>
+        <p style="margin: 0 0 20px; color: #64748b; font-size: 13px;">Reference {reference}</p>
+        <p>Hi {name},</p>
+        <p>Thanks for using our quotation tool. Your estimate is attached as a PDF. In short:</p>
+        <table role="presentation" style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+            {rows}
+        </table>
+        <p style="font-size: 13px; color: #64748b;">These are indicative "starting from" prices in {currency}, not a fixed quote. The final price depends on your detailed requirements and is agreed after a free discovery call.</p>
+        <p>Reply to this email to book that call, or reach us on {phone}.</p>
+        <p style="margin-bottom: 0;">Best regards,<br>RealHive Consultants</p>
+    </div>
+    <p style="text-align: center; color: #94a3b8; font-size: 12px;">RealHive Consultants · <a href="{siteUrl}" style="color: #0077A3;">{siteHost}</a></p>
+</body>
 </html>
 `;

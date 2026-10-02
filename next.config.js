@@ -70,6 +70,12 @@ const nextConfig = {
   // Strip the framework fingerprint.
   poweredByHeader: false,
 
+  // The quote PDF routes read the logo from disk at runtime (src/lib/quote/pdf.js);
+  // make sure it's bundled with those serverless functions.
+  outputFileTracingIncludes: {
+    "/api/quote/*": ["./public/images/pdf-logo.png"],
+  },
+
   images: {
     // Serve modern formats; AVIF first, WebP fallback.
     formats: ["image/avif", "image/webp"],

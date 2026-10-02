@@ -6,8 +6,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { buttonVariants } from "@/components/ui/button";
+import CloudinaryUploadButton from "@/components/admin/CloudinaryUploadButton";
+import TestimonialAvatar from "@/components/TestimonialAvatar";
 
-const EMPTY_FORM = { name: "", role: "", company: "", quote: "", avatarUrl: "", published: false, order: 0 };
+const EMPTY_FORM = { name: "", role: "", company: "", quote: "", avatarPublicId: "", published: false, order: 0 };
 
 const inputClass =
   "mt-1 w-full rounded-md border-0 bg-muted text-foreground placeholder:text-muted-foreground px-3.5 py-2 shadow-xs ring-1 ring-inset ring-border focus:ring-2 focus:ring-inset focus:ring-brand sm:text-sm sm:leading-6";
@@ -65,7 +67,7 @@ const TestimonialsManager = ({ testimonials }) => {
       role: testimonial.role,
       company: testimonial.company,
       quote: testimonial.quote,
-      avatarUrl: testimonial.avatarUrl,
+      avatarPublicId: testimonial.avatarPublicId,
       published: testimonial.published,
       order: testimonial.order,
     });
@@ -120,8 +122,28 @@ const TestimonialsManager = ({ testimonials }) => {
             <input id="t-company" maxLength={100} value={form.company} onChange={update("company")} className={inputClass} />
           </div>
           <div>
-            <label htmlFor="t-avatar" className="block text-sm font-medium">Photo URL</label>
-            <input id="t-avatar" type="url" placeholder="https://..." value={form.avatarUrl} onChange={update("avatarUrl")} className={inputClass} />
+            <span className="block text-sm font-medium">Photo</span>
+            <div className="mt-1 flex items-center gap-3">
+              {form.avatarPublicId ? (
+                <TestimonialAvatar publicId={form.avatarPublicId} size={48} className="h-12 w-12 ring-1 ring-border" />
+              ) : (
+                <span aria-hidden="true" className="h-12 w-12 rounded-full bg-muted ring-1 ring-border" />
+              )}
+              <CloudinaryUploadButton
+                folder="realhive/testimonials"
+                label={form.avatarPublicId ? "Replace photo" : "Upload photo"}
+                onUploaded={(publicId) => setForm((prev) => ({ ...prev, avatarPublicId: publicId }))}
+                className={buttonVariants({ variant: "outline", size: "sm" })}
+              >
+                {form.avatarPublicId ? "Replace photo" : "Upload photo"}
+              </CloudinaryUploadButton>
+              {form.avatarPublicId && (
+                <button type="button" onClick={() => setForm((prev) => ({ ...prev, avatarPublicId: "" }))}
+                  className={buttonVariants({ variant: "ghost", size: "sm" })}>
+                  Remove
+                </button>
+              )}
+            </div>
           </div>
           <div className="sm:col-span-2">
             <label htmlFor="t-quote" className="block text-sm font-medium">Quote *</label>

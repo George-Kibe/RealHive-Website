@@ -64,13 +64,20 @@ const Footer = () => {
               <FooterColumn title={SOCIALS.title}>
                 <ul className="regular-14 flex gap-4 text-gray-30">
                   {SOCIALS.links.map((link) => (
-                    <li key={link}>
-                      <Link
-                        href="/"
-                        className="inline-block opacity-75 transition-opacity duration-200 hover:opacity-100"
-                      >
-                        <Image src={link} alt="" width={24} height={24} />
-                      </Link>
+                    <li key={link.name}>
+                      {link.href ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`RealHive Consultants on ${link.name}`}
+                          className="inline-block opacity-75 transition-opacity duration-200 hover:opacity-100"
+                        >
+                          <Image src={link.icon} alt="" width={24} height={24} />
+                        </a>
+                      ) : (
+                        <Image src={link.icon} alt={link.name} width={24} height={24} className="opacity-40" />
+                      )}
                     </li>
                   ))}
                 </ul>

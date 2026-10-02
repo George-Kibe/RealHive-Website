@@ -30,20 +30,18 @@ export const WEBSITE_ID = `${SITE.url}/#website`;
  * while the contacts page uses "realhiveconsultants@gmail.com". The second
  * looks correct and is used here — confirm and fix the footer typo.
  */
-const CONTACT = {
+export const CONTACT = {
   telephone: "+254795288155",
   email: "realhiveconsultants@gmail.com",
 };
 
 /**
- * TODO(george): official company profile URLs for `sameAs` — LinkedIn company
- * page, X/Twitter, Facebook, Instagram, GitHub org. The repo only contains a
- * personal GitHub and the CEO's personal Twitter; a personal profile is not the
- * organisation's identity, so nothing is emitted until you supply real ones.
- * `sameAs` is the primary signal Google uses to reconcile your brand entity, so
- * this is the single highest-value item on the TODO list.
+ * Official company profiles for `sameAs`, the main signal Google uses to tie
+ * the brand's accounts to this site. Personal profiles (e.g. the CEO's X) don't
+ * belong here. TODO(george): add the company LinkedIn, Facebook, YouTube and
+ * GitHub pages once they exist.
  */
-const SAME_AS = [];
+const SAME_AS = ["https://www.instagram.com/realhiveconsultants/"];
 
 /**
  * TODO(george): `areaServed` is set to Kenya because that is what the repo

@@ -2,7 +2,7 @@
 
 import {MdOutlineEmail} from "react-icons/md"
 import {BsWhatsapp} from "react-icons/bs"
-import {ImTwitter} from "react-icons/im"
+import { FaXTwitter } from "react-icons/fa6"
 import { FiLoader } from "react-icons/fi";
 import React, { useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -59,10 +59,10 @@ const ContactPage = () => {
               <a href="mailto:realhiveconsultants@gmail.com" target="_blank" rel="noreferrer" className="items-center">Send an Email</a>
             </div>
             <article className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
-              <ImTwitter className="text-[25px] md:text-[40px]"/>
-              <h4>Twitter</h4>
+              <FaXTwitter className="text-[25px] md:text-[40px]"/>
+              <h4>X</h4>
               <h5>@KibeGeorge_</h5>
-              <a href="https://twitter.com/kibegeorge_" target="_blank" rel="noreferrer">Message our CEO on Twitter</a>
+              <a href="https://x.com/kibegeorge_" target="_blank" rel="noreferrer">Message our CEO on X</a>
             </article>
             <article className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
               <BsWhatsapp className="text-[25px] md:text-[40px]"/>
