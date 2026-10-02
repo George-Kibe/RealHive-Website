@@ -1,10 +1,12 @@
 import AnimatedText from '@/components/AnimatedText';
 import { FramerImage } from '@/utils/FramerImage';
-import WebImage from "../../../public/web.jpg"
-import ApplicationImage from "../../../public/application.jpg"
-import DataImage from "../../../public/data.jpeg"
-import BigDataImage from "../../../public/big-data.png"
-import CloudImage from "../../../public/cloud.png"
+import WebImage from "../../../public/images/service-web.webp"
+import ApplicationImage from "../../../public/images/service-mobile.webp"
+import DataLightImage from "../../../public/images/service-data-light.webp"
+import DataDarkImage from "../../../public/images/service-data-dark.webp"
+import BigDataLightImage from "../../../public/images/service-bigdata-light.webp"
+import BigDataDarkImage from "../../../public/images/service-bigdata-dark.webp"
+import CloudImage from "../../../public/images/service-cloud.webp"
 
 import React from 'react'
 import FAQAccordion from '@/components/FAQAccordion';
@@ -13,6 +15,10 @@ import Testimonials from '@/components/Testimonials';
 import { buildMetadata } from '@/lib/seo'
 import JsonLd from '@/components/JsonLd'
 import { servicesSchema } from '@/lib/schema'
+
+// Testimonials come from the database. Admin edits revalidate this page
+// immediately; the hourly fallback covers a missed revalidation.
+export const revalidate = 3600
 
 export const metadata = buildMetadata({
   title: 'Software Development Services',
@@ -58,12 +64,12 @@ const ServicesPage = () => {
           <ServiceCard
             title="Data Science Solutions"
             details="We provide data science services, including data analysis, machine learning, predictive analytics, and data visualization. Our expertise helps clients harness the power of their data to make informed business decisions."
-            image={ DataImage}
+            image={{ light: DataLightImage, dark: DataDarkImage }}
           />
           <ServiceCard
             title="Data Engineering Consultancy"
             details="Our data engineering experts assist clients in setting up data pipelines, data warehousing, and ETL (Extract, Transform, Load) processes. We ensure data is well-structured, accessible, and ready for analysis."
-            image={ BigDataImage}
+            image={{ light: BigDataLightImage, dark: BigDataDarkImage }}
           />
           <ServiceCard
             title="Cloud Computing Consultancy"
@@ -91,10 +97,10 @@ const ServiceCard = ({ image, title, details }) => {
     <>
       <div className="w-full px-4 md:w-1/2 lg:w-1/3">
         <div className="mb-8 rounded-[20px] p-10 shadow-md hover:shadow-lg md:px-7 xl:px-10">
-          <div
-            className={`mb-8 flex h-[200px] w-[200px] p-3 items-center justify-center rounded-2xl bg-primary`}
-          >
-            <FramerImage image={image} title={image} />
+          {/* Transparent artwork straight on the card: no tile behind it */}
+          <div className="mb-8 flex h-[200px] w-[200px] items-center justify-center">
+            {/* fixed width => only 1x/2x versions; decorative art, so quality 60 */}
+            <FramerImage image={image} title={title} width={200} quality={60} className="h-full w-full object-contain" />
           </div>
           <h4 className="mb-3 text-xl font-semibold text-foreground">{title}</h4>
           <p className="text-muted-foreground">{details}</p>

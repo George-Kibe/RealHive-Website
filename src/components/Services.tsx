@@ -1,5 +1,6 @@
 import { SERVICES } from '@/constants'
-import Image from 'next/image'
+import Image, { type StaticImageData } from 'next/image'
+import phone from '../../public/images/phone.webp'
 import React from 'react'
 
 const Services = () => {
@@ -8,11 +9,10 @@ const Services = () => {
       <div className="flex-col md:flex-row  max-container padding-container relative w-full flex justify-end rounded-lg ">
         <div className="flex flex-1">
           <Image
-            src="/phone.png"
-            alt="phone"
-            width={400}
-            height={200}
-            className="object-contain rotate-6"
+            src={phone}
+            alt="A mobile app shown on a phone"
+            sizes="(min-width: 768px) 400px, 70vw"
+            className="h-auto w-full max-w-[400px] object-contain rotate-6"
           />
         </div>
 
@@ -36,17 +36,39 @@ const Services = () => {
   )
 }
 
+type ServiceIcon = StaticImageData | { light: StaticImageData; dark: StaticImageData };
+
 type ServiceItemProps = {
   title: string;
-  icon: string;
+  icon: ServiceIcon;
   description: string;
+}
+
+// Transparent artwork straight on the page (no badge behind it). Themed icons
+// render both versions and CSS shows one; the hidden lazy image isn't fetched.
+// A fixed `width` (height follows the image's ratio) makes next/image offer
+// only 1x/2x versions, so high-DPR phones don't fetch 3x copies of a 64px icon.
+const ICON_HEIGHT = 64
+const iconWidth = (img: StaticImageData) => Math.round((img.width / img.height) * ICON_HEIGHT)
+
+const ServiceIconImage = ({ icon, title }: { icon: ServiceIcon; title: string }) => {
+  const imageClass = "h-16 w-auto object-contain"
+  if ("light" in icon) {
+    return (
+      <>
+        <Image src={icon.light} alt={title} width={iconWidth(icon.light)} quality={60} className={`${imageClass} dark:hidden`} />
+        <Image src={icon.dark} alt={title} width={iconWidth(icon.dark)} quality={60} className={`${imageClass} hidden dark:block`} />
+      </>
+    )
+  }
+  return <Image src={icon} alt={title} width={iconWidth(icon)} quality={60} className={imageClass} />
 }
 
 const ServiceItem = ({ title, icon, description }: ServiceItemProps) => {
   return (
     <li className="flex w-full flex-1 flex-col items-start">
-      <div className="rounded-full p-1 lg:p-4 bg-green-50">
-        <Image src={icon} alt="map" width={50} height={50} className='object-contain' />
+      <div className="flex h-16 items-center">
+        <ServiceIconImage icon={icon} title={title} />
       </div>
       <h2 className=" lg:bold-32 mt-5 capitalize">
         {title}

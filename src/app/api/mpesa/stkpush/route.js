@@ -83,10 +83,6 @@ async function handler(req,res){
             return new NextResponse(error.message, {status: 422})
         }      
     }
-    if (method === "GET"){
-      
-      return new NextResponse({phone, amount}, {status: 200})
-    }
     if (method === "PUT"){
         const body = await req.json()
         const {phone, amount} = body;
@@ -97,4 +93,4 @@ async function handler(req,res){
     
 }
 
-export { handler as GET, handler as POST , handler as PUT};
+export { handler as POST , handler as PUT};

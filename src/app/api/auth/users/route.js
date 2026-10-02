@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/connectDB";
 import { sendVerificationEmail } from "@/lib/emails";
 import { generateVerificationCode } from "@/lib/generateTokens";
-import User from "@/models/UserModel";
+import User, { ROLES } from "@/models/UserModel";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
@@ -74,7 +74,7 @@ export const GET = async (request) => {
             return NextResponse.json(
                 { message: 'User found', success: true, 
                     user: {
-                    ...savedUser._doc,
+                    ...user._doc,
                     password: undefined,
                 }},
                 {status: 200}
@@ -98,9 +98,14 @@ export const PUT = async (request) => {
     // If authentication is successful, userId is available
     const userId = userIdResponse;
     const body = await request.json();
+    // only profile fields; role, verification and passwords can't be changed here
+    const updates = {};
+    for (const key of ["username", "bio", "profilePicture"]) {
+        if (body[key] !== undefined) updates[key] = body[key];
+    }
     await connectDB();
     try {
-      const newUserDoc = await User.findOneAndUpdate({_id: userId}, {...body});
+      const newUserDoc = await User.findOneAndUpdate({_id: userId}, updates);
       const updatedUserDoc = await User.findOne({
         _id: newUserDoc._id,
       }).select("-password");
@@ -132,7 +137,7 @@ export const DELETE = async (request) => {
     if (!user) {
         return new NextResponse("User not found", {status: 404})
     }
-    if (user.role === "admin" || user._id === id) {
+    if (user.role === ROLES.ADMIN || user._id.toString() === id) {
         try {
             // perform delete action
             const user = await User.findOneAndDelete({_id: id});
@@ -143,5 +148,6 @@ export const DELETE = async (request) => {
         } catch (error) {
             return new NextResponse(error.message, {status: 500, })
         }
-    } 
+    }
+    return new NextResponse("You can only delete your own account", {status: 403})
 }

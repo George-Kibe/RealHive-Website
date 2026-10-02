@@ -1,9 +1,11 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { buttonVariants } from '@/components/ui/button'
 import React, { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios'
 
 
 const CallToAction = () => {
@@ -12,28 +14,36 @@ const CallToAction = () => {
   
   const handleSubscription = async() => {
     if (!email){
-      alert("Please enter your email")
+      toast.error("Please enter your email")
       return
     }
-    console.log("Email: ", email)
     setLoading(true);
-    setEmail("")
     try {
-      // Add to a list of subscribers
-      setLoading(false)
+      await axios.post("/api/subscribe", { email })
+      toast.success("Thanks for subscribing!")
+      setEmail("")
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 409) {
+        toast.info("You are already subscribed.")
+      } else if (axios.isAxiosError(error) && error.response?.status === 422) {
+        toast.error("Please enter a valid email")
+      } else {
+        toast.error("Subscription failed. Please try again.")
+      }
+    } finally {
       setLoading(false)
     }
   }
   return (
     <div className="">
+      <ToastContainer />
       <div className="relative isolate overflow-hidden py-16 sm:py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
             <div className="max-w-xl lg:max-w-lg">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Subscribe to our newsletter.</h2>
                 <p className="mt-4 text-lg leading-8">
-                To get property research updates and property related news on a weekly basis.
+                To get tech, AI and programming news, offers and updates.
                 </p>
                 <div className="mt-6 flex max-w-md gap-x-4">
                 <label htmlFor="email-address" className="sr-only">
@@ -67,7 +77,7 @@ const CallToAction = () => {
                 </div>
                 <dt className="mt-4 font-semibold ">Weekly articles</dt>
                 <dd className="mt-2 leading-7">
-                    Property related trends.
+                    Tech, AI and programming trends.
                 </dd>
                 </div>
                 <div className="flex flex-col items-start">
@@ -76,7 +86,7 @@ const CallToAction = () => {
                 </div>
                 <dt className="mt-4 font-semibold ">No spam</dt>
                 <dd className="mt-2 leading-7">
-                    Weekly nad monthly updates.
+                    Weekly and monthly updates.
                 </dd>
                 </div>
             </dl>

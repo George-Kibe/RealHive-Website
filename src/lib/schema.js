@@ -4,10 +4,10 @@
  * Rules this file follows, deliberately:
  *  - Nothing is invented. Every literal here traces to something real in the
  *    repo (constants/index.ts, the contacts page) or is a TODO(george).
- *  - No Review / AggregateRating anywhere. The testimonials currently on
- *    /services are Tailwind UI placeholder text attributed to a fictional
- *    person; marking that up would be fabricated review data and a Google
- *    spam-policy violation.
+ *  - No Review / AggregateRating anywhere. The testimonials on /services are
+ *    entered by the business itself through the admin dashboard; Google
+ *    treats self-published reviews about your own organisation as ineligible
+ *    for review rich results, so marking them up is a spam-policy risk.
  *  - No LocalBusiness. That type requires a complete, verifiable address and
  *    the repo only has a partial street line (no city, region or postcode).
  *  - No WebSite SearchAction. There is no on-site search to point it at.
@@ -141,3 +141,29 @@ export function servicesSchema() {
  * reason 2 goes away — but reason 1 still makes this worthless. Do not re-add
  * it without a concrete reason.
  */
+
+/**
+ * BlogPosting for one published post. Every field comes from the post record
+ * itself; the publisher is the organisation node above. The author is the
+ * organisation too, because posts are published under the company name.
+ */
+export function blogPostingSchema(post, { imageUrl } = {}) {
+  const url = absoluteUrl(`/blog/${post.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    mainEntityOfPage: url,
+    url,
+    headline: post.title,
+    ...(post.excerpt ? { description: post.excerpt } : {}),
+    ...(imageUrl ? { image: [imageUrl] } : {}),
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    ...(post.tags.length ? { keywords: post.tags.join(", ") } : {}),
+    author: { "@id": ORG_ID },
+    publisher: { "@id": ORG_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+    inLanguage: "en",
+  };
+}

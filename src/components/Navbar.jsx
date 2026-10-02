@@ -8,11 +8,9 @@ import NavLink from './NavLink';
 const links = [
   { id: 1, title: "Home", url: "/"},
   { id: 2, title: "About Us", url: "/aboutus"},
-  // { id: 3, title: "Blog", url: "/blog"},
-  {id: 3, title:"Services", url: "/services"},
-  // { id: 4, title: "Dashboard", url: "/dashboard"},
+  { id: 3, title: "Services", url: "/services"},
   { id: 4, title: "Portfolio", url: "/portfolio"},
-  { id: 5, title: "Careers", url: "/careers"},
+  { id: 5, title: "Blog", url: "/blog"},
   { id: 6, title: "Contact Us", url: "/contacts"},
 ]
 

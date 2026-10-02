@@ -7,8 +7,8 @@ import React from 'react'
 import MernBnbImage from "../../../public/projects/mernbnb.png"
 import EcommerceImage from "../../../public/projects/ecommerce1.png"
 import CompanyImage from "../../../public/projects/company.png"
-import RealHiveImage from "../../../public/projects/realhive.png"
-import HauteCornerImage from "../../../public/projects/haute-corner.png"
+import RealHiveImage from "../../../public/projects/realhive.jpg"
+import HauteCornerImage from "../../../public/projects/haute-corner.jpg"
 import { FramerImage } from '@/utils/FramerImage';
 import { buildMetadata } from '@/lib/seo'
 

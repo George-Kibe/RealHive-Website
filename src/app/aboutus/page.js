@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 
-import WebAndMobileImage from "../../../public/web-and-mobile.png"
+import WebAndMobileImage from "../../../public/images/web-and-mobile.webp"
 import Team from '@/components/Team'
 import { buildMetadata } from '@/lib/seo'
 
@@ -25,11 +25,15 @@ const AboutUsPage = () => {
   return (
     <div className='padding-container max-container my-20'>
       <div className="relative w-[100%] h-[40vh] md:h-[60vh] lg:h[75vh] mb-20">
-        <Image 
+        {/* The page's largest above-the-fold image, so it's preloaded. Its
+            background is removed, so it sits directly on the page. */}
+        <Image
           src={WebAndMobileImage}
           fill
-          alt='pexels image'
-          className='rounded-xl object-contain '
+          preload
+          sizes="(min-width: 1280px) 1200px, 100vw"
+          alt="Web and mobile app development: responsive sites on desktop, tablet and phone"
+          className='object-contain'
         />
         <div className="absolute bottom-5 left-5 bg-brand text-brand-foreground p-2 rounded-md">
           <h1 className="font-bold text-[30px]">Web, Mobile, Data</h1>

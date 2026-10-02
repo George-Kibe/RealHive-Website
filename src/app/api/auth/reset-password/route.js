@@ -12,6 +12,7 @@ export const POST = async (request) => {
     await connectDB(); 
     try {
         const user = await User.findOne({
+            email,
             resetPasswordOTP: otp,
             resetPasswordOTPExpiresAt: {$gt: Date.now()}
         });
@@ -25,8 +26,12 @@ export const POST = async (request) => {
         user.resetPasswordOTP = undefined;
         user.resetPasswordOTPExpiresAt = undefined;
         await user.save();
-        // send password reset success email
-        await sendPasswordResetSuccessEmail(user.email, user.username)
+        // send password reset success email; the password is already changed, so a mail failure shouldn't fail the request
+        try {
+            await sendPasswordResetSuccessEmail(user.email, user.username)
+        } catch (error) {
+            console.error("Password reset success email failed: ", error.message);
+        }
         return NextResponse.json(
             { message: "Passoword reset successfully",
               success: true,

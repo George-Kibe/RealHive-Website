@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import heroOffice from '../../public/images/hero-office.webp'
 import React from 'react'
 
 const Hero = () => {
@@ -23,25 +24,22 @@ const Hero = () => {
       </div>
 
       <div className="md:grid md:grid-cols-2 md:gap-10 lg:gap-16 md:items-center">
-        <div>
-          <blockquote>
-            <p className="text-justify p-4">
-            At Realhive consultants, we understand that the digital landscape is constantly evolving, and to stay ahead of the competition, your business needs to have a strong online presence. Our team of experts specializes in web development, mobile app development, and data solutions, making us your ideal partner in this digital age. We take pride in bringing your business into the digital realm, crafting innovative and user-friendly websites, creating cutting-edge mobile applications, and harnessing the power of data to drive your success. With our services, you can reach a global audience, engage customers effectively, and achieve your business goals in an increasingly online world.
-            </p>
-
-            <footer className="mt-6">
-              <div className="flex items-center">
-                <div className="md:hidden shrink-0">
-                  <Image width={500} height={500} className="rounded-md" src="/hero-image.jpg" alt="Hero Image" />
-                </div>
-              </div>
-            </footer>
-          </blockquote>
-          </div>
-          <div className="hidden md:block mb-24 md:mb-0">
-            <Image width={500} height={500} className="rounded-xl" src="/hero-image.jpg" alt="Image Description" />
-          </div>
-        </div>
+        <blockquote>
+          <p className="text-justify p-4">
+          At Realhive consultants, we understand that the digital landscape is constantly evolving, and to stay ahead of the competition, your business needs to have a strong online presence. Our team of experts specializes in web development, mobile app development, and data solutions, making us your ideal partner in this digital age. We take pride in bringing your business into the digital realm, crafting innovative and user-friendly websites, creating cutting-edge mobile applications, and harnessing the power of data to drive your success. With our services, you can reach a global audience, engage customers effectively, and achieve your business goals in an increasingly online world.
+          </p>
+        </blockquote>
+        {/* A scene photo can't lose its background without losing the scene, so
+            its edges fade into the page instead (.fade-edges in globals.css). */}
+        <Image
+          src={heroOffice}
+          alt="A developer writing code at a desk in a dimly lit office"
+          sizes="(min-width: 1280px) 600px, (min-width: 768px) 50vw, calc(100vw - 32px)"
+          placeholder="blur"
+          loading="eager"
+          className="fade-edges mt-6 mb-24 w-full h-auto md:my-0"
+        />
+      </div>
     </div>
   )
 }

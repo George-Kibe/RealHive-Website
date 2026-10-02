@@ -11,6 +11,7 @@ export const POST = async (request) => {
     }
     await connectDB();
     const user = await User.findOne({
+        email,
         verificationToken: code, 
         verificationTokenExpiresAt: {$gt: Date.now()}}).select("-password");
     if (!user) {
@@ -27,8 +28,12 @@ export const POST = async (request) => {
         user.verificationTokenExpiresAt = undefined;
         await user.save();
 
-        //send welcome email
-        await sendWelcomeEmail(user.email, user.username);
+        // send welcome email; the account is already verified, so a mail failure shouldn't fail the request
+        try {
+            await sendWelcomeEmail(user.email, user.username);
+        } catch (error) {
+            console.error("Welcome email failed: ", error.message);
+        }
 
         return NextResponse.json(
             { message: 'User verified successfully',
@@ -38,6 +43,6 @@ export const POST = async (request) => {
             { status: 200 }
         )
     } catch (error) {
-        return new NextResponse.json(error.message, {status: 500,})
+        return new NextResponse(error.message, {status: 500,})
     }
 }

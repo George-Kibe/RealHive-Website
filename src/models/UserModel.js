@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+export const ROLES = { USER: "User", ADMIN: "Admin" };
+
 const UserSchema = new mongoose.Schema(
 	{
 		email: {
@@ -23,7 +25,8 @@ const UserSchema = new mongoose.Schema(
 		role: {
 			type: String,
 			required: true,
-			default: "user",
+			enum: Object.values(ROLES),
+			default: ROLES.USER,
 		},
 		profilePicture: {
 			type: String,
@@ -47,13 +50,11 @@ const UserSchema = new mongoose.Schema(
 	{ timestamps: true }
 );
 
-UserSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) {
-      next();
-    }
+// Mongoose 9 hooks are promise-based (no next()); only hash when the password changed
+UserSchema.pre("save", async function () {
+    if (!this.isModified("password")) return;
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
   });
   
 UserSchema.methods.matchPassword = async function (enteredPassword) {

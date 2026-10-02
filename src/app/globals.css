@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @source "../../src";
 
@@ -205,4 +206,41 @@ html {
      page (/careers) and a long one (/services) shifts all centred content
      horizontally as the scrollbar appears and disappears. */
   scrollbar-gutter: stable;
+}
+
+/* TipTap editor (admin blog): placeholder on an empty document, and the
+   selected-cell highlight while editing tables. */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: hsl(var(--muted-foreground));
+}
+.tiptap .selectedCell {
+  background-color: color-mix(in srgb, var(--brand) 18%, transparent);
+}
+.tiptap table td,
+.tiptap table th {
+  position: relative;
+  border: 1px solid hsl(var(--border));
+  padding: 0.25rem 0.5rem;
+}
+.tiptap table p {
+  margin: 0;
+}
+
+/* Fades a photo's edges into the page background, so a full-bleed photo (which
+   can't have its background removed without losing the scene) blends with the
+   surrounding text in both themes. Two linear masks intersected give a rectangle
+   with feathered edges rather than an oval vignette. */
+.fade-edges {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+    linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+    linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-composite: intersect;
 }

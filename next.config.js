@@ -41,7 +41,28 @@ const redirects = [
   ["/work", "/portfolio"],
 ];
 
+/**
+ * next-cloudinary reads the cloud name and API key from NEXT_PUBLIC_* vars.
+ * Both are public identifiers (they appear in every image URL and upload), so
+ * derive them from the server-only CLOUDINARY_URL
+ * (cloudinary://<api_key>:<api_secret>@<cloud_name>) instead of duplicating
+ * them in the env. The API secret is never exposed.
+ */
+function cloudinaryPublicEnv() {
+  try {
+    const url = new URL(process.env.CLOUDINARY_URL);
+    return {
+      NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: url.hostname,
+      NEXT_PUBLIC_CLOUDINARY_API_KEY: decodeURIComponent(url.username),
+    };
+  } catch {
+    return {};
+  }
+}
+
 const nextConfig = {
+  env: cloudinaryPublicEnv(),
+
   // One URL shape, declared rather than inherited. `/services/` 301s to
   // `/services`, matching the canonical tags emitted by lib/seo.js.
   trailingSlash: false,
@@ -52,6 +73,9 @@ const nextConfig = {
   images: {
     // Serve modern formats; AVIF first, WebP fallback.
     formats: ["image/avif", "image/webp"],
+    // 75 is the default; 60 is used for decorative service artwork, where the
+    // difference isn't visible but the bytes are (see Services.tsx, services page).
+    qualities: [60, 75],
     remotePatterns: [
       {
         protocol: "https",

@@ -1,17 +1,19 @@
 import React from "react";
-import GeorgeImage from "../../public/people/George.jpg"
-import GeorgeRbImage from "../../public/people/george-rb.png"
-import JohnImage from "../../public/people/Mbugua.jpeg"
-import MercyImage from "../../public/people/Mercy.jpeg"
+// Portraits with their backgrounds removed, trimmed and resized for the card
+// (~370px wide at most, so ~740px covers 2x screens).
+import GeorgeImage from "../../public/images/team-george-kibe.webp"
+import GeorgeRbImage from "../../public/images/team-trent-george.webp"
+import JohnImage from "../../public/images/team-john-mbugua.webp"
+import MercyImage from "../../public/images/team-mercy-wanjiru.webp"
 import { FramerImage } from "@/utils/FramerImage";
 
 const Team = () => {
   return (
-    <section className="pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+    <section className="pt-20 pb-10 lg:pt-30 lg:pb-20">
       <div className="">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">
-            <div className="mx-auto mb-[60px] max-w-[510px] text-center">
+            <div className="mx-auto mb-15 max-w-127.5 text-center">
               <span className="block mb-2 text-lg font-semibold text-primary">
                 Our Team
               </span>
@@ -57,13 +59,13 @@ const TeamCard = ({ image, name, profession }) => {
   return (
     <>
       <div className="w-full px-4 md:w-1/2 xl:w-1/4">
-        <div className="mx-auto mb-10 w-full max-w-[370px]">
+        <div className="mx-auto mb-10 w-full max-w-92.5">
           <div className="relative overflow-hidden rounded-lg">
             <div className="rounded-md">
-                <FramerImage title={name} image={image} />
+                <FramerImage title={name} image={image} sizes="(min-width: 1280px) 300px, (min-width: 768px) 50vw, 100vw" />
             </div>            
-            <div className="absolute left-0 w-full text-center bottom-5">
-              <div className="relative px-3 py-5 mx-5 overflow-hidden bg-white rounded-lg">
+            <div className="absolute left-0 w-full text-center bottom-4">
+              <div className="relative px-1 py-1 mx-1 overflow-hidden bg-white rounded-lg">
                 <h3 className="text-base font-semibold text-black">{name}</h3>
                 <p className="text-sm text-black/70">{profession}</p>
               </div>

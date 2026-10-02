@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { absoluteUrl } from "@/lib/seo";
+import { getPublishedPosts } from "@/lib/blog";
 
 /**
  * Served at /sitemap.xml.
@@ -18,8 +19,14 @@ import { absoluteUrl } from "@/lib/seo";
 const APP_DIR = path.join(process.cwd(), "src", "app");
 const PAGE_FILE = /^page\.(js|jsx|ts|tsx)$/;
 
-/** Directories that never produce indexable public routes. */
-const EXCLUDED_SEGMENTS = new Set(["api"]);
+/**
+ * Directories that never produce indexable public routes: API handlers, the
+ * private admin dashboard, and the (account) sign-in/registration pages.
+ */
+const EXCLUDED_SEGMENTS = new Set(["api", "admin", "(account)"]);
+
+// Blog posts change without a deploy; regenerate hourly (admin edits also revalidate it).
+export const revalidate = 3600;
 
 /**
  * Per-route crawl hints. Anything not listed falls back to DEFAULT_HINT, so
@@ -31,6 +38,7 @@ const HINTS = {
   "/portfolio": { changeFrequency: "monthly", priority: 0.8 },
   "/aboutus": { changeFrequency: "monthly", priority: 0.7 },
   "/contacts": { changeFrequency: "yearly", priority: 0.6 },
+  "/blog": { changeFrequency: "weekly", priority: 0.8 },
   "/careers": { changeFrequency: "weekly", priority: 0.5 },
   "/privacy-policy": { changeFrequency: "yearly", priority: 0.2 },
 };
@@ -62,8 +70,8 @@ function collectRoutes(dir = APP_DIR, segments = []) {
     // Private folders (_foo), parallel routes (@foo) and api never route.
     if (name.startsWith("_") || name.startsWith("@")) continue;
     if (EXCLUDED_SEGMENTS.has(name)) continue;
-    // Dynamic segments can't be enumerated without a data source; when this
-    // site gains a blog, generate those URLs from the CMS and concat them here.
+    // Dynamic segments can't be enumerated from the filesystem; blog posts
+    // are added from the database in sitemap() below.
     if (name.startsWith("[")) continue;
 
     // Route groups (foo) organise files without adding a URL segment.
@@ -79,12 +87,23 @@ function collectRoutes(dir = APP_DIR, segments = []) {
   return routes;
 }
 
-export default function sitemap() {
-  return collectRoutes()
+export default async function sitemap() {
+  const pages = collectRoutes()
     .sort((a, b) => a.route.localeCompare(b.route))
     .map(({ route, lastModified }) => ({
       url: absoluteUrl(route),
       lastModified,
       ...(HINTS[route] ?? DEFAULT_HINT),
     }));
+
+  // getPublishedPosts() returns [] if the database is unreachable, so the
+  // static pages are still listed.
+  const posts = (await getPublishedPosts()).map((post) => ({
+    url: absoluteUrl(`/blog/${post.slug}`),
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...pages, ...posts];
 }
