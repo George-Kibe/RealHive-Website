@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 
 import Link from "next/link";
 import axios from "axios";
 import { buttonVariants } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
 
 const inputClass =
   "mt-1 w-full rounded-md border-0 bg-muted text-foreground placeholder:text-muted-foreground px-3.5 py-2 shadow-xs ring-1 ring-inset ring-border focus:ring-2 focus:ring-inset focus:ring-brand sm:text-sm sm:leading-6";
@@ -81,6 +82,7 @@ const BookingWidget = () => {
     try {
       const res = await axios.post("/api/booking", { ...form, startsAt: slot.toISOString(), timezone: timeZone });
       setBooked({ ...res.data.booking, emailed: res.data.emailed });
+      trackEvent("book_consultation", { call_minutes: state.slotMinutes });
     } catch (err) {
       setError(errorText(err, "We couldn't book that time. Please try again."));
       if (err.response?.status === 409) {

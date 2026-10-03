@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
+import { trackEvent } from '@/lib/analytics'
 
 
 const CallToAction = () => {
@@ -21,6 +22,7 @@ const CallToAction = () => {
     try {
       await axios.post("/api/subscribe", { email })
       toast.success("Thanks for subscribing!")
+      trackEvent("sign_up", { method: "newsletter" })
       setEmail("")
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 409) {

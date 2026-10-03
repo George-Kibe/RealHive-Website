@@ -8,6 +8,7 @@ import React, { useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
+import { trackEvent } from "@/lib/analytics"
 import { buttonVariants } from "@/components/ui/button";
 
 const ContactPage = () => {
@@ -34,6 +35,7 @@ const ContactPage = () => {
       })
       if(response.status === 200){
         toast.success("Message sent successfully. One of us will get back to you as soon as possible.")
+        trackEvent("contact_form_submit", { form: "contact" })
       }
       setLoading(false);
       setName(""); setEmail(""); setMessage(""); setPhoneNumber("");
@@ -87,7 +89,7 @@ const ContactPage = () => {
               </div>
               <div className="">
                 <p className="">Email:</p>
-                <input type="email" placeholder='Name' 
+                <input type="email" placeholder='Email' 
                   value={email}
                   onChange={ev => setEmail(ev.target.value)}
                   className="border-2 bg-transparent border-gray-300 rounded-md p-1 w-full 

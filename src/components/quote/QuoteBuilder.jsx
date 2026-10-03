@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { buttonVariants } from "@/components/ui/button";
 import { BUILD_LEVELS, SERVICES } from "@/lib/quote/catalog";
 import { formatMoney } from "@/lib/quote/format";
+import { trackEvent } from "@/lib/analytics";
 import { normalizeSelection } from "@/lib/quote/selection";
 
 /**
@@ -103,6 +104,12 @@ const QuoteBuilder = () => {
     });
 
   const payload = () => ({ selection: { buildLevel, services }, contact });
+  // what was quoted, for analytics: services and amounts, never contact details
+  const quoteParams = () => ({
+    services: Object.keys(services).join(","),
+    build_level: buildLevel,
+    ...(current?.quote ? { value: current.quote.projectFrom, currency: current.quote.currency } : {}),
+  });
 
   const download = async () => {
     setBusy("pdf");
@@ -114,6 +121,7 @@ const QuoteBuilder = () => {
       link.download = /filename="([^"]+)"/.exec(res.headers["content-disposition"] ?? "")?.[1] ?? "RealHive-estimate.pdf";
       link.click();
       URL.revokeObjectURL(url);
+      trackEvent("quote_downloaded", quoteParams());
     } catch (error) {
       // blob responses carry the error text as a Blob
       const text = error.response?.data instanceof Blob ? await error.response.data.text() : "";
@@ -129,6 +137,7 @@ const QuoteBuilder = () => {
     try {
       const res = await axios.post("/api/quote/email", payload());
       setSentTo({ email: contact.email, reference: res.data.reference });
+      trackEvent("quote_emailed", quoteParams());
       toast.success(`Quote sent to ${contact.email}`);
     } catch (error) {
       toast.error(errorMessage(error, "Couldn't send the quote. Please try again or download the PDF."));

@@ -195,6 +195,15 @@ Forgot your admin password? Use **Forgot password?** on `/admin/login`. It's the
 
 `/admin` is excluded from search engines (`noindex` and `robots.txt`).
 
+## Analytics and SEO
+
+Progress against the SEO and analytics strategy is tracked in [docs/SEO-PROGRESS.md](docs/SEO-PROGRESS.md), including the account setup steps.
+
+- **Google Analytics 4** loads only when `NEXT_PUBLIC_GA_MEASUREMENT_ID` is set (redeploy after changing it), in Consent Mode v2: advertising storage is always denied; analytics is off until consent for visitors in the EEA, UK and Switzerland, who see a consent banner (location from the Vercel IP header via `/api/consent-region`), and on by default elsewhere. "Cookie settings" in the footer reopens the banner.
+- **Conversion events** (`book_consultation`, `quote_emailed`, `quote_downloaded`, `contact_form_submit`, `sign_up`, `contact_click`) are sent with `trackEvent()` from `src/lib/analytics.js`; never include personal data in them.
+- **Search Console / Bing** verification meta tags come from `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` (optional; a DNS-verified domain property needs neither).
+- **Vercel Speed Insights** reports real-user Core Web Vitals (cookie-free).
+
 ## Quotation system
 
 `/quote` lets visitors pick services and options and see an instant estimate in **their own currency**. Every figure is a rounded-down **"starting from"** price, never an exact one, and the PDF says it's indicative and agreed after a discovery call.

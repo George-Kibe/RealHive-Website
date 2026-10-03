@@ -8,6 +8,9 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { SITE } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 import { organizationSchema, websiteSchema } from '@/lib/schema';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
+import ConsentBanner from '@/components/analytics/ConsentBanner';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -38,6 +41,14 @@ export const metadata = {
     icon: [{ url: '/icon.png', type: 'image/png', sizes: '512x512' }],
     apple: [{ url: '/apple-icon.png', sizes: '180x180' }],
   },
+  // Search Console / Bing Webmaster verification meta tags, emitted only when set.
+  // (A Search Console *domain* property verifies by DNS instead and needs neither.)
+  ...((process.env.GOOGLE_SITE_VERIFICATION || process.env.BING_SITE_VERIFICATION) && {
+    verification: {
+      ...(process.env.GOOGLE_SITE_VERIFICATION && { google: process.env.GOOGLE_SITE_VERIFICATION }),
+      ...(process.env.BING_SITE_VERIFICATION && { other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } }),
+    },
+  }),
 }
 
 export const viewport = {
@@ -68,7 +79,12 @@ export default function RootLayout({ children }) {
             {children}
           </main>
           <Footer />
-        </ThemeProvider>        
+          <ConsentBanner />
+        </ThemeProvider>
+        {/* GA4 (Consent Mode v2) loads only when NEXT_PUBLIC_GA_MEASUREMENT_ID is set;
+            Speed Insights is cookie-free and reports real-user Core Web Vitals on Vercel. */}
+        <GoogleAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   )

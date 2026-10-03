@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import NavLink from './NavLink'
 import React from 'react'
+import CookieSettingsButton from './analytics/CookieSettingsButton'
 
 const Footer = () => {
   return (
@@ -87,7 +88,10 @@ const Footer = () => {
         </div>
 
         <div className="border bg-gray-20" />
-        <p className="regular-14 w-full mb-12 text-center text-gray-30">&copy; {new Date().getFullYear()} RealHive Consultants | All rights reserved</p>
+        <p className="regular-14 w-full mb-12 text-center text-gray-30">
+          &copy; {new Date().getFullYear()} RealHive Consultants | All rights reserved
+          <CookieSettingsButton className="ml-3 underline hover:text-foreground" />
+        </p>
       </div>
     </footer>
   )
