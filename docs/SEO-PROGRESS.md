@@ -126,6 +126,7 @@ No event sends names, emails or phone numbers (Google's terms forbid it). Code: 
 
 | Date | Change |
 | --- | --- |
+| 2026-10-03 | All 11 site emails rebuilt on one branded layout (account, contact form, quotes, bookings): removed the old real-estate wording, green theme, wrong senders and placeholders; all user input escaped. Supports 2.1 (consistent contact details). |
 | 2026-10-03 | GA4 property created (`G-S75PPTR9CL`); ID added locally and verified in a local build. Waiting on the Vercel env var + redeploy. |
 | 2026-10-03 | Phase 1 code shipped: GA4 + Consent Mode v2, region-based consent banner, conversion events, verification tags, Speed Insights, new privacy policy. Fixed the contact form's email field placeholder. Waiting on account setup (A–E). |
 | 2026-10-03 | Strategy agreed; decisions recorded above. |

@@ -40,7 +40,6 @@ Every variable is documented in [.env.example](.env.example). In short:
 | `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET` | JWT signing secrets |
 | `SENDER_EMAIL`, `EMAIL_PASSWORD` | Gmail address and App Password for SMTP |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for SEO (production domain) |
-| `CLIENT_URL` | Base URL for links in emails (password reset) |
 | `CLOUDINARY_URL` | Cloudinary credentials (`cloudinary://key:secret@cloud`); needed at build time |
 | `MPESA_CONSUMER_KEY`, `MPESA_SECRET_KEY`, `MPESA_PAYBILL`, `MPESA_PASSKEY` | Safaricom Daraja credentials |
 

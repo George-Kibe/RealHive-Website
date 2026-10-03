@@ -1,308 +1,234 @@
-export const VERIFICATION_EMAIL_TEMPLATE = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify Your Email</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #4CAF50, #45a049); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Verify Your Email</h1>
+/**
+ * Every email the site sends, built on one layout so they all share the brand
+ * look: RealHive wordmark in the brand blue, a white card on a light grey page,
+ * the same buttons, code boxes and detail tables, and a footer with the real
+ * contact details.
+ *
+ * Email clients ignore <style> blocks and most CSS, so everything is inline
+ * styles on simple elements. Every value that comes from a visitor (names,
+ * messages, topics…) MUST go through escapeHtml before it is placed here.
+ */
+import { CONTACT } from "@/lib/schema";
+import { SITE } from "@/lib/seo";
+
+export const escapeHtml = (value = "") =>
+  String(value).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+
+const BRAND = "#0077A3";
+const INK = "#0f172a";
+const MUTED = "#64748b";
+const RULE = "#e2e8f0";
+const PANEL = "#f1f5f9";
+
+const siteHost = () => SITE.url.replace(/^https?:\/\//, "");
+const link = (path) => `${SITE.url}${path}`;
+
+// --- building blocks (arguments are trusted HTML unless noted) ---
+
+export const heading = (text) =>
+  `<h1 style="margin: 0 0 16px; font-size: 22px; line-height: 1.3; color: ${BRAND};">${escapeHtml(text)}</h1>`;
+
+export const paragraph = (html) => `<p style="margin: 0 0 14px;">${html}</p>`;
+
+export const muted = (html) => `<p style="margin: 0 0 14px; font-size: 13px; color: ${MUTED};">${html}</p>`;
+
+export const button = (href, label) =>
+  `<p style="margin: 22px 0;"><a href="${escapeHtml(href)}" style="background-color: ${BRAND}; color: #ffffff; padding: 11px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block;">${escapeHtml(label)}</a></p>`;
+
+// a one-time code, big and easy to copy
+export const codeBox = (code) =>
+  `<p style="margin: 22px 0; text-align: center;"><span style="display: inline-block; background-color: ${PANEL}; border: 1px solid ${RULE}; border-radius: 8px; padding: 12px 22px; font-size: 30px; font-weight: bold; letter-spacing: 6px; color: ${INK}; font-family: 'Courier New', monospace;">${escapeHtml(code)}</span></p>`;
+
+// a highlighted box, e.g. the booked time
+export const callout = (html) =>
+  `<p style="margin: 0 0 16px; background-color: ${PANEL}; padding: 12px 16px; border-radius: 6px;">${html}</p>`;
+
+// rows of [label, value]; values are escaped here, line breaks kept
+export const detailsTable = (rows) =>
+  `<table role="presentation" style="width: 100%; border-collapse: collapse; margin: 4px 0 18px;">${rows
+    .map(([label, value]) =>
+      `<tr><td style="padding: 6px 12px 6px 0; color: ${MUTED}; vertical-align: top; white-space: nowrap; font-size: 14px;">${escapeHtml(label)}</td>` +
+      `<td style="padding: 6px 0; font-size: 14px; white-space: pre-line;">${escapeHtml(value)}</td></tr>`)
+    .join("")}</table>`;
+
+// rows of [label, value] with the value right-aligned and bold (prices, totals); escaped here
+export const amountsTable = (rows) =>
+  `<table role="presentation" style="width: 100%; border-collapse: collapse; margin: 4px 0 18px;">${rows
+    .map(([label, value]) =>
+      `<tr><td style="padding: 8px 0; border-bottom: 1px solid ${RULE};">${escapeHtml(label)}</td>` +
+      `<td style="padding: 8px 0; border-bottom: 1px solid ${RULE}; text-align: right; font-weight: bold;">${escapeHtml(value)}</td></tr>`)
+    .join("")}</table>`;
+
+export const signOff = () => paragraph(`Best regards,<br>RealHive Consultants`);
+
+/**
+ * The shared layout. `preheader` = the preview line inbox lists show next to
+ * the subject. `internal` = a notification for the team (shorter footer).
+ */
+export const emailLayout = ({ title, preheader = "", body, internal = false }) => `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escapeHtml(title)}</title></head>
+<body style="margin: 0; padding: 0; background-color: ${PANEL};">
+<span style="display: none; max-height: 0; overflow: hidden; opacity: 0;">${escapeHtml(preheader)}</span>
+<div style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; color: ${INK}; max-width: 600px; margin: 0 auto; padding: 24px 16px;">
+  <p style="margin: 0 0 16px; font-size: 18px; font-weight: bold; color: ${BRAND};">RealHive Consultants</p>
+  <div style="background-color: #ffffff; padding: 28px; border-radius: 8px; border: 1px solid ${RULE};">
+${body}
   </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
-    <p>Thank you for signing up! Your verification code is:</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4CAF50;">{verificationCode}</span>
-    </div>
-    <p>Enter this code on the verification page or screen to complete your registration.</p>
-    <p>This code will expire in 1 day for security reasons.</p>
-    <p>If you didn't create an account with us, please ignore this email.</p>
-    <p>Best regards,<br>Realhive Consultants Team</p>
-  </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
-  </div>
-</body>
-</html>
-`;
+  <p style="margin: 18px 0 0; text-align: center; color: ${MUTED}; font-size: 12px; line-height: 1.7;">
+    ${internal ? `Sent by the ${escapeHtml(siteHost())} website.` : `RealHive Consultants · Nairobi, Kenya<br>
+    <a href="${SITE.url}" style="color: ${BRAND};">${escapeHtml(siteHost())}</a> · <a href="mailto:${CONTACT.email}" style="color: ${BRAND};">${CONTACT.email}</a> · ${CONTACT.telephone}<br>
+    <a href="https://www.instagram.com/realhiveconsultants/" style="color: ${BRAND};">Instagram</a> · <a href="https://x.com/kibegeorge_" style="color: ${BRAND};">X</a>`}
+  </p>
+</div>
+</body></html>`;
 
-export const RESET_OTP_EMAIL_TEMPLATE = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify Your Email</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #4CAF50, #45a049); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Reset Your Password</h1>
-  </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
-    <p>You requested for password change. Your verification code is:</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #4CAF50;">{otp}</span>
-    </div>
-    <p>Enter this code on the verification screen to reset your password.</p>
-    <p>This code will expire in 10 minutes for security reasons.</p>
-    <p>If you didn't request a password change, please ignore this email.</p>
-    <p>Best regards,<br>Realhive Consultants Team</p>
-  </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
-  </div>
-</body>
-</html>
-`;
+// --- accounts ---
 
-export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Password Reset Successful</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #4CAF50, #45a049); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Password Reset Successful</h1>
-  </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello {username},</p>
-    <p>We're writing to confirm that your password has been successfully reset.</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <div style="background-color: #4CAF50; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; display: inline-block; font-size: 30px;">
-        ✓
-      </div>
-    </div>
-    <p>If you did not initiate this password reset, please contact our support team immediately.</p>
-    <p>For security reasons, we recommend that you:</p>
-    <ul>
-      <li>Use a strong, unique password</li>
-      <li>Enable two-factor authentication if available</li>
-      <li>Avoid using the same password across multiple sites</li>
-    </ul>
-    <p>Thank you for helping us keep your account secure.</p>
-    <p>Best regards,<br>Your App Team</p>
-  </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
-  </div>
-</body>
-</html>
-`;
+export const verificationEmail = ({ code }) => emailLayout({
+  title: "Confirm your email",
+  preheader: `Your verification code is ${code}`,
+  body: [
+    heading("Confirm your email"),
+    paragraph("Thanks for creating an account with RealHive Consultants. Your verification code is:"),
+    codeBox(code),
+    paragraph("Enter it on the sign-up page to finish creating your account. The code expires in 24 hours."),
+    muted("Didn't sign up? You can ignore this email; no account is created without the code."),
+    signOff(),
+  ].join("\n"),
+});
 
-export const PASSWORD_RESET_REQUEST_TEMPLATE = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reset Your Password</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #4CAF50, #45a049); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Password Reset</h1>
-  </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
-    <p>We received a request to reset your password. If you didn't make this request, please ignore this email.</p>
-    <p>To reset your password, click the button below:</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <a href="{resetURL}" style="background-color: #4CAF50; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
-    </div>
-    <p>This link will expire in 10 mins for security reasons.</p>
-    <p>Best regards,<br>Your App Team</p>
-  </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
-  </div>
-</body>
-</html>
-`;
+export const welcomeEmail = ({ name }) => emailLayout({
+  title: "Welcome to RealHive Consultants",
+  preheader: "Your account is ready.",
+  body: [
+    heading("Welcome to RealHive Consultants"),
+    paragraph(`Hi ${escapeHtml(name)},`),
+    paragraph("Your account is ready. You can now join the conversation on our blog, where we write about AI, data and software engineering."),
+    button(link("/blog"), "Read the blog"),
+    paragraph("We're a software development company building web and mobile apps, data pipelines and AI solutions for startups and growing businesses. If you have a project in mind, you can get an instant estimate or book a free consultation:"),
+    paragraph(`<a href="${link("/quote")}" style="color: ${BRAND};">Get a quote</a> &nbsp;·&nbsp; <a href="${link("/book")}" style="color: ${BRAND};">Book a free consultation</a>`),
+    signOff(),
+  ].join("\n"),
+});
 
-export const WELCOME_EMAIL_TEMPLATE = `
-<!DOCTYPE html>
-<html lang="en">
+export const resetCodeEmail = ({ code }) => emailLayout({
+  title: "Reset your password",
+  preheader: `Your password reset code is ${code}`,
+  body: [
+    heading("Reset your password"),
+    paragraph("We received a request to reset your password. Your reset code is:"),
+    codeBox(code),
+    paragraph("Enter it on the password reset page together with your new password. The code expires in 10 minutes."),
+    muted("Didn't ask to reset your password? Ignore this email: your password stays the same."),
+    signOff(),
+  ].join("\n"),
+});
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Email</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+export const passwordChangedEmail = ({ name }) => emailLayout({
+  title: "Your password was changed",
+  preheader: "Your RealHive Consultants password was just changed.",
+  body: [
+    heading("Your password was changed"),
+    paragraph(`Hi ${escapeHtml(name)},`),
+    paragraph("This is a confirmation that the password for your RealHive Consultants account was just changed."),
+    paragraph(`<strong>Wasn't you?</strong> Reply to this email or contact us at ${CONTACT.email} straight away, and reset your password again from the sign-in page.`),
+    muted("For your security: use a password you don't use on any other site."),
+    signOff(),
+  ].join("\n"),
+});
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+// --- contact form (to the team) ---
 
-        h1 {
-            font-size: 24px;
-            color: #333333;
-        }
+export const enquiryAlertEmail = ({ name, email, phone, message }) => emailLayout({
+  title: "New enquiry",
+  preheader: `${name}: ${message}`.slice(0, 120),
+  internal: true,
+  body: [
+    heading("New enquiry from the website"),
+    detailsTable([["Name", name], ["Email", email], ["Phone", phone || "-"]]),
+    paragraph("<strong>Message</strong>"),
+    callout(escapeHtml(message).replace(/\n/g, "<br>")),
+    button(`mailto:${email}?subject=${encodeURIComponent("Re: your enquiry to RealHive Consultants")}`, `Reply to ${name}`),
+    muted("Replying to this email also goes straight to them."),
+  ].join("\n"),
+});
 
-        p {
-            font-size: 16px;
-            color: #555555;
-            line-height: 1.6;
-        }
+// --- quotes ---
 
-        .header {
-            background-color: #4CAF50;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-        }
+// rows: [label, value] already formatted by the caller
+export const quoteEmail = ({ name, reference, rows, currency }) => emailLayout({
+  title: "Your project estimate",
+  preheader: `Your estimate ${reference} is attached.`,
+  body: [
+    heading("Your project estimate"),
+    muted(`Reference ${escapeHtml(reference)}`),
+    paragraph(`Hi ${escapeHtml(name)},`),
+    paragraph("Thanks for using our quotation tool. Your estimate is attached as a PDF. In short:"),
+    amountsTable(rows),
+    muted(`These are indicative "starting from" prices in ${escapeHtml(currency)}, not a fixed quote. The final price depends on your detailed requirements and is agreed after a free discovery call.`),
+    paragraph(`Reply to this email or <a href="${link("/book")}" style="color: ${BRAND};">book a free consultation</a> to talk it through.`),
+    signOff(),
+  ].join("\n"),
+});
 
-        .header img {
-            width: 100px;
-            height: auto;
-        }
+// rows: [label, value] already formatted by the caller (internal: may include country/tier)
+export const quoteNotificationEmail = ({ reference, rows }) => emailLayout({
+  title: "New quote request",
+  preheader: `Quote ${reference}`,
+  internal: true,
+  body: [heading(`New quote request ${reference}`), detailsTable(rows), muted("The PDF they received is attached.")].join("\n"),
+});
 
-        .header h1 {
-            color: #ffffff;
-            margin: 0;
-        }
+// --- consultation bookings ---
 
-        .btn {
-            background-color: #4CAF50;
-            color: #ffffff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin: 20px 0;
-        }
+export const bookingConfirmationEmail = ({ name, reference, when, timezone, topic, cancelUrl }) => emailLayout({
+  title: "Your consultation is booked",
+  preheader: `Booked: ${when}`,
+  body: [
+    heading("Your consultation is booked"),
+    muted(`Reference ${escapeHtml(reference)}`),
+    paragraph(`Hi ${escapeHtml(name)},`),
+    paragraph("Thanks for booking a consultation with RealHive Consultants. Here are the details:"),
+    callout(`<strong>${escapeHtml(when)}</strong><br><span style="color: ${MUTED}; font-size: 13px;">Times in ${escapeHtml(timezone)} · Video call (Google Meet)</span>`),
+    paragraph("We'll email you the Google Meet link before the call. The attached calendar file adds it to your calendar."),
+    muted(`You told us you'd like to discuss:<br>${escapeHtml(topic).replace(/\n/g, "<br>")}`),
+    paragraph(`Can't make it? <a href="${escapeHtml(cancelUrl)}" style="color: ${BRAND};">Cancel this booking</a> and book another time, or call us on ${CONTACT.telephone}.`),
+    paragraph("Talk soon,<br>RealHive Consultants"),
+  ].join("\n"),
+});
 
-        .btn:hover {
-            background-color: #45a049;
-        }
+export const bookingNotificationEmail = ({ rows, email, calendarLink, adminUrl }) => emailLayout({
+  title: "New consultation booking",
+  preheader: rows[0]?.[1] ?? "",
+  internal: true,
+  body: [
+    heading("New consultation booking"),
+    detailsTable(rows),
+    button(calendarLink, "Create in Google Calendar"),
+    muted(`The event opens pre-filled with the time, details and ${escapeHtml(email)} as a guest. Click <em>Add Google Meet video conferencing</em>, then <em>Save</em> and send the invitation.`),
+    paragraph(`<a href="${escapeHtml(adminUrl)}" style="color: ${BRAND}; font-size: 13px;">Manage bookings</a>`),
+  ].join("\n"),
+});
 
-        .footer {
-            font-size: 12px;
-            color: #777777;
-            text-align: center;
-            padding: 10px 0;
-            border-top: 1px solid #dddddd;
-        }
+export const bookingCancelledByVisitorEmail = ({ name, email, when, reference }) => emailLayout({
+  title: "Consultation cancelled",
+  preheader: `${name} cancelled their consultation`,
+  internal: true,
+  body: [
+    heading("Consultation cancelled by the visitor"),
+    paragraph(`<strong>${escapeHtml(name)}</strong> (${escapeHtml(email)}) cancelled their consultation on <strong>${escapeHtml(when)}</strong> (${escapeHtml(reference)}).`),
+    muted("Remove the Google Calendar event if you created one."),
+  ].join("\n"),
+});
 
-        .unsubscribe {
-            color: #555555;
-            text-decoration: none;
-        }
-
-        .unsubscribe:hover {
-            text-decoration: underline;
-        }
-
-        .content img {
-            width: 100%;
-            height: auto;
-            margin: 20px 0;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <!-- Header with logo -->
-        <div class="header">
-            <img src="https://buenare-images-bucket.s3.eu-west-1.amazonaws.com/main/realhive-high-resolution-color-logo.png" alt="Realhive Logo">
-            <h1>Welcome to Realhive Consultants, {username}!</h1>
-        </div>
-
-        <!-- Body Content -->
-        <div class="content">
-            <h2>Dear {username},</h2>
-            <p>
-                We are thrilled to have you on board!  At Realhive Consultants, we strive to provide top-notch services that
-                empower you as a property seeker to get property more easily and you as a property owner get more tenants and or buyers more easily. We’re excited to help you start your journey
-                with us!
-            </p>
-
-            <!-- Image section -->
-            <img src="https://buenare-images-bucket.s3.eu-west-1.amazonaws.com/main/maisonette.jpg" alt="Welcome Image">
-
-            <p>
-                Here at Realhive Consultants, we offer a wide range of features designed to make your life easier:
-            </p>
-            <ul>
-                <li>One: Smooth search of properties both for rent and for sale</li>
-                <li>Two: Easy listing for your properties</li>
-                <li>Three: Prior due diligence for most and verified properties</li>
-            </ul>
-
-            <p>
-                Feel free to explore our website, take advantage of our resources, and do not hesitate to contact us if
-                you have any questions or need support. We are here to help!
-            </p>
-
-            <!-- Call to action button -->
-            <a href="https://relahiveconsultants.com" class="btn">Get Started Now</a>
-
-            <p>
-                Thank you for choosing Realhive Consultants. We look forward to a successful journey together!
-            </p>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>
-                Realhive Consultants, Off Kamiti Road, Nairobi <br>
-                Follow us on:
-                <a href="https://facebook.com" target="_blank">Facebook</a> |
-                <a href="https://x.com/kibegeorge_" target="_blank">X</a> |
-                <a href="https://www.instagram.com/realhiveconsultants/" target="_blank">Instagram</a>
-            </p>
-
-            <!-- Unsubscribe link -->
-            <p>
-                If you no longer wish to receive emails from us, you can <a href="{unsubscribe_link}" class="unsubscribe">unsubscribe here</a>.
-            </p>
-        </div>
-    </div>
-</body>
-
-</html>
-`;
-// Quotation email to the visitor. {placeholders} are HTML-escaped by sendQuoteEmail.
-export const QUOTE_EMAIL_TEMPLATE = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your project estimate</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #0f172a; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f1f5f9;">
-    <div style="background-color: #ffffff; padding: 28px; border-radius: 8px;">
-        <h1 style="margin: 0 0 4px; font-size: 22px; color: #0077A3;">Your project estimate</h1>
-        <p style="margin: 0 0 20px; color: #64748b; font-size: 13px;">Reference {reference}</p>
-        <p>Hi {name},</p>
-        <p>Thanks for using our quotation tool. Your estimate is attached as a PDF. In short:</p>
-        <table role="presentation" style="width: 100%; border-collapse: collapse; margin: 16px 0;">
-            {rows}
-        </table>
-        <p style="font-size: 13px; color: #64748b;">These are indicative "starting from" prices in {currency}, not a fixed quote. The final price depends on your detailed requirements and is agreed after a free discovery call.</p>
-        <p>Reply to this email to book that call, or reach us on {phone}.</p>
-        <p style="margin-bottom: 0;">Best regards,<br>RealHive Consultants</p>
-    </div>
-    <p style="text-align: center; color: #94a3b8; font-size: 12px;">RealHive Consultants · <a href="{siteUrl}" style="color: #0077A3;">{siteHost}</a></p>
-</body>
-</html>
-`;
+export const bookingCancelledByTeamEmail = ({ name, when, reference, rebookUrl }) => emailLayout({
+  title: "Your consultation has been cancelled",
+  preheader: `Your consultation on ${when} has been cancelled`,
+  body: [
+    heading("Your consultation has been cancelled"),
+    paragraph(`Hi ${escapeHtml(name)},`),
+    paragraph(`Unfortunately we've had to cancel your consultation on <strong>${escapeHtml(when)}</strong> (${escapeHtml(reference)}). Sorry for the inconvenience. Please pick another time that suits you:`),
+    button(rebookUrl, "Book another time"),
+    signOff(),
+  ].join("\n"),
+});
