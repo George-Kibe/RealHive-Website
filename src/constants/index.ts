@@ -100,13 +100,14 @@ export const FOOTER_CONTACT_INFO = {
   location: 'Nairobi, Kenya · working with clients worldwide',
 };
 
-// Only real profiles. YouTube: add { name: 'YouTube', icon: '/youtube.svg', href } once the channel exists
-// (`href: null` would show the icon without a link).
+// `href: null` shows the icon without a link (YouTube, until the channel URL is added).
+// Add a profile to SAME_AS in lib/schema.js only once it has a real URL.
 export const SOCIALS = {
   title: 'Social',
   links: [
     { name: 'WhatsApp', icon: '/whatsapp.svg', href: WHATSAPP.url, label: `Chat with RealHive Consultants on WhatsApp (${WHATSAPP.number})` },
     { name: 'Instagram', icon: '/instagram.svg', href: 'https://www.instagram.com/realhiveconsultants/' },
     { name: 'X', icon: '/x.svg', href: 'https://x.com/kibegeorge_' },
+    { name: 'YouTube', icon: '/youtube.svg', href: null },
   ],
 };
