@@ -1,4 +1,3 @@
-import {Mail} from "lucide-react";
 // NAVIGATION
 export const NAV_LINKS = [
   { href: '/', key: 'home', label: 'Home' },
@@ -7,14 +6,6 @@ export const NAV_LINKS = [
   { href: '/portfolio', key: 'portfolio ', label: 'Portfolio ' },
   { href: '/blog', key: 'blog', label: 'Blog' },
   { href: '/contacts', key: 'contact_us', label: 'Contact Us' },
-];
-
-// CAMP SECTION
-export const PEOPLE_URL = [
-  '/person-1.png',
-  '/person-2.png',
-  '/person-3.png',
-  '/person-4.png',
 ];
 
 // SERVICES SECTION
@@ -60,47 +51,62 @@ export const SERVICES = [
   },
 ];
 
+// WhatsApp: the company number (+254 795 288 155, same as CONTACT.telephone in
+// lib/schema.js) as a wa.me chat link. `chatUrl` pre-fills a first message.
+const WHATSAPP_NUMBER = '254795288155';
+export const WHATSAPP = {
+  number: `+${WHATSAPP_NUMBER}`,
+  url: `https://wa.me/${WHATSAPP_NUMBER}`,
+  chatUrl: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi RealHive Consultants, I'd like to talk about a project.")}`,
+};
+
 // FOOTER SECTION
+export const FOOTER_ABOUT = {
+  description:
+    'RealHive Consultants is a software development company in Nairobi, Kenya. We build web and mobile apps, data pipelines and AI solutions for startups and growing businesses around the world.',
+  tagline: 'Transforming ideas into reality through code',
+};
+
 export const FOOTER_LINKS = [
   {
     title: 'Our Company',
     links: [
-      {"href": "/aboutus", "name":"About RealHive Consultants"},
-      {"href": "/blog", "name":"Blog"},
-      {"href": "/careers", "name":"Careers"},
-      {"href": "/quote", "name":"Get a Quote"},
-      {"href": "/book", "name":"Book a Consultation"},
-      {"href": "/privacy-policy", "name":"Privacy Policy"},
-      {"href": "/contacts", "name":"Contact Us"},
+      { href: '/aboutus', name: 'About Us' },
+      { href: '/portfolio', name: 'Portfolio' },
+      { href: '/blog', name: 'Blog' },
+      { href: '/careers', name: 'Careers' },
+      { href: '/quote', name: 'Get a Quote' },
+      { href: '/book', name: 'Book a Consultation' },
     ],
   },
   {
-    title: 'Our Focus',
+    // Each service gets its own page in phase 2 of the SEO plan; until then they all open /services.
+    title: 'Our Services',
     links: [
-      {"href": "/portfolio", "name":"📱 Mobile Development"},
-      {"href": "/portfolio", "name":"🌐 Web Development"},
-      {"href": "/portfolio", "name":"📊 Data Science"},
-      {"href": "/portfolio", "name":"💻 ⚙️ Data Engineering"},
-      ],
+      { href: '/services', name: 'Web Application Development' },
+      { href: '/services', name: 'Mobile App Development' },
+      { href: '/services', name: 'Data Engineering' },
+      { href: '/services', name: 'AI & Automation' },
+      { href: '/services', name: 'Cloud Consultancy' },
+    ],
   },
 ];
 
+// Phone and email come from CONTACT in lib/schema.js (the verified details);
+// these are the remaining contact entries shown in the footer.
 export const FOOTER_CONTACT_INFO = {
   title: 'Contact Us',
-  links: [
-    { label: 'Our Contacts', value: '📞 +254 795-288-155' },
-    { label: 'Our Offices', value: '🏣 +Off Kamiti Road, Bayer Apt, Suite F2' },
-    { label: 'Our Email', value: '📩 realHivecosultants@gmail.com' },
-  ],
+  whatsapp: WHATSAPP.url,
+  location: 'Nairobi, Kenya · working with clients worldwide',
 };
 
-// `href: null` = no profile yet; the icon is shown without a link.
+// Only real profiles. YouTube: add { name: 'YouTube', icon: '/youtube.svg', href } once the channel exists
+// (`href: null` would show the icon without a link).
 export const SOCIALS = {
   title: 'Social',
   links: [
-    { name: 'Facebook', icon: '/facebook.png', href: null },
-    { name: 'Instagram', icon: '/instagram.png', href: 'https://www.instagram.com/realhiveconsultants/' },
+    { name: 'WhatsApp', icon: '/whatsapp.svg', href: WHATSAPP.url, label: `Chat with RealHive Consultants on WhatsApp (${WHATSAPP.number})` },
+    { name: 'Instagram', icon: '/instagram.svg', href: 'https://www.instagram.com/realhiveconsultants/' },
     { name: 'X', icon: '/x.svg', href: 'https://x.com/kibegeorge_' },
-    { name: 'YouTube', icon: '/youtube.png', href: null },
   ],
 };

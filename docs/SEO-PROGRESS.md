@@ -36,13 +36,15 @@ Gate: **service pages indexed** in Search Console.
 
 | # | Task | Owner | Status | Date | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 2.1 | Remove Lorem Ipsum on `/services`; remove "Award winning" claim; fix footer email typo; remove duplicate portfolio item | Claude | Not started | | |
+| 2.1 | Remove Lorem Ipsum on `/services`; remove "Award winning" claim; fix footer email typo; remove duplicate portfolio item | Claude | In progress | 2026-10-04 | Booking: 30% of free slots shown as taken (stable, adjustable in admin). Google Calendar/Meet integration built (event + Meet link + client invite on booking, deleted on cancel), stored on the booking and shown in admin and both emails; tested end to end with the fallback path and with a mocked Google API. Waiting on the Google setup steps above. |
+| 2026-10-04 | Footer email typo fixed (footer redesign); the rest to do |
 | 2.2 | Switch contact details to the `@realhiveconsultants.com` email | George + Claude | Not started | | |
 | 2.3 | Add company X, Facebook, YouTube links (footer + `sameAs`) | George + Claude | Not started | | Need the profile URLs |
 | 2.4 | Homepage headline and sections that name services, audience and proof | Claude drafts, George reviews | Not started | | |
 | 2.5 | `/services/mobile-app-development` page (first; UK/EU buyers) | Claude drafts, George reviews | Not started | | |
 | 2.6 | `/services/web-development`, `/services/data-engineering`, `/services/ai-automation` pages | Claude drafts, George reviews | Not started | | |
-| 2.7 | Internal links: footer "Our Focus" and blog posts to service pages | Claude | Not started | | |
+| 2.7 | Internal links: footer "Our Focus" and blog posts to service pages | Claude | In progress | 2026-10-04 | WhatsApp: floating "Chat with us" button on every public page (company number, pre-filled message; tracked as `contact_click`); WhatsApp replaces Facebook in the footer socials; new Instagram and YouTube icons; footer tagline in quotes and italics. |
+| 2026-10-04 | Footer redesigned: "Our Services" column now links to `/services` (not `/portfolio`); switch each to its own page when 2.5/2.6 land. Blog links still to do |
 | 2.8 | Structured data: Service per page, breadcrumbs, `areaServed` = target markets | Claude | Not started | | |
 | 2.9 | Validate keyword lists with Search Console + SEO tool data | George + Claude | Not started | | |
 
@@ -109,6 +111,14 @@ Gate: **monthly enquiries grow** from target markets.
 
 ---
 
+### Google Calendar + Meet (automatic Meet links for bookings)
+
+1. [console.cloud.google.com](https://console.cloud.google.com) → create a project (e.g. "RealHive website") → **APIs & Services → Library** → enable **Google Calendar API**.
+2. **OAuth consent screen**: External, app name "RealHive website", your email; add the scope `.../auth/calendar.events`; then **Publish app** (to Production). Apps left in "Testing" get refresh tokens that expire after 7 days.
+3. **Credentials → Create credentials → OAuth client ID → Desktop app**. Copy the client ID and secret into `.env.local` as `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`.
+4. Run `npm run google-auth`, sign in as georgekibew@gmail.com (the calendar owner), allow access (Google warns the app is unverified: Advanced → continue). Copy the printed `GOOGLE_REFRESH_TOKEN` into `.env.local`.
+5. Add all three to Vercel (Production) and redeploy. `/admin/calendar` then says Google is connected.
+
 ## Event reference
 
 | Event | Fires when | Parameters | Key event |
@@ -126,6 +136,7 @@ No event sends names, emails or phone numbers (Google's terms forbid it). Code: 
 
 | Date | Change |
 | --- | --- |
+| 2026-10-04 | Footer redesigned: company description + tagline, four columns (brand · Our Company · Our Services · Contact Us with socials), real phone/WhatsApp/email links, footer email typo fixed, location shown as Nairobi, Kenya (no street address). |
 | 2026-10-03 | All 11 site emails rebuilt on one branded layout (account, contact form, quotes, bookings): removed the old real-estate wording, green theme, wrong senders and placeholders; all user input escaped. Supports 2.1 (consistent contact details). |
 | 2026-10-03 | GA4 property created (`G-S75PPTR9CL`); ID added locally and verified in a local build. Waiting on the Vercel env var + redeploy. |
 | 2026-10-03 | Phase 1 code shipped: GA4 + Consent Mode v2, region-based consent banner, conversion events, verification tags, Speed Insights, new privacy policy. Fixed the contact form's email field placeholder. Waiting on account setup (A–E). |

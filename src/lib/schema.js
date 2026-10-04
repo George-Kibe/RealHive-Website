@@ -3,7 +3,7 @@
  *
  * Rules this file follows, deliberately:
  *  - Nothing is invented. Every literal here traces to something real in the
- *    repo (constants/index.ts, the contacts page) or is a TODO(george).
+ *    repo (constants/index.ts, the contacts page).
  *  - No Review / AggregateRating anywhere. The testimonials on /services are
  *    entered by the business itself through the admin dashboard; Google
  *    treats self-published reviews about your own organisation as ineligible
@@ -23,13 +23,7 @@ import { SERVICES } from "@/constants";
 export const ORG_ID = `${SITE.url}/#organization`;
 export const WEBSITE_ID = `${SITE.url}/#website`;
 
-/**
- * Verified contact details, from FOOTER_CONTACT_INFO and the contacts page.
- *
- * TODO(george): the footer spells the address "realHivecosultants@gmail.com"
- * while the contacts page uses "realhiveconsultants@gmail.com". The second
- * looks correct and is used here — confirm and fix the footer typo.
- */
+/** Verified contact details (used by the footer, the contacts page, emails and PDFs). */
 export const CONTACT = {
   telephone: "+254795288155",
   email: "realhiveconsultants@gmail.com",
@@ -44,11 +38,19 @@ export const CONTACT = {
 const SAME_AS = ["https://www.instagram.com/realhiveconsultants/"];
 
 /**
- * TODO(george): `areaServed` is set to Kenya because that is what the repo
- * evidences (a +254 phone number and a physical office). Widen this if you sell
- * internationally — it should reflect where you actually deliver work.
+ * Where the company delivers work: based in Kenya, serving the target markets
+ * in the growth strategy (US, Canada, Europe, East Africa, the UAE, Australia).
  */
-const AREA_SERVED = { "@type": "Country", name: "Kenya" };
+const AREA_SERVED = [
+  { "@type": "Country", name: "Kenya" },
+  { "@type": "Place", name: "East Africa" },
+  { "@type": "Country", name: "United States" },
+  { "@type": "Country", name: "Canada" },
+  { "@type": "Place", name: "Europe" },
+  { "@type": "Country", name: "United Kingdom" },
+  { "@type": "Country", name: "United Arab Emirates" },
+  { "@type": "Country", name: "Australia" },
+];
 
 /** Organization — the root entity everything else hangs off. */
 export function organizationSchema() {

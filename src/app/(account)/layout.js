@@ -7,5 +7,9 @@ export const metadata = {
 };
 
 export default function AccountLayout({ children }) {
-  return <div className="mx-auto max-w-sm px-4 py-10 sm:py-16">{children}</div>;
+  return (
+    <div className="max-container padding-container page-y">
+      <div className="mx-auto max-w-sm">{children}</div>
+    </div>
+  );
 }

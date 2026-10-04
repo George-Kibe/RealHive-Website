@@ -6,8 +6,8 @@ const Hero = () => {
   return (
     <div className=''>
       <div className="">
-        <div className="max-w-5xl mx-auto px-4 xl:px-0 pt-24 lg:pt-32 pb-24">
-          <h2 className="font-semibold text-foreground text-5xl md:text-5xl">
+        <div className="max-container padding-container pt-12 pb-16 sm:pt-16 lg:pt-24 lg:pb-20">
+          <h2 className="max-w-4xl font-semibold text-foreground text-4xl sm:text-5xl">
             <span className="text-brand">Realhive Consultants:</span> Transforming ideas into reality through code
           </h2>
           <div className="max-w-4xl">
@@ -23,9 +23,9 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="md:grid md:grid-cols-2 md:gap-10 lg:gap-16 md:items-center">
+      <div className="max-container padding-container md:grid md:grid-cols-2 md:gap-10 lg:gap-16 md:items-center">
         <blockquote>
-          <p className="text-justify p-4">
+          <p className="text-justify">
           At Realhive consultants, we understand that the digital landscape is constantly evolving, and to stay ahead of the competition, your business needs to have a strong online presence. Our team of experts specializes in web development, mobile app development, and data solutions, making us your ideal partner in this digital age. We take pride in bringing your business into the digital realm, crafting innovative and user-friendly websites, creating cutting-edge mobile applications, and harnessing the power of data to drive your success. With our services, you can reach a global audience, engage customers effectively, and achieve your business goals in an increasingly online world.
           </p>
         </blockquote>
@@ -34,10 +34,10 @@ const Hero = () => {
         <Image
           src={heroOffice}
           alt="A developer writing code at a desk in a dimly lit office"
-          sizes="(min-width: 1280px) 600px, (min-width: 768px) 50vw, calc(100vw - 32px)"
+          sizes="(min-width: 1152px) 528px, (min-width: 768px) 45vw, calc(100vw - 32px)"
           placeholder="blur"
           loading="eager"
-          className="fade-edges mt-6 mb-24 w-full h-auto md:my-0"
+          className="fade-edges mt-8 w-full h-auto md:mt-0"
         />
       </div>
     </div>

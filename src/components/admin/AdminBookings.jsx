@@ -16,12 +16,27 @@ const BookingCard = ({ booking, onCancel, busy }) => (
           {" · "}<a href={`mailto:${booking.email}`} className="text-brand hover:underline">{booking.email}</a>
         </p>
         <p className="text-xs text-muted-foreground">{booking.reference}{booking.status === "cancelled" && ` · cancelled by ${booking.cancelledBy}`}</p>
+        {booking.meetLink && <p className="mt-1 break-all text-xs"><span className="text-muted-foreground">Meet: </span><a href={booking.meetLink} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">{booking.meetLink}</a></p>}
+        {!booking.meetLink && booking.meetError && <p className="mt-1 text-xs text-destructive">Meet link not created: {booking.meetError}</p>}
       </div>
       {onCancel && (
         <div className="flex flex-wrap gap-2">
-          <a href={booking.calendarLink} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "brand", size: "sm" })}>
-            Create in Google Calendar
-          </a>
+          {booking.meetLink ? (
+            <>
+              <a href={booking.meetLink} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "brand", size: "sm" })}>
+                Join Google Meet
+              </a>
+              {booking.eventLink && (
+                <a href={booking.eventLink} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "sm" })}>
+                  Open event
+                </a>
+              )}
+            </>
+          ) : (
+            <a href={booking.calendarLink} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "brand", size: "sm" })}>
+              Create in Google Calendar
+            </a>
+          )}
           <button type="button" disabled={busy} onClick={() => onCancel(booking)} className={buttonVariants({ variant: "outline", size: "sm" })}>
             {busy ? "Cancelling…" : "Cancel"}
           </button>

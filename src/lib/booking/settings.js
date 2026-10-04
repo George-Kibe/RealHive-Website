@@ -6,7 +6,7 @@ import { isValidTimeZone } from "@/lib/booking/time";
 /**
  * The company calendar's settings (one document). Defaults: Monday–Friday
  * 09:00–17:00 Nairobi time, 30-minute calls, at least 12 hours' notice, up to
- * 30 days ahead.
+ * 30 days ahead, 30% of free slots shown as taken.
  */
 
 export const SLOT_LENGTHS = [15, 20, 30, 45, 60, 90];
@@ -20,6 +20,7 @@ const plain = (doc) => ({
   slotMinutes: doc.slotMinutes,
   minNoticeHours: doc.minNoticeHours,
   horizonDays: doc.horizonDays,
+  hiddenSlotPercent: doc.hiddenSlotPercent ?? 30,
   weekly: [0, 1, 2, 3, 4, 5, 6].map((day) => {
     const w = doc.weekly?.find((x) => x.day === day) ?? DEFAULT_WEEKLY[day];
     return { day, enabled: Boolean(w.enabled), start: w.start, end: w.end };
@@ -50,6 +51,9 @@ export function validateSettings(body = {}) {
   const horizonDays = Number(body.horizonDays);
   if (!Number.isInteger(horizonDays) || horizonDays < 1 || horizonDays > 90) throw new SettingsError("Booking window must be 1–90 days");
 
+  const hiddenSlotPercent = Number(body.hiddenSlotPercent ?? 30);
+  if (!Number.isInteger(hiddenSlotPercent) || hiddenSlotPercent < 0 || hiddenSlotPercent > 90) throw new SettingsError("Hidden slots must be 0–90%");
+
   const weekly = [0, 1, 2, 3, 4, 5, 6].map((day) => {
     const w = (body.weekly ?? []).find((x) => Number(x?.day) === day) ?? DEFAULT_WEEKLY[day];
     const entry = { day, enabled: Boolean(w.enabled), start: String(w.start ?? "09:00"), end: String(w.end ?? "17:00") };
@@ -69,7 +73,7 @@ export function validateSettings(body = {}) {
   }
   if (blockedDates.length > 366) throw new SettingsError("Too many blocked dates");
 
-  return { timezone, slotMinutes, minNoticeHours, horizonDays, weekly, blockedDates };
+  return { timezone, slotMinutes, minNoticeHours, horizonDays, hiddenSlotPercent, weekly, blockedDates };
 }
 
 export async function saveCalendarSettings(values) {

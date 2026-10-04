@@ -9,11 +9,11 @@ import { FramerImage } from "@/utils/FramerImage";
 
 const Team = () => {
   return (
-    <section className="pt-20 pb-10 lg:pt-30 lg:pb-20">
+    <section className="pt-16 sm:pt-20 lg:pt-24">
       <div className="">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">
-            <div className="mx-auto mb-15 max-w-127.5 text-center">
+            <div className="mx-auto mb-12 max-w-127.5 text-center">
               <span className="block mb-2 text-lg font-semibold text-primary">
                 Our Team
               </span>

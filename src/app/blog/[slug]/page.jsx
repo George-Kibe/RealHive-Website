@@ -64,7 +64,7 @@ const BlogPostPage = async ({ params }) => {
   if (!post) notFound()
 
   return (
-    <article className='padding-container max-container pb-24'>
+    <article className='max-container padding-container page-y'>
       <JsonLd schema={blogPostingSchema(post, { imageUrl: socialImageUrl(post) })} />
       <div className='mx-auto max-w-3xl'>
         <Link href='/blog' className='text-sm text-muted-foreground hover:text-foreground'>&larr; All posts</Link>

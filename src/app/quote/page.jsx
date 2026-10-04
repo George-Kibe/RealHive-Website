@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
 
 // Static: the page holds no prices. Estimates come from /api/quote/estimate.
 const QuotePage = () => (
-  <div className='padding-container max-container pb-40'>
+  <div className='max-container padding-container page-y pb-40 sm:pb-40 lg:pb-40'>
     <AnimatedText text={"Get a Quote"} />
     <p className='mx-auto -mt-4 max-w-2xl text-center text-lg text-muted-foreground'>
       Choose what you need and see an instant &ldquo;starting from&rdquo; estimate. Download it, or have the PDF emailed to you.

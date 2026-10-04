@@ -17,7 +17,7 @@ const BlogPage = async () => {
   const posts = await getPublishedPosts()
 
   return (
-    <div className='padding-container max-container pb-24'>
+    <div className='max-container padding-container page-y'>
       <AnimatedText text={"Blog"}/>
       <p className='mx-auto -mt-4 max-w-2xl text-center text-lg text-muted-foreground'>
         AI, tech and programming notes from the RealHive team.

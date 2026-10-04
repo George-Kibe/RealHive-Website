@@ -3,6 +3,7 @@ import { connectDB } from "@/db/connectDB";
 import { sendBookingCancellation, sendBookingConfirmation, sendBookingNotification } from "@/lib/emails";
 import { buildIcs } from "@/lib/booking/ics";
 import { getCalendarSettings } from "@/lib/booking/settings";
+import { createMeetEvent, deleteMeetEvent, isGoogleCalendarConfigured } from "@/lib/booking/google";
 import { BookingInputError, getAvailableSlots, googleCalendarLink, hashToken, newBookingReference, newCancelToken, validateBookingInput } from "@/lib/booking/server";
 import { formatRange } from "@/lib/booking/time";
 import { clientIpHash } from "@/lib/quote/location";
@@ -21,16 +22,24 @@ const icsFor = (booking, status = "CONFIRMED") =>
     startsAt: booking.startsAt,
     endsAt: booking.endsAt,
     summary: "Consultation with RealHive Consultants",
-    description: `Video call (Google Meet). We'll email you the link before the call.\nReference: ${booking.reference}`,
+    description: booking.meetLink
+      ? `Video call: ${booking.meetLink}\nReference: ${booking.reference}`
+      : `Video call (Google Meet). We'll email you the link before the call.\nReference: ${booking.reference}`,
     organizerEmail: process.env.SENDER_EMAIL,
     url: SITE.url,
     status,
   });
 
 /**
- * Book a consultation. Only a currently available slot can be booked; the
- * database's unique index stops two people taking the same one.
- * Returns the saved booking. Throws BookingInputError (409/422/429 cases).
+ * Book a consultation:
+ *   1. only a currently offered slot is accepted; the database's unique index
+ *      stops two people taking the same one;
+ *   2. the booking is saved;
+ *   3. when Google Calendar is connected, an event with a Google Meet link is
+ *      created on the company calendar and the client invited (a failure is
+ *      recorded on the booking and never loses it);
+ *   4. the client and the team are emailed, with the Meet link when there is one.
+ * Returns { booking, emailed }. Throws BookingInputError (409/422/429 cases).
  */
 export async function createBooking(body) {
   const input = validateBookingInput(body);
@@ -71,11 +80,26 @@ export async function createBooking(body) {
     throw error;
   }
 
+  if (isGoogleCalendarConfigured()) {
+    try {
+      const { eventId, eventLink, meetLink } = await createMeetEvent(booking);
+      booking.googleEventId = eventId;
+      booking.googleEventLink = eventLink ?? undefined;
+      booking.meetLink = meetLink ?? undefined;
+      if (!meetLink) booking.meetError = "Google created the event but hadn't generated the Meet link yet; open the event to get it.";
+    } catch (error) {
+      console.error("Google Meet event failed: ", error.message);
+      booking.meetError = error.message.slice(0, 300);
+    }
+    await booking.save();
+  }
+
   const whenVisitor = formatRange(booking.startsAt, booking.endsAt, booking.timezone);
   const whenCompany = formatRange(booking.startsAt, booking.endsAt, settings.timezone);
   const emails = await Promise.allSettled([
     sendBookingConfirmation({
-      booking, when: whenVisitor, ics: icsFor(booking),
+      // Google already sends the client a calendar invitation for its event; our .ics would add a duplicate
+      booking, when: whenVisitor, ics: booking.googleEventId ? null : icsFor(booking),
       cancelUrl: absoluteUrl(`/booking/cancel?token=${token}`), siteUrl: SITE.url, phone: CONTACT.telephone,
     }),
     sendBookingNotification({
@@ -107,6 +131,14 @@ export async function cancelBooking(booking, by) {
   booking.cancelledAt = new Date();
   booking.cancelledBy = by;
   await booking.save();
+
+  if (booking.googleEventId && isGoogleCalendarConfigured()) {
+    try {
+      await deleteMeetEvent(booking.googleEventId); // Google tells the client it's cancelled
+    } catch (error) {
+      console.error("Deleting the Google Calendar event failed: ", error.message);
+    }
+  }
 
   const settings = await getCalendarSettings();
   try {

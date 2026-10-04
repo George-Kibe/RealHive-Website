@@ -8,7 +8,7 @@ export const POST = async (request) => {
         const { booking, emailed } = await createBooking(await request.json().catch(() => ({})));
         return NextResponse.json(
             { message: 'Consultation booked', success: true, emailed,
-              booking: { reference: booking.reference, startsAt: booking.startsAt, endsAt: booking.endsAt } },
+              booking: { reference: booking.reference, startsAt: booking.startsAt, endsAt: booking.endsAt, meetLink: booking.meetLink ?? null } },
             { status: 201 }
         );
     } catch (error) {

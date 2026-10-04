@@ -9,5 +9,5 @@ export const metadata = {
 };
 
 export default function AdminLayout({ children }) {
-  return <div className="mx-auto max-w-5xl px-4 py-10 sm:py-16">{children}</div>;
+  return <div className="max-container padding-container page-y">{children}</div>;
 }

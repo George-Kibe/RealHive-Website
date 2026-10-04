@@ -12,6 +12,11 @@ const BookingSchema = new mongoose.Schema({
   status: { type: String, enum: ["confirmed", "cancelled"], default: "confirmed" },
   cancelledAt: { type: Date },
   cancelledBy: { type: String, enum: ["visitor", "admin"] },
+  // Google Calendar event with the Meet link (lib/booking/google.js); empty when not configured or it failed
+  meetLink: { type: String },
+  googleEventId: { type: String },
+  googleEventLink: { type: String }, // opens the event in Google Calendar
+  meetError: { type: String }, // why the Meet link couldn't be created, for the admin panel
   cancelTokenHash: { type: String, index: true }, // sha256 of the token in the visitor's cancel link
   ipHash: { type: String, index: true }, // salted hash, for rate limiting
 }, {

@@ -11,6 +11,7 @@ import { organizationSchema, websiteSchema } from '@/lib/schema';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics';
 import ConsentBanner from '@/components/analytics/ConsentBanner';
+import WhatsAppChatButton from '@/components/WhatsAppChatButton';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -63,7 +64,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} font-sans p-2 screen-max-width min-h-screen`}>
+      <body className={`${poppins.variable} font-sans min-h-screen`}>
         {/* Sitewide entity graph, server-rendered into the initial HTML. */}
         <JsonLd schema={organizationSchema()} />
         <JsonLd schema={websiteSchema()} />
@@ -75,10 +76,11 @@ export default function RootLayout({ children }) {
           storageKey="realhive-theme"
         >
           <NavbarTest />
-          <main className="relative container overflow-hidden">
+          <main className="relative overflow-x-clip">
             {children}
           </main>
           <Footer />
+          <WhatsAppChatButton />
           <ConsentBanner />
         </ThemeProvider>
         {/* GA4 (Consent Mode v2) loads only when NEXT_PUBLIC_GA_MEASUREMENT_ID is set;

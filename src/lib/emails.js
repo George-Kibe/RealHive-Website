@@ -34,11 +34,11 @@ const fromCompany = () => `"RealHive Consultants" <${process.env.SENDER_EMAIL}>`
 const fromWebsite = () => `"RealHive website" <${process.env.SENDER_EMAIL}>`;
 
 // Where team notifications go. Each falls back to the next, then to SENDER_EMAIL.
-// The contact form keeps going to the address it always used unless ENQUIRIES_NOTIFY_EMAIL is set.
+// The contact form and bookings go to George unless ENQUIRIES_/BOOKINGS_NOTIFY_EMAIL is set.
 const inbox = {
     enquiries: () => process.env.ENQUIRIES_NOTIFY_EMAIL || "georgekibew@gmail.com",
     quotes: () => process.env.QUOTES_NOTIFY_EMAIL || process.env.SENDER_EMAIL,
-    bookings: () => process.env.BOOKINGS_NOTIFY_EMAIL || process.env.QUOTES_NOTIFY_EMAIL || process.env.SENDER_EMAIL,
+    bookings: () => process.env.BOOKINGS_NOTIFY_EMAIL || "georgekibew@gmail.com",
 };
 
 // Header values can't contain line breaks (they would start a new header).
@@ -157,8 +157,9 @@ export const sendBookingConfirmation = ({ booking, when, ics, cancelUrl }) =>
         to: booking.email,
         replyTo: process.env.SENDER_EMAIL,
         subject: `Consultation booked: ${when} (${booking.reference})`,
-        html: bookingConfirmationEmail({ name: booking.name, reference: booking.reference, when, timezone: booking.timezone, topic: booking.topic, cancelUrl }),
-        icalEvent: { method: "PUBLISH", filename: "consultation.ics", content: ics },
+        html: bookingConfirmationEmail({ name: booking.name, reference: booking.reference, when, timezone: booking.timezone, topic: booking.topic, cancelUrl, meetLink: booking.meetLink }),
+        // no .ics when Google already sent the client a calendar invitation
+        ...(ics ? { icalEvent: { method: "PUBLISH", filename: "consultation.ics", content: ics } } : {}),
     });
 
 // notification to the team, with a pre-filled Google Calendar link (add Meet, save)
@@ -176,11 +177,15 @@ export const sendBookingNotification = ({ booking, whenCompany, whenVisitor, com
                 ["Email", booking.email],
                 ["Company", booking.company || "-"],
                 ["Reference", booking.reference],
+                ["Google Meet", booking.meetLink || "-"],
                 ["Topic", booking.topic],
             ],
             email: booking.email,
             calendarLink,
             adminUrl,
+            meetLink: booking.meetLink,
+            eventLink: booking.googleEventLink,
+            meetError: booking.meetError,
         }),
     });
 

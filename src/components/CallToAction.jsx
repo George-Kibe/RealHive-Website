@@ -5,31 +5,31 @@ import React from "react";
 const CallToAction = () => {
   return (
     <>
-      <section className="py-20 lg:py-[120px]">
+      <section className="section-y max-container padding-container">
         <div className="">
           <div
-            className={`relative z-10 overflow-hidden rounded py-12 px-8 md:p-[70px]`}
+            className="relative z-10 overflow-hidden rounded-2xl bg-muted px-6 py-10 ring-1 ring-border sm:p-10 lg:p-14"
           >
             <div className="flex flex-wrap items-center -mx-4">
               <div className="w-full px-4 lg:w-2/3">
                 <span className="mb-2 text-base font-semibold">
                   Leverage Technology and Get your services online
                 </span>
-                <h2 className="mb-6 text-3xl w-[60%] font-bold leading-tight sm:mb-8 sm:text-[38px] lg:mb-0">
+                <h2 className="mt-2 mb-6 text-3xl font-bold leading-tight sm:mb-8 sm:text-[38px] lg:mb-0">
                   Get an Approximate Quotation
                 </h2>
               </div>
               <div className="w-full px-4 lg:w-1/3">
-                <div className="flex flex-wrap space-x-4 lg:justify-end">
+                <div className="flex flex-wrap gap-3 lg:justify-end">
                   <Link
                     href="/quote"
-                    className={buttonVariants({ variant: 'brand', size: 'xl', className: 'my-1' })}
+                    className={buttonVariants({ variant: 'brand', size: 'xl'})}
                   >
                     Get Quotation
                   </Link>
                   <Link
                     href="/book"
-                    className={buttonVariants({ variant: 'brandOutline', size: 'xl', className: 'my-1' })}
+                    className={buttonVariants({ variant: 'brandOutline', size: 'xl'})}
                   >
                     Book Consultation
                   </Link>

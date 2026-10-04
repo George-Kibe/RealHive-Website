@@ -11,9 +11,9 @@ export const metadata = buildMetadata({
 
 const CareersPage = () => {
   return (
-    <div className='padding-container max-container'>
+    <div className='max-container padding-container page-y'>
       <AnimatedText text={"Careers"}/>
-        <div className='flex flex-col justify-center gap-4 mb-4 md:mb-8 items-center '>
+        <div className='flex flex-col items-center justify-center gap-4 text-center'>
           <p>RealHive Consultants is an equal opportunity employer.</p>
           <p>No Jobs found for now. Be on the lookout</p>
         </div>

@@ -29,14 +29,15 @@ export const metadata = buildMetadata({
 
 const ServicesPage = () => {
   return (
-    <section className="padding-container max-container pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
+    // page-y's top only: the last section's own section-y spacing ends the page
+    <div className="pt-8 sm:pt-12">
       {/* Service nodes, generated from the same SERVICES constant that renders
           this page, so markup and visible content cannot diverge. */}
       <JsonLd schema={servicesSchema()} />
-      <div className="container">
+      <section className="max-container padding-container">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">
-            <div className="mx-auto mb-12 max-w-[510px] text-center lg:mb-20">
+            <div className="mx-auto mb-12 max-w-[510px] text-center lg:mb-16">
               <span className="block mb-2 text-lg font-semibold text-primary">
                 Our Services
               </span>
@@ -44,13 +45,13 @@ const ServicesPage = () => {
                 <AnimatedText text={"What We Offer"} />
               </h2>
               <p className="text-base text-muted-foreground">
-                There are many variations of passages of Lorem Ipsum available
-                but the majority have suffered alteration in some form
+                From the first idea to a product in your customers&apos; hands: we design,
+                build and support web, mobile, data and cloud solutions.
               </p>
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap -mx-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           <ServiceCard
             title="Web Application Development"
             details=" We offer custom web application development services, creating responsive, user-friendly web solutions for our clients. Our team of experienced developers and designers work closely with clients to build web applications tailored to their specific needs."
@@ -77,16 +78,16 @@ const ServicesPage = () => {
             image={ CloudImage}
           />
           <ServiceCard
-            title="Regular Updates"
-            details=" We offer custom web application development services, creating responsive, user-friendly web solutions for our clients. Our team of experienced developers and designers work closely with clients to build web applications tailored to their specific needs."
-            image={ WebImage}
+            title="Support and Maintenance"
+            details="We keep your website, app or data platform running after launch: security patches, dependency and OS updates, monitoring, bug fixes and new features as your business grows."
+            image={ ApplicationImage}
           />
         </div>
-      </div>
+      </section>
       <FAQAccordion />
       <CallToAction />
       <Testimonials />
-    </section>
+    </div>
   );
 };
 
@@ -95,16 +96,14 @@ export default ServicesPage
 const ServiceCard = ({ image, title, details }) => {
   return (
     <>
-      <div className="w-full px-4 md:w-1/2 lg:w-1/3">
-        <div className="mb-8 rounded-[20px] p-10 shadow-md hover:shadow-lg md:px-7 xl:px-10">
+      <div className="rounded-2xl bg-card p-6 ring-1 ring-border transition-shadow hover:shadow-lg sm:p-8">
           {/* Transparent artwork straight on the card: no tile behind it */}
-          <div className="mb-8 flex h-[200px] w-[200px] items-center justify-center">
+          <div className="mb-6 flex h-[200px] w-[200px] max-w-full items-center justify-center">
             {/* fixed width => only 1x/2x versions; decorative art, so quality 60 */}
             <FramerImage image={image} title={title} width={200} quality={60} className="h-full w-full object-contain" />
           </div>
           <h4 className="mb-3 text-xl font-semibold text-foreground">{title}</h4>
           <p className="text-muted-foreground">{details}</p>
-        </div>
       </div>
     </>
   );

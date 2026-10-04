@@ -10,8 +10,8 @@ export default async function Testimonials() {
   if (!testimonials.length) return null;
 
   return (
-    <div className="py-4 sm:py-4">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="section-y">
+      <div className="max-container padding-container">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">What Our Clients Say About Us</h2>
         </div>
@@ -41,6 +41,6 @@ export default async function Testimonials() {
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

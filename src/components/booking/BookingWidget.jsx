@@ -106,10 +106,18 @@ const BookingWidget = () => {
         </p>
         <p className="text-sm text-muted-foreground">{timeZone} · reference {booked.reference}</p>
         <p className="mt-4 text-sm">
-          {booked.emailed
+          {booked.meetLink
+            ? <>We&apos;ve emailed a confirmation and a calendar invitation to <span className="font-semibold">{form.email}</span>.</>
+            : booked.emailed
             ? <>We&apos;ve emailed a confirmation to <span className="font-semibold">{form.email}</span>, with a calendar invite. We&apos;ll send the Google Meet link before the call.</>
             : <>We&apos;ve got your booking, but the confirmation email didn&apos;t go out. We&apos;ll be in touch at {form.email} with the Google Meet link.</>}
         </p>
+        {booked.meetLink && (
+          <p className="mt-4">
+            <a href={booked.meetLink} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "brand" })}>Google Meet link</a>
+            <span className="mt-2 block break-all text-xs text-muted-foreground">{booked.meetLink}</span>
+          </p>
+        )}
         <Link href="/" className={buttonVariants({ variant: "brandOutline", className: "mt-6" })}>Back to the homepage</Link>
       </div>
     );

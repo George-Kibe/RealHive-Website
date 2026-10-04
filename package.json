@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint",
     "create-admin": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/create-admin.mjs",
-    "seed-blog": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/seed-blog.mjs"
+    "seed-blog": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --env-file=.env.local scripts/seed-blog.mjs",
+    "google-auth": "node --env-file=.env.local scripts/google-auth.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

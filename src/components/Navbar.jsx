@@ -25,7 +25,7 @@ const Navbar = () => {
   };
   return (
     <nav className="max-container padding-container bg-transparent">
-      <div className="w-full mx-auto p-2">
+      <div className="w-full">
         <div className="flex w-full items-center justify-between h-20 sm:h-24 md:h-28 lg:h-32">
           <div className="flex w-full items-center justify-between">
             <div className="">
@@ -49,8 +49,8 @@ const Navbar = () => {
                 />
               </Link>              
             </div>
-            <div className="hidden md:block w-full">
-              <div className="justify-end flex items-center space-x-6">
+            <div className="hidden lg:block w-full">
+              <div className="justify-end flex items-center gap-6 whitespace-nowrap">
                 {links.map((link) => (
                   <NavLink key={link.id} href={link.url} className="font-medium">
                     {link.title}
@@ -60,7 +60,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="-mr-2 flex md:hidden">
+          <div className="-mr-2 flex lg:hidden">
             <button
               onClick={toggleNavbar}
               type="button"
@@ -88,8 +88,8 @@ const Navbar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 sm:px-3 flex font-bold text-xl flex-col gap-2">
+        <div className="lg:hidden">
+          <div className="pb-4 flex font-bold text-xl flex-col gap-2">
             {links.map((link) => (
               <NavLink
                 key={link.id}

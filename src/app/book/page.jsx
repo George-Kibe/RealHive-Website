@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
 
 // Static shell: available times are loaded in the browser from /api/booking/slots.
 const BookPage = () => (
-  <div className='padding-container max-container pb-24'>
+  <div className='max-container padding-container page-y'>
     <AnimatedText text={"Book a Consultation"} />
     <p className='mx-auto -mt-4 max-w-2xl text-center text-lg text-muted-foreground'>
       A free video call with our team about your project. Pick a time that suits you.

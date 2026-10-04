@@ -19,6 +19,7 @@ const CalendarSettingsSchema = new mongoose.Schema({
   slotMinutes: { type: Number, default: 30 },
   minNoticeHours: { type: Number, default: 12 }, // no bookings sooner than this
   horizonDays: { type: Number, default: 30 }, // how far ahead people can book
+  hiddenSlotPercent: { type: Number, default: 30 }, // share of free slots shown as taken (stable per slot)
   weekly: { type: [WeeklyHoursSchema], default: [] },
   blockedDates: { type: [BlockedDateSchema], default: [] },
 }, {

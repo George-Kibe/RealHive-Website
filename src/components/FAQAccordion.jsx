@@ -85,10 +85,10 @@ import { FAQS as questions } from "@/constants/faqs";
 
 const FAQAccordion = () => {
   return (
-    <div className="flex-col">
+    <section className="section-y max-container padding-container">
       <div className="-mx-4 flex flex-wrap">
         <div className="w-full px-4">
-          <div className="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
+          <div className="mx-auto mb-10 max-w-[520px] text-center sm:mb-12">
             <span className="mb-2 block text-lg font-semibold text-primary">
               FAQS
             </span>
@@ -102,12 +102,12 @@ const FAQAccordion = () => {
           </div>
         </div>
       </div>
-      <div className="p-4 md:p-8">
+      <div className="mx-auto max-w-3xl">
         {
           questions.map((question, index) => (
             <Accordion key={index} type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg">
+                <AccordionTrigger className="text-left text-lg">
                   {index+1}. {question.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-sm">
@@ -118,7 +118,7 @@ const FAQAccordion = () => {
           ))
         }
       </div>
-    </div>
+    </section>
   );
 };
 

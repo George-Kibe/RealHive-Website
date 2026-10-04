@@ -39,9 +39,9 @@ const CallToAction = () => {
   return (
     <div className="">
       <ToastContainer />
-      <div className="relative isolate overflow-hidden py-16 sm:py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+      <div className="section-y relative isolate overflow-hidden">
+        <div className="max-container padding-container">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 lg:grid-cols-2">
             <div className="max-w-xl lg:max-w-lg">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Subscribe to our newsletter.</h2>
                 <p className="mt-4 text-lg leading-8">

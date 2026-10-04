@@ -181,7 +181,7 @@ export const quoteNotificationEmail = ({ reference, rows }) => emailLayout({
 
 // --- consultation bookings ---
 
-export const bookingConfirmationEmail = ({ name, reference, when, timezone, topic, cancelUrl }) => emailLayout({
+export const bookingConfirmationEmail = ({ name, reference, when, timezone, topic, cancelUrl, meetLink }) => emailLayout({
   title: "Your consultation is booked",
   preheader: `Booked: ${when}`,
   body: [
@@ -190,22 +190,38 @@ export const bookingConfirmationEmail = ({ name, reference, when, timezone, topi
     paragraph(`Hi ${escapeHtml(name)},`),
     paragraph("Thanks for booking a consultation with RealHive Consultants. Here are the details:"),
     callout(`<strong>${escapeHtml(when)}</strong><br><span style="color: ${MUTED}; font-size: 13px;">Times in ${escapeHtml(timezone)} · Video call (Google Meet)</span>`),
-    paragraph("We'll email you the Google Meet link before the call. The attached calendar file adds it to your calendar."),
+    ...(meetLink
+      ? [
+          button(meetLink, "Join with Google Meet"),
+          muted(`Meeting link: <a href="${escapeHtml(meetLink)}" style="color: ${BRAND};">${escapeHtml(meetLink)}</a><br>You'll also receive a Google Calendar invitation for the call.`),
+        ]
+      : [paragraph("We'll email you the Google Meet link before the call. The attached calendar file adds it to your calendar.")]),
     muted(`You told us you'd like to discuss:<br>${escapeHtml(topic).replace(/\n/g, "<br>")}`),
     paragraph(`Can't make it? <a href="${escapeHtml(cancelUrl)}" style="color: ${BRAND};">Cancel this booking</a> and book another time, or call us on ${CONTACT.telephone}.`),
     paragraph("Talk soon,<br>RealHive Consultants"),
   ].join("\n"),
 });
 
-export const bookingNotificationEmail = ({ rows, email, calendarLink, adminUrl }) => emailLayout({
+// With meetLink: the event and Meet link were created automatically. Without: the
+// team creates it from the pre-filled link (meetError says why, when Google failed).
+export const bookingNotificationEmail = ({ rows, email, calendarLink, adminUrl, meetLink, eventLink, meetError }) => emailLayout({
   title: "New consultation booking",
   preheader: rows[0]?.[1] ?? "",
   internal: true,
   body: [
     heading("New consultation booking"),
     detailsTable(rows),
-    button(calendarLink, "Create in Google Calendar"),
-    muted(`The event opens pre-filled with the time, details and ${escapeHtml(email)} as a guest. Click <em>Add Google Meet video conferencing</em>, then <em>Save</em> and send the invitation.`),
+    ...(meetLink
+      ? [
+          callout(`<strong>Google Meet:</strong> <a href="${escapeHtml(meetLink)}" style="color: ${BRAND};">${escapeHtml(meetLink)}</a>`),
+          button(meetLink, "Join the call"),
+          muted(`The event is on your Google Calendar and ${escapeHtml(email)} has been sent the invitation.${eventLink ? ` <a href="${escapeHtml(eventLink)}" style="color: ${BRAND};">Open the event</a>` : ""}`),
+        ]
+      : [
+          ...(meetError ? [callout(`<strong>The Google Meet link couldn't be created automatically:</strong><br>${escapeHtml(meetError)}`)] : []),
+          button(calendarLink, "Create in Google Calendar"),
+          muted(`The event opens pre-filled with the time, details and ${escapeHtml(email)} as a guest. Click <em>Add Google Meet video conferencing</em>, then <em>Save</em> and send the invitation.`),
+        ]),
     paragraph(`<a href="${escapeHtml(adminUrl)}" style="color: ${BRAND}; font-size: 13px;">Manage bookings</a>`),
   ].join("\n"),
 });

@@ -23,8 +23,8 @@ const Button = ({text, url}) => {
 }
 const AboutUsPage = () => {
   return (
-    <div className='padding-container max-container my-20'>
-      <div className="relative w-[100%] h-[40vh] md:h-[60vh] lg:h[75vh] mb-20">
+    <div className='max-container padding-container page-y'>
+      <div className="relative w-full h-[40vh] md:h-[60vh] lg:h-[75vh] mb-12 sm:mb-16">
         {/* The page's largest above-the-fold image, so it's preloaded. Its
             background is removed, so it sits directly on the page. */}
         <Image
@@ -35,25 +35,25 @@ const AboutUsPage = () => {
           alt="Web and mobile app development: responsive sites on desktop, tablet and phone"
           className='object-contain'
         />
-        <div className="absolute bottom-5 left-5 bg-brand text-brand-foreground p-2 rounded-md">
+        <div className="absolute bottom-4 left-0 bg-brand text-brand-foreground p-2 rounded-md">
           <h1 className="font-bold text-[30px]">Web, Mobile, Data</h1>
           {/* No hardcoded text colour here: the label inherits
               text-brand-foreground, which flips to dark ink in dark mode.
               Leaving it as text-white would drop to 2.22:1 on the bright
               logo blue. */}
-          <h2 className="font-semibold">Award winning Digital experts</h2>
+          <h2 className="font-semibold">Digital product experts</h2>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row gap-10">
-        <div className='py-5 flex-1 gap-10'>
-          <h1 className="font-bold text-[25px] md:text-[40px]">Who are We?</h1>
+      <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+        <div className='flex-1'>
+          <h2 className="mb-4 font-bold text-[25px] md:text-[40px]">Who are We?</h2>
           <p className="mb-4 text-justify">
           RealHive Consultants Limited is a software development company that provides a range of technology services, including web application development, mobile application development, data science solutions, and data engineering consultancy.
           </p>
           <Button url={"/contacts"} text={"Contact"}/>
         </div>
-        <div className='py-5 flex-1'>
-          <h1 className="font-bold text-[25px] md:text-[40px]">Our Offering</h1>
+        <div className='flex-1'>
+          <h2 className="mb-4 font-bold text-[25px] md:text-[40px]">Our Offering</h2>
           <p className="mb-4 text-justify">
             We engage with clients through initial consultations to understand their specific requirements and objectives. We offer flexible engagement models, such as fixed-price projects, hourly consulting, and long-term partnerships.
           </p>

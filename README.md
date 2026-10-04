@@ -29,6 +29,7 @@ npm run dev                  # http://localhost:3000
 | `npm run lint`  | Run ESLint                |
 | `npm run create-admin -- <email>` | Create or reset an admin account |
 | `npm run seed-blog` | Upload the sample covers to Cloudinary and create/update the 5 sample posts |
+| `npm run google-auth` | One-time: connect Google Calendar so bookings get Meet links (prints `GOOGLE_REFRESH_TOKEN`) |
 
 ## Environment variables
 
@@ -305,7 +306,7 @@ Forgot your admin password? Use **Forgot password?** on `/admin/login`. It's the
 "Book Consultation" (services page, footer) goes to `/book`, which shows the company calendar's free slots in the visitor's own time zone.
 
 - **Availability** is managed in `/admin/calendar`: working hours per weekday, call length (15–90 min), minimum notice, how many days ahead people can book, and blocked days. Defaults: Monday–Friday 09:00–17:00 Africa/Nairobi, 30-minute calls, 12 hours' notice, 30 days ahead.
-- **Booking** emails the visitor a confirmation with an `.ics` calendar file and a cancel link, and emails the team (`BOOKINGS_NOTIFY_EMAIL`, falling back to `QUOTES_NOTIFY_EMAIL`, then `SENDER_EMAIL`) a **Create in Google Calendar** link: it opens Google Calendar pre-filled with the time, details and the visitor as a guest, so you just add Google Meet and save to send the invite. The same link is on each booking in `/admin/calendar`.
+- **Booking** saves the booking, then, if Google Calendar is connected (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN`; see `npm run google-auth` and docs/SEO-PROGRESS.md), creates the calendar event with a Google Meet link and invites the visitor. It emails the visitor a confirmation with the Meet link (or an `.ics` file when Google isn't connected) and a cancel link, and emails the team (`BOOKINGS_NOTIFY_EMAIL`, default georgekibew@gmail.com) the details and Meet link. Without Google, or if it fails, the team email and `/admin/calendar` offer a pre-filled **Create in Google Calendar** link instead. 30% of free slots are shown as taken (stable per slot; change it in `/admin/calendar`).
 - **No double-booking**: a slot is booked only if it's currently offered, and a unique database index on confirmed start times stops two simultaneous bookings of one slot.
 - **Cancelling**: visitors use the link in their email (the team is told); admins cancel from `/admin/calendar` (the visitor is told, with a link to rebook). A cancelled slot becomes available again.
 
@@ -334,7 +335,7 @@ src/
   db/           MongoDB connection
   lib/          SEO metadata, JSON-LD, email sending and templates, JWT helpers, admin session
   models/       Mongoose models
-scripts/        one-off CLI scripts (create-admin, seed-blog) and seed data
+scripts/        one-off CLI scripts (create-admin, seed-blog, google-auth) and seed data
 ```
 
 ## Deployment

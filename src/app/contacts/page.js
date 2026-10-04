@@ -9,7 +9,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
 import { trackEvent } from "@/lib/analytics"
+import { WHATSAPP } from "@/constants"
 import { buttonVariants } from "@/components/ui/button";
+import { inputClass } from "@/components/account/shared";
 
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
@@ -44,92 +46,85 @@ const ContactPage = () => {
       setLoading(false);
     }
   }
+  const card = "flex flex-col items-center justify-center gap-1 rounded-2xl p-6 text-center ring-1 ring-border"
   return (
-    <div className="padding-container">
-      <h5 className="text-center text-xs">Get In Touch</h5>
-      <div> <ToastContainer /> </div>
-      <h1 className="text-center my-4 font-bold text-2xl md:text-4xl md:my-8 lg:text-6xl">
+    <div className="max-container padding-container page-y">
+      <ToastContainer />
+      <p className="text-center text-xs font-semibold uppercase tracking-wide text-brand">Get In Touch</p>
+      <h1 className="mt-3 mb-10 text-center text-3xl font-bold sm:mb-12 sm:text-4xl lg:text-6xl">
         Lets get in Touch
       </h1>
-      <div className="-mx-4 flex flex-wrap lg:justify-between">
-        <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
-          <div className="flex flex-col flex-1 md:items-center gap-4 mb-4 sm:mx-4 md:mx-0 xl:mx-24">
-            <div className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
-              <MdOutlineEmail className="text-[25px] md:text-[40px]"/>
-              <h4 className="text-center">Email</h4>
-              <h5 className="text-center">realhiveconsultants@gmail.com</h5>
-              <a href="mailto:realhiveconsultants@gmail.com" target="_blank" rel="noreferrer" className="items-center">Send an Email</a>
-            </div>
-            <article className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
-              <FaXTwitter className="text-[25px] md:text-[40px]"/>
-              <h4>X</h4>
-              <h5>@KibeGeorge_</h5>
-              <a href="https://x.com/kibegeorge_" target="_blank" rel="noreferrer">Message our CEO on X</a>
-            </article>
-            <article className="flex flex-col items-center justify-center border-2 border-border p-2 w-full rounded-xl">
-              <BsWhatsapp className="text-[25px] md:text-[40px]"/>
-              <h4>Whatsapp</h4>
-              <h5>+254 795 288 155</h5>
-              <a href="https://wa.link/176li6" target="_blank" rel="noreferrer">Whatsapp Us</a>
-            </article>
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="flex flex-col gap-4">
+          <div className={card}>
+            <MdOutlineEmail className="text-[25px] md:text-[40px]"/>
+            <h2 className="font-semibold">Email</h2>
+            <p>realhiveconsultants@gmail.com</p>
+            <a href="mailto:realhiveconsultants@gmail.com" target="_blank" rel="noreferrer" className="text-brand hover:underline">Send an Email</a>
           </div>
+          <article className={card}>
+            <FaXTwitter className="text-[25px] md:text-[40px]"/>
+            <h2 className="font-semibold">X</h2>
+            <p>@KibeGeorge_</p>
+            <a href="https://x.com/kibegeorge_" target="_blank" rel="noreferrer" className="text-brand hover:underline">Message our CEO on X</a>
+          </article>
+          <article className={card}>
+            <BsWhatsapp className="text-[25px] md:text-[40px]"/>
+            <h2 className="font-semibold">Whatsapp</h2>
+            <p>+254 795 288 155</p>
+            <a href={WHATSAPP.chatUrl} target="_blank" rel="noreferrer" className="text-brand hover:underline">Whatsapp Us</a>
+          </article>
         </div>
 
-        <div className="w-full lg:w-1/2 xl:w-5/12">
-          <div className="relative rounded-lg px-8 shadow-lg sm:px-12">
-            <div className="py-6 sm:py-8 lg:py-12 bg-transparent">
-              <div className="bg-transparent">
-                <p className="">Name:</p>
-                <input type="text" placeholder='Name' 
-                  value={name}
-                  onChange={ev => setName(ev.target.value)}
-                  className="border-2 border-gray-300 rounded-md p-1 w-full 
-                  mb-2 focus:border-blue-900" 
-                /> 
-              </div>
-              <div className="">
-                <p className="">Email:</p>
-                <input type="email" placeholder='Email' 
-                  value={email}
-                  onChange={ev => setEmail(ev.target.value)}
-                  className="border-2 bg-transparent border-gray-300 rounded-md p-1 w-full 
-                  mb-2 focus:border-blue-900" 
-                /> 
-              </div>
-              <div className="">
-                <p className="">Phone Number:</p>
-                <input type="text" placeholder='Phone Number'
-                  value={phoneNumber}
-                  onChange={ev => setPhoneNumber(ev.target.value)}
-                  className="border-2 bg-transparent border-gray-300 rounded-md p-1 w-full
-                  mb-2 focus:border-blue-900"
-                />
-              </div>
-              <p className="font-semibold pr-2">Your Message</p>
-                <textarea type="text" placeholder='Enter Your Message here...' 
-                  value={message} 
-                  onChange={ev => setMessage(ev.target.value)}
-                  className="border-2 h-24 bg-transparent border-gray-300 rounded-md p-1 w-full 
-                  mb-2 focus:border-blue-900" 
-                /> 
-              <div>
-                <button
-                  onClick={handleSubmit}
-                  disabled={loading}
-                  className={buttonVariants({ variant: "brand", size: "lg" })}
-                >
-                  {
-                    loading
-                      ? <><FiLoader className="mr-2 animate-spin" /> Sending...</>
-                      : "Send Message"
-                  }
-                </button>
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-col gap-4 rounded-2xl bg-card p-6 ring-1 ring-border sm:p-8">
+          <label className="text-sm font-medium">
+            Name
+            <input type="text" placeholder='Name'
+              value={name}
+              onChange={ev => setName(ev.target.value)}
+              className={inputClass}
+            />
+          </label>
+          <label className="text-sm font-medium">
+            Email
+            <input type="email" placeholder='Email'
+              value={email}
+              onChange={ev => setEmail(ev.target.value)}
+              className={inputClass}
+            />
+          </label>
+          <label className="text-sm font-medium">
+            Phone Number
+            <input type="text" placeholder='Phone Number'
+              value={phoneNumber}
+              onChange={ev => setPhoneNumber(ev.target.value)}
+              className={inputClass}
+            />
+          </label>
+          <label className="text-sm font-medium">
+            Your Message
+            <textarea placeholder='Enter Your Message here...'
+              value={message}
+              onChange={ev => setMessage(ev.target.value)}
+              className={`${inputClass} h-32`}
+            />
+          </label>
+          <div>
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className={buttonVariants({ variant: "brand", size: "lg" })}
+            >
+              {
+                loading
+                  ? <><FiLoader className="mr-2 animate-spin" /> Sending...</>
+                  : "Send Message"
+              }
+            </button>
           </div>
         </div>
       </div>
+    </div>
   )
 }
 

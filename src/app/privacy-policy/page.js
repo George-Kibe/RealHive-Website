@@ -17,7 +17,7 @@ const H2 = ({ id, children }) => <h2 id={id} className='scroll-mt-24 pt-6 pb-2 t
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="padding-container max-container py-8 px-4">
+    <div className="max-container padding-container page-y">
       <AnimatedText text={"Privacy Policy"} />
 
       <div className='mx-auto max-w-3xl space-y-3 leading-7'>
@@ -56,7 +56,7 @@ const PrivacyPolicyPage = () => {
         <ul className='list-disc space-y-1 pl-6'>
           <li><strong>Vercel</strong>: website hosting and page-speed measurement.</li>
           <li><strong>MongoDB Atlas</strong>: the database that stores the information above.</li>
-          <li><strong>Google</strong>: email delivery (Gmail) and Google Analytics.</li>
+          <li><strong>Google</strong>: email delivery (Gmail), Google Analytics, and Google Calendar and Meet for the consultations you book.</li>
           <li><strong>Cloudinary</strong>: hosting of blog and testimonial images.</li>
         </ul>
         <p>These providers may process data outside your country, including in the United States and the European Union.</p>

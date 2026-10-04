@@ -82,7 +82,7 @@ const CalendarSettingsForm = ({ initial, slotLengths }) => {
         </div>
       </fieldset>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <label className="text-sm font-medium">
           Call length
           <select value={settings.slotMinutes} onChange={(e) => setSettings((s) => ({ ...s, slotMinutes: Number(e.target.value) }))}
@@ -94,6 +94,12 @@ const CalendarSettingsForm = ({ initial, slotLengths }) => {
           Minimum notice (hours)
           <input type="number" min={0} max={168} value={settings.minNoticeHours}
             onChange={(e) => setSettings((s) => ({ ...s, minNoticeHours: Number(e.target.value) }))} className={`mt-1 block w-full ${inputClass}`} />
+        </label>
+        <label className="text-sm font-medium">
+          Show as taken (% of free slots)
+          <input type="number" min={0} max={90} value={settings.hiddenSlotPercent}
+            onChange={(e) => setSettings((s) => ({ ...s, hiddenSlotPercent: Number(e.target.value) }))} className={`mt-1 block w-full ${inputClass}`} />
+          <span className="mt-1 block text-xs font-normal text-muted-foreground">Held back at random (the same slots every time) so the calendar never looks empty.</span>
         </label>
         <label className="text-sm font-medium">
           Bookable up to (days ahead)

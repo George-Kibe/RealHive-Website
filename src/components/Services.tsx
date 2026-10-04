@@ -1,26 +1,28 @@
 import { SERVICES } from '@/constants'
 import Image, { type StaticImageData } from 'next/image'
-import phone from '../../public/images/phone.webp'
+// RealHive's own property app (also on /portfolio): a scene photo, so its edges fade into the page
+import realhiveApp from '../../public/images/realhive-app.webp'
 import React from 'react'
 
 const Services = () => {
   return (
-    <section className="flex flex-col overflow-hidden  bg-center bg-no-repeat py-24">
-      <div className="flex-col md:flex-row  max-container padding-container relative w-full flex justify-end rounded-lg ">
-        <div className="flex flex-1">
+    <section className="section-y flex flex-col overflow-hidden">
+      <div className="max-container padding-container relative flex flex-col gap-10 lg:flex-row">
+        <div className="flex items-start lg:flex-1">
           <Image
-            src={phone}
-            alt="A mobile app shown on a phone"
-            sizes="(min-width: 768px) 400px, 70vw"
-            className="h-auto w-full max-w-[400px] object-contain rotate-6"
+            src={realhiveApp}
+            alt="The RealHive property app, built by our team, open on a phone"
+            sizes="(min-width: 1024px) 400px, calc(100vw - 48px)"
+            placeholder="blur"
+            className="fade-edges h-auto w-full"
           />
         </div>
 
         <div className="z-20 flex w-full flex-col lg:w-[60%]">
-          <div className='relative mt-10'>
-            <h2 className="bold-40 lg:bold-64">Our Services</h2>
+          <div className='relative'>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">Our Services</h2>
           </div>
-          <ul className="mt-10 grid gap-10 md:grid-cols-2 lg:mg-20 lg:gap-20">
+          <ul className="mt-10 grid gap-10 md:grid-cols-2 lg:gap-x-16 lg:gap-y-14">
             {SERVICES.map((service) => (
               <ServiceItem 
                 key={service.title}
@@ -70,10 +72,10 @@ const ServiceItem = ({ title, icon, description }: ServiceItemProps) => {
       <div className="flex h-16 items-center">
         <ServiceIconImage icon={icon} title={title} />
       </div>
-      <h2 className=" lg:bold-32 mt-5 capitalize">
+      <h3 className="mt-5 text-xl font-semibold capitalize lg:text-2xl">
         {title}
-      </h2>
-      <p className="regular-16 mt-5 text-justify text-gray-30 lg:mt-[30px] lg:bg-none">
+      </h3>
+      <p className="mt-3 text-justify text-muted-foreground">
         {description}
       </p>
     </li>

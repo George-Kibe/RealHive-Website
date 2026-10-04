@@ -14,7 +14,7 @@ export default function Error({ error, reset }) {
   }, [error]);
 
   return (
-    <section className="flex flex-col items-center justify-center gap-6 py-24 text-center">
+    <section className="max-container padding-container page-y flex flex-col items-center justify-center gap-6 text-center">
       <h1 className="text-4xl font-bold lg:text-5xl">Something went wrong</h1>
       <p className="max-w-prose text-base opacity-80">
         This page failed to load. Trying again usually resolves it.

@@ -193,11 +193,45 @@
   }
 }
 
-.screen-max-width {
-  margin-inline-start: auto;
-  margin-inline-end: auto;
-  position: relative;
-  max-width: 1120px;
+/* Page layout: the one set of gutters and spacing every page uses.
+   Horizontal: wrap content in `max-container padding-container` (nav, footer,
+   pages and full-width sections alike) so all left/right edges line up:
+   16px gutters on phones, 24px on tablets, 32px on desktop, 1152px max.
+   Vertical: `page-y` around a page's content (top below the nav, bottom
+   above the footer); `section-y` around each major section within a page. */
+@utility max-container {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+@utility padding-container {
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+@utility page-y {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  @media (width >= 40rem) {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+  @media (width >= 64rem) {
+    padding-bottom: 6rem;
+  }
+}
+@utility section-y {
+  padding-block: 3rem;
+  @media (width >= 40rem) {
+    padding-block: 4rem;
+  }
+  @media (width >= 64rem) {
+    padding-block: 5rem;
+  }
 }
 
 html {

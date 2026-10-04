@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getAdmin } from "@/lib/adminAuth";
 import { getCalendarSettings, SLOT_LENGTHS } from "@/lib/booking/settings";
 import { googleCalendarLink } from "@/lib/booking/server";
+import { isGoogleCalendarConfigured } from "@/lib/booking/google";
 import { formatRange } from "@/lib/booking/time";
 import Booking from "@/models/BookingModel";
 import AdminHeader from "@/components/admin/AdminHeader";
@@ -37,14 +38,20 @@ export default async function AdminCalendarPage() {
     when: formatRange(b.startsAt, b.endsAt, settings.timezone),
     visitorWhen: b.timezone !== settings.timezone ? `${formatRange(b.startsAt, b.endsAt, b.timezone)} (${b.timezone})` : null,
     calendarLink: googleCalendarLink(b),
+    meetLink: b.meetLink ?? null,
+    eventLink: b.googleEventLink ?? null,
+    meetError: b.meetError ?? null,
   });
+  const googleConnected = isGoogleCalendarConfigured();
 
   return (
     <div>
       <AdminHeader title="Consultation calendar" email={admin.email} current="/admin/calendar" />
       <p className="mt-4 text-sm text-muted-foreground">
-        Visitors book free consultations at <a href="/book" className="underline">/book</a>. Each booking emails you a link that opens
-        Google Calendar pre-filled: add Google Meet and save. All times here are {settings.timezone}.
+        Visitors book free consultations at <a href="/book" className="underline">/book</a>. All times here are {settings.timezone}.{" "}
+        {googleConnected
+          ? "Google Calendar is connected: each booking gets a Google Meet link and an event on your calendar, and the client is invited automatically."
+          : "Google Calendar isn't connected yet (see docs/SEO-PROGRESS.md), so each booking emails you a link that opens Google Calendar pre-filled: add Google Meet and save."}
       </p>
       <AdminBookings upcoming={upcoming.map(view)} recent={recent.map(view)} />
       <CalendarSettingsForm initial={settings} slotLengths={SLOT_LENGTHS} />
