@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
 })
 
 // Keep this in step with what the site actually does (forms, analytics, providers).
-const LAST_UPDATED = '3 October 2026'
+const LAST_UPDATED = '19 November 2026'
 
 const H2 = ({ id, children }) => <h2 id={id} className='scroll-mt-24 pt-6 pb-2 text-lg font-semibold'>{children}</h2>
 
@@ -56,7 +56,8 @@ const PrivacyPolicyPage = () => {
         <ul className='list-disc space-y-1 pl-6'>
           <li><strong>Vercel</strong>: website hosting and page-speed measurement.</li>
           <li><strong>MongoDB Atlas</strong>: the database that stores the information above.</li>
-          <li><strong>Google</strong>: email delivery (Gmail), Google Analytics, and Google Calendar and Meet for the consultations you book.</li>
+          <li><strong>Amazon Web Services (Amazon SES)</strong>: delivery of the emails we send you.</li>
+          <li><strong>Google</strong>: Google Analytics, and Google Calendar and Meet for the consultations you book.</li>
           <li><strong>Cloudinary</strong>: hosting of blog and testimonial images.</li>
         </ul>
         <p>These providers may process data outside your country, including in the United States and the European Union.</p>

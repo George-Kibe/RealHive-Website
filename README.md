@@ -7,7 +7,7 @@ The marketing site for [RealHive Consultants](https://realhiveconsultants.com): 
 - **Next.js 16** (App Router) on **React 19**, Node **24.x**
 - **Tailwind CSS v4** with shadcn/ui-style components (Radix primitives)
 - **MongoDB** via Mongoose
-- **Nodemailer** (Gmail SMTP) for outgoing email
+- **Nodemailer** over **Amazon SES** for outgoing email
 - **Cloudinary** (`next-cloudinary`) for blog images and transformations
 - **TipTap** rich-text editor (stores Markdown) in the admin; **react-markdown** + Tailwind Typography to render posts
 - **next-themes** for light/dark mode, **motion** for animation
@@ -39,7 +39,7 @@ Every variable is documented in [.env.example](.env.example). In short:
 | --- | --- |
 | `MONGODB_URI` | MongoDB connection string |
 | `ACCESS_TOKEN_SECRET`, `REFRESH_TOKEN_SECRET` | JWT signing secrets |
-| `SENDER_EMAIL`, `EMAIL_PASSWORD` | Gmail address and App Password for SMTP |
+| `AWS_SES_ADMIN_ACCESS_KEY_ID`, `AWS_SES_ADMIN_SECRET_KEY`, `AWS_SES_REGION` | Amazon SES credentials for all outgoing email |
 | `NEXT_PUBLIC_SITE_URL` | Canonical origin for SEO (production domain) |
 | `CLOUDINARY_URL` | Cloudinary credentials (`cloudinary://key:secret@cloud`); needed at build time |
 | `MPESA_CONSUMER_KEY`, `MPESA_SECRET_KEY`, `MPESA_PAYBILL`, `MPESA_PASSKEY` | Safaricom Daraja credentials |
@@ -214,7 +214,7 @@ Progress against the SEO and analytics strategy is tracked in [docs/SEO-PROGRESS
 - **Currency**: amounts are converted at current rates from ExchangeRate-API's open endpoint (no key, updated daily, cached for an hour; attribution shown on the page as its terms require) and rounded down to two significant figures, e.g. KES 36,000. If rates are unavailable, amounts stay in USD. The country → currency map is in `src/lib/quote/currency.js`.
 - **Build level**: production-grade costs 1.7× and takes 1.6× longer (`LEVELS` in prices.js). Support plans are monthly and unaffected.
 - **Timeline**: the longest service plus 40% of the others, since work runs partly in parallel.
-- **PDFs** are generated with `pdf-lib` (`src/lib/quote/pdf.js`) and emailed with Nodemailer. Emailed quotes are saved (`Quote` model, with local and USD amounts and the exchange rate) and listed in `/admin/quotes`; the team gets a copy at `QUOTES_NOTIFY_EMAIL` (default `SENDER_EMAIL`).
+- **PDFs** are generated with `pdf-lib` (`src/lib/quote/pdf.js`) and emailed with Nodemailer. Emailed quotes are saved (`Quote` model, with local and USD amounts and the exchange rate) and listed in `/admin/quotes`; the team gets a copy at `QUOTES_NOTIFY_EMAIL` (default info@realhiveconsultants.com).
 
 ## Blog
 | Method | Route | Description |
@@ -299,7 +299,7 @@ Forgot your admin password? Use **Forgot password?** on `/admin/login`. It's the
 - **Build level**: production-grade multiplies project prices by 1.9 and timelines by 1.7 (`BUILD_LEVELS`). Support plans are monthly and unaffected.
 - **Timeline**: the longest service plus 40% of the others, since work runs partly in parallel.
 - The same pricing code (`src/lib/quote/pricing.js`) runs in the browser for the live estimate and on the server for the PDF, so they always agree.
-- **PDFs** are generated with `pdf-lib` (`src/lib/quote/pdf.js`) and emailed with Nodemailer. Emailed quotes are saved (`Quote` model) and listed in `/admin/quotes`; the team gets a copy at `QUOTES_NOTIFY_EMAIL` (default `SENDER_EMAIL`).
+- **PDFs** are generated with `pdf-lib` (`src/lib/quote/pdf.js`) and emailed with Nodemailer. Emailed quotes are saved (`Quote` model) and listed in `/admin/quotes`; the team gets a copy at `QUOTES_NOTIFY_EMAIL` (default info@realhiveconsultants.com).
 
 ## Consultation bookings
 

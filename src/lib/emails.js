@@ -1,4 +1,6 @@
+import 'server-only';
 import nodemailer from 'nodemailer';
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2';
 import {
     bookingCancelledByTeamEmail,
     bookingCancelledByVisitorEmail,
@@ -16,28 +18,45 @@ import {
 /**
  * Sending every email the site sends. Templates (and their HTML escaping) live
  * in emailTemplates.js; this file decides who gets what, from whom, with which
- * subject and attachments. All mail goes through Gmail SMTP as SENDER_EMAIL.
+ * subject and attachments. All mail goes through Amazon SES (dev and prod).
+ *
+ * The From address must be on an SES-verified identity: realhiveconsultants.com
+ * is verified with DKIM, so mail from it passes DMARC. Replies go to the team
+ * mailbox (info@), or to the visitor on team notifications. EMAIL_FROM /
+ * EMAIL_REPLY_TO override the two addresses.
  */
 
-const transport = () => nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.SENDER_EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
-    },
-});
+// One client per server instance; nodemailer builds the MIME (attachments, .ics)
+// and hands SES the raw message.
+let transporter;
+const transport = () => {
+    transporter ??= nodemailer.createTransport({
+        SES: {
+            sesClient: new SESv2Client({
+                region: process.env.AWS_SES_REGION,
+                credentials: {
+                    accessKeyId: process.env.AWS_SES_ADMIN_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SES_ADMIN_SECRET_KEY,
+                },
+            }),
+            SendEmailCommand,
+        },
+    });
+    return transporter;
+};
+
+const FROM_ADDRESS = () => process.env.EMAIL_FROM || "no-reply@realhiveconsultants.com";
+export const teamMailbox = () => process.env.EMAIL_REPLY_TO || "info@realhiveconsultants.com";
 
 // Visitor-facing mail comes from the company; team notifications from "the website".
-const fromCompany = () => `"RealHive Consultants" <${process.env.SENDER_EMAIL}>`;
-const fromWebsite = () => `"RealHive website" <${process.env.SENDER_EMAIL}>`;
+const fromCompany = () => `"RealHive Consultants" <${FROM_ADDRESS()}>`;
+const fromWebsite = () => `"RealHive website" <${FROM_ADDRESS()}>`;
 
-// Where team notifications go. Each falls back to the next, then to SENDER_EMAIL.
+// Where team notifications go. Quotes fall back to the team mailbox.
 // The contact form and bookings go to George unless ENQUIRIES_/BOOKINGS_NOTIFY_EMAIL is set.
 const inbox = {
     enquiries: () => process.env.ENQUIRIES_NOTIFY_EMAIL || "georgekibew@gmail.com",
-    quotes: () => process.env.QUOTES_NOTIFY_EMAIL || process.env.SENDER_EMAIL,
+    quotes: () => process.env.QUOTES_NOTIFY_EMAIL || teamMailbox(),
     bookings: () => process.env.BOOKINGS_NOTIFY_EMAIL || "georgekibew@gmail.com",
 };
 
@@ -46,7 +65,8 @@ const oneLine = (value = "") => String(value).replace(/[\r\n]+/g, " ").trim();
 
 const send = async (label, options) => {
     try {
-        await transport().sendMail(options);
+        // visitor mail sent from no-reply@ still gets replies to a real inbox
+        await transport().sendMail({ replyTo: teamMailbox(), ...options });
     } catch (error) {
         console.error(`Error sending ${label} email`, error);
         throw new Error(`Error sending ${label} email: ${error}`);
@@ -67,7 +87,7 @@ export const sendWelcomeEmail = (email, name) =>
     send("welcome", {
         from: fromCompany(),
         to: email,
-        replyTo: process.env.SENDER_EMAIL,
+        replyTo: teamMailbox(),
         subject: "Welcome to RealHive Consultants",
         html: welcomeEmail({ name }),
     });
@@ -85,7 +105,7 @@ export const sendPasswordResetSuccessEmail = (email, username) =>
     send("password changed", {
         from: fromCompany(),
         to: email,
-        replyTo: process.env.SENDER_EMAIL,
+        replyTo: teamMailbox(),
         subject: "Your RealHive Consultants password was changed",
         html: passwordChangedEmail({ name: username }),
     });
@@ -114,7 +134,7 @@ export const sendQuoteEmail = ({ to, name, quote, pdf, formatMoney }) => {
     return send("quote", {
         from: fromCompany(),
         to,
-        replyTo: process.env.SENDER_EMAIL,
+        replyTo: teamMailbox(),
         subject: `Your project estimate (${quote.reference})`,
         html: quoteEmail({ name, reference: quote.reference, rows, currency: quote.currency }),
         attachments: [{ filename: `RealHive-estimate-${quote.reference}.pdf`, content: Buffer.from(pdf), contentType: "application/pdf" }],
@@ -155,7 +175,7 @@ export const sendBookingConfirmation = ({ booking, when, ics, cancelUrl }) =>
     send("booking confirmation", {
         from: fromCompany(),
         to: booking.email,
-        replyTo: process.env.SENDER_EMAIL,
+        replyTo: teamMailbox(),
         subject: `Consultation booked: ${when} (${booking.reference})`,
         html: bookingConfirmationEmail({ name: booking.name, reference: booking.reference, when, timezone: booking.timezone, topic: booking.topic, cancelUrl, meetLink: booking.meetLink }),
         // no .ics when Google already sent the client a calendar invitation
@@ -202,7 +222,7 @@ export const sendBookingCancellation = ({ booking, when, to, byVisitor, rebookUr
         : {
             from: fromCompany(),
             to: to ?? booking.email,
-            replyTo: process.env.SENDER_EMAIL,
+            replyTo: teamMailbox(),
             subject: `Your consultation on ${when} has been cancelled`,
             html: bookingCancelledByTeamEmail({ name: booking.name, when, reference: booking.reference, rebookUrl }),
             ...(ics ? { icalEvent: { method: "CANCEL", filename: "consultation.ics", content: ics } } : {}),

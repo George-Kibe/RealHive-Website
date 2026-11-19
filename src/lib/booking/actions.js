@@ -1,6 +1,6 @@
 import "server-only";
 import { connectDB } from "@/db/connectDB";
-import { sendBookingCancellation, sendBookingConfirmation, sendBookingNotification } from "@/lib/emails";
+import { sendBookingCancellation, sendBookingConfirmation, sendBookingNotification, teamMailbox } from "@/lib/emails";
 import { buildIcs } from "@/lib/booking/ics";
 import { getCalendarSettings } from "@/lib/booking/settings";
 import { createMeetEvent, deleteMeetEvent, isGoogleCalendarConfigured } from "@/lib/booking/google";
@@ -25,7 +25,7 @@ const icsFor = (booking, status = "CONFIRMED") =>
     description: booking.meetLink
       ? `Video call: ${booking.meetLink}\nReference: ${booking.reference}`
       : `Video call (Google Meet). We'll email you the link before the call.\nReference: ${booking.reference}`,
-    organizerEmail: process.env.SENDER_EMAIL,
+    organizerEmail: teamMailbox(),
     url: SITE.url,
     status,
   });
