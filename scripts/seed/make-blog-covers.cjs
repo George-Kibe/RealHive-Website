@@ -122,8 +122,46 @@ const cover4 = base(`
   ${bars}
 `);
 
+// Cover 5: five steps in a chain, each handing off to the next, with a spark at the AI step
+const steps = [[230, 520], [500, 340], [800, 470], [1100, 330], [1370, 500]];
+const stepColors = [blue, teal, pink, yellow, orange];
+const links = steps.slice(1).map(([x, y], i) => {
+  const [px0, py0] = steps[i];
+  return `<path d="M${px0} ${py0} C ${px0 + 150} ${py0}, ${x - 150} ${y}, ${x} ${y}" fill="none" stroke="#ffffff" stroke-width="3" stroke-opacity="0.45" stroke-dasharray="10 10"/>`;
+}).join("");
+const nodes = steps.map(([x, y], i) => i === 2
+  ? `<circle cx="${x}" cy="${y}" r="70" fill="${stepColors[i]}" fill-opacity="0.9" filter="url(#glow)"/>
+     <path d="M${x} ${y - 38} L ${x + 10} ${y - 10} L ${x + 38} ${y} L ${x + 10} ${y + 10} L ${x} ${y + 38} L ${x - 10} ${y + 10} L ${x - 38} ${y} L ${x - 10} ${y - 10} Z" fill="#ffffff"/>`
+  : `<rect x="${x - 48}" y="${y - 48}" width="96" height="96" rx="22" fill="${stepColors[i]}" fill-opacity="0.18" stroke="${stepColors[i]}" stroke-width="5" filter="url(#glow)"/>
+     <rect x="${x - 24}" y="${y - 6}" width="48" height="12" rx="6" fill="${stepColors[i]}"/>`).join("");
+const cover5 = base(`
+  <circle cx="800" cy="450" r="340" fill="${pink}" fill-opacity="0.07" filter="url(#soft)"/>
+  ${links}
+  ${nodes}
+`);
+
+// Cover 6: two time-zone dials whose overlap (the shared working hours) glows
+const dial = (cx, c) => `<circle cx="${cx}" cy="450" r="250" fill="${c}" fill-opacity="0.05" stroke="${c}" stroke-width="4" stroke-opacity="0.75" filter="url(#glow)"/>` +
+  Array.from({ length: 12 }, (_, i) => {
+    const a = (i / 12) * Math.PI * 2, r1 = 225, r2 = i % 3 === 0 ? 195 : 210;
+    return `<line x1="${cx + Math.sin(a) * r1}" y1="${450 - Math.cos(a) * r1}" x2="${cx + Math.sin(a) * r2}" y2="${450 - Math.cos(a) * r2}" stroke="${c}" stroke-width="${i % 3 === 0 ? 5 : 3}" stroke-opacity="0.7"/>`;
+  }).join("");
+const cover6 = base(`
+  <defs><clipPath id="left"><circle cx="640" cy="450" r="250"/></clipPath></defs>
+  ${dial(640, blue)}
+  ${dial(960, orange)}
+  <circle cx="960" cy="450" r="250" fill="${yellow}" fill-opacity="0.55" clip-path="url(#left)" filter="url(#glow)"/>
+  <line x1="640" y1="450" x2="640" y2="300" stroke="${blue}" stroke-width="6" stroke-linecap="round"/>
+  <line x1="640" y1="450" x2="740" y2="450" stroke="${blue}" stroke-width="6" stroke-linecap="round"/>
+  <line x1="960" y1="450" x2="960" y2="300" stroke="${orange}" stroke-width="6" stroke-linecap="round"/>
+  <line x1="960" y1="450" x2="1030" y2="520" stroke="${orange}" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="640" cy="450" r="10" fill="#ffffff"/><circle cx="960" cy="450" r="10" fill="#ffffff"/>
+`);
+
 (async () => {
   for (const [name, svg] of [
+    ["ai-automation-for-small-business", cover5],
+    ["hiring-offshore-developers-checklist", cover6],
     ["react-native-vs-flutter-vs-native", cover1],
     ["how-much-does-a-mobile-app-cost", cover2],
     ["mvp-or-production-grade", cover3],

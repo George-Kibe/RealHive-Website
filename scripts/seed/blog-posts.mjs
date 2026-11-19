@@ -621,4 +621,158 @@ Start small and useful: connect your **three most important data sources** into 
 
 Our [data engineering](/services/data-engineering) page explains how we build pipelines, warehouses and dashboards, and our [AI and automation](/services/ai-automation) page covers what comes next. For a starting-from estimate in your currency, try the [instant quote](/quote), or [book a free consultation](/book) to talk through your data.`,
   },
+  {
+    slug: "ai-automation-for-small-business",
+    draft: true,
+    title: "Five Processes Small Businesses Can Automate With AI This Month",
+    excerpt: "You don't need a data science team to save hours every week. Five everyday processes that AI handles well today, what each takes to set up, and the guardrails that keep it safe.",
+    tags: ["AI", "Automation", "Small Business"],
+    coverAlt: "Five glowing steps joined by a dotted line, with a bright spark at the middle step",
+    content: `Most small businesses don't need a custom AI model. They need the hours back that go into answering the same questions, copying data between tools and writing up the same reports every week. Today's AI tools are good at exactly that kind of work, as long as you pick the right processes and keep a person in the loop where it matters.
+
+Here are five that pay off quickly, roughly from easiest to most involved.
+
+## 1. Answering common customer questions
+
+**What it does:** a chatbot on your website or WhatsApp answers questions about opening hours, prices, delivery, policies and services, using *your* content: your FAQs, service pages and documents. When it can't answer, it hands over to a person and captures the customer's details.
+
+**Why it works now:** with retrieval-augmented generation (RAG), the assistant looks up the relevant passage before answering, so it quotes your information instead of making things up. We explain how in [Retrieval-Augmented Generation, Explained](/blog/retrieval-augmented-generation-explained).
+
+**Guardrail:** tell it to answer only from your content and to say "I don't know" otherwise. Review a sample of conversations every week for the first month.
+
+## 2. Sorting and routing your inbox
+
+**What it does:** every incoming email or form submission is read, labelled (sales enquiry, support request, invoice, spam), the key details are pulled out (name, company, what they need, urgency) and it is sent to the right person or tool, often with a draft reply attached.
+
+**Why it works now:** classifying and extracting from short messages is one of the things language models do most reliably.
+
+**Guardrail:** let AI *draft* replies, but have a person send them until you trust the results.
+
+## 3. Turning documents into data
+
+**What it does:** invoices, receipts, purchase orders, delivery notes and application forms arrive as PDFs or photos. AI reads them, extracts the fields you need (supplier, date, amounts, line items) and enters them into your accounting system, spreadsheet or CRM.
+
+**Why it works now:** modern models read scanned and photographed documents well, including ones with inconsistent layouts that older template-based tools struggled with.
+
+**Guardrail:** check totals automatically (do the line items add up?) and send anything that fails, or anything above a value you set, for a person to approve.
+
+## 4. Meeting notes and follow-ups
+
+**What it does:** calls and meetings are transcribed and summarised into decisions, action items and owners, which are then added to your CRM or task tool, and a follow-up email is drafted for the client.
+
+**Why it works now:** transcription and summarisation are mature, and many video-call tools now include them.
+
+**Guardrail:** ask for consent before recording, and keep recordings and transcripts in your own accounts with a clear retention period, especially for clients in the UK and EU.
+
+## 5. Weekly reports that write themselves
+
+**What it does:** every Monday, numbers from your sales, bookings, website and finance tools are pulled together, compared with last week and turned into a short written summary with the three things worth attention.
+
+**Why it works now:** the AI does the writing; the numbers come from your systems, so the figures themselves are exact. The work is in connecting the data sources reliably, which is a [data engineering](/services/data-engineering) job.
+
+**Guardrail:** have the report link to the underlying figures, so anyone can check them.
+
+## How to choose where to start
+
+Pick the process that scores highest on all four:
+
+| Question | Good sign |
+| --- | --- |
+| How often does it happen? | Daily or weekly |
+| How much time does it take? | Hours per week, across the team |
+| Does it follow clear rules? | Most cases look alike, with a few exceptions |
+| What happens if it's wrong? | A person can catch it before it matters |
+
+Start with one, measure the time saved for a month, then do the next.
+
+## Off-the-shelf or custom?
+
+For simple flows between popular apps, automation platforms such as Zapier, Make or n8n with an AI step are often enough, and quick to try. Custom work pays off when the process touches your own systems or databases, needs your documents as a knowledge base, handles sensitive data, or runs at a volume where per-task fees add up.
+
+## A word on data
+
+Whatever you build, use AI providers' **business** plans or APIs, which don't train on your data, keep documents in your own accounts, and give the system access to only what it needs.
+
+If you'd like help picking and building the first one, our [AI and automation](/services/ai-automation) team builds chatbots, document Q&A and workflow automation on your own data. Get a starting-from estimate in your currency with the [instant quote](/quote), or [book a free consultation](/book).`,
+  },
+  {
+    slug: "hiring-offshore-developers-checklist",
+    draft: true,
+    title: "Hiring Offshore Developers: What to Check Before You Sign",
+    excerpt: "Time zones, contracts, code ownership, data protection and how you'll actually work together: a practical checklist for UK and European companies hiring a development team abroad.",
+    tags: ["Outsourcing", "Mobile", "Web", "Hiring"],
+    coverAlt: "Two clock faces in blue and orange overlapping, with the shared area glowing yellow",
+    content: `Hiring a development team in another country can give you senior engineers at a lower cost than hiring locally, and often faster. It can also go badly: missed deadlines, code you can't maintain, or a dispute over who owns what. The difference is almost always in what was checked before the contract was signed.
+
+This checklist is written for UK and European companies, but most of it applies wherever you are.
+
+## 1. Working hours you can actually share
+
+Time-zone overlap matters more than distance. You want several hours a day when both teams are online, for calls, quick questions and reviews.
+
+- **Ask for the team's working hours in your time zone**, including how they handle daylight saving changes.
+- **Agree on core overlap hours** for meetings and fast responses.
+- **East Africa** is a good example: Nairobi is UTC+3 all year, which is 2–3 hours ahead of the UK and 1–2 hours ahead of Central Europe, so nearly the whole working day overlaps.
+
+A team 8–12 hours away can still work well, but every question takes a day to answer, and that adds up over a project.
+
+## 2. Evidence of real work
+
+- **Live projects you can open**: apps in the stores, websites you can use, not just screenshots.
+- **References** from clients who'll take a call, ideally in your industry or market.
+- **The people, not just the company**: who exactly will work on your project, and what have they built?
+- **A paid trial or discovery phase**: a small, well-defined first piece of work shows you how they communicate, estimate and deliver before you commit to the whole project.
+
+## 3. A contract that protects you
+
+Have a lawyer review the contract, and make sure it covers:
+
+| Clause | What to look for |
+| --- | --- |
+| Intellectual property | All code, designs and documentation are **assigned to you**, on payment, with no reuse restrictions |
+| Confidentiality | An NDA covering your business information and data |
+| Scope and change | A written scope, and a clear process for pricing changes |
+| Payment | Milestones tied to delivered, working software, not just time passing |
+| Warranty | A period after launch in which defects are fixed at no cost |
+| Termination and handover | You can end the contract and receive the code, credentials and documentation promptly |
+| Governing law | Which country's law applies and how disputes are resolved |
+
+## 4. You own the code and the accounts
+
+Ownership on paper isn't enough; you need control in practice.
+
+- **Repositories in your account** (GitHub, GitLab or Bitbucket), with the team invited as members.
+- **Cloud, app store, domain and third-party accounts in your company's name**, not the agency's.
+- **Credentials stored in a shared password manager** you control.
+- **No lock-in:** mainstream technologies and documented setup, so another team could take over if needed.
+
+## 5. Data protection and GDPR
+
+If the team will handle personal data of people in the UK or EU, data protection law applies to how they do it.
+
+- **A data processing agreement** that sets out what they may do with personal data.
+- **A lawful basis for the transfer abroad.** For countries without an adequacy decision, this usually means the EU Standard Contractual Clauses or, for UK data, the International Data Transfer Agreement or the UK Addendum.
+- **Data minimisation:** where possible, developers work with test or anonymised data, and production data stays in your own cloud accounts, in the UK or EU region if you need it.
+- **Security basics:** access on a need-to-know basis, multi-factor authentication, and access removed when people leave the project.
+
+This isn't legal advice; your lawyer or data protection officer should confirm what applies to you.
+
+## 6. How you'll work together
+
+- **One named point of contact** who speaks for the team and answers within agreed hours.
+- **Regular demos of working software**, every week or two, not just status reports.
+- **Shared tools**: you can see the task board, the code and the test builds at any time.
+- **Code quality practices**: code review, automated tests and a staging environment where you test before release.
+- **Clear language**: written English good enough for specifications and documentation, not just conversation.
+
+## 7. After launch
+
+Ask what happens once the project is live: who fixes bugs, who updates the app when iOS and Android change, how quickly urgent issues are handled, and what a support plan costs. A team that talks about this before you sign is a team planning to be around.
+
+## The short version
+
+Choose a team whose hours overlap with yours, whose work you can see and whose clients will vouch for them. Sign a contract that assigns you the code, and keep the accounts in your name. Start with a small paid piece of work, and judge them by working software, not promises.
+
+We're a [mobile](/services/mobile-app-development) and [web development](/services/web-development) team in Nairobi. If you're comparing options, [book a free consultation](/book) and ask us anything on this list, or get a starting-from estimate in your currency with the [instant quote](/quote).`,
+  },
 ];
