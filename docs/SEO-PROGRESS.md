@@ -8,6 +8,122 @@ Tracks the [Analytics & SEO Growth Strategy](https://claude.ai/code/artifact/d62
 
 ---
 
+## George's to-do list (updated 2026-11-20)
+
+Everything Claude can do is built, deployed and verified. What's left needs your accounts, your knowledge or your clients. Ordered by priority; the number in brackets is the task in the tables below.
+
+### This week
+
+**1. Get the new pages into Google (1.8, phase 2 gate)**
+1. Open [search.google.com/search-console](https://search.google.com/search-console) and choose the `realhiveconsultants.com` property. If it asks you to verify, click **Verify** (the DNS record is already in place).
+2. Left menu → **Sitemaps** → type `sitemap.xml` → **Submit**.
+3. Top search bar (URL inspection) → paste `https://realhiveconsultants.com/services/mobile-app-development` → **Request indexing**.
+4. Repeat step 3 for `/services/web-development`, `/services/data-engineering`, `/services/ai-automation`, `/services` and the homepage. Google limits requests per day; finish the next day if it stops you.
+5. A week later: left menu → **Pages**, and check the service pages show as indexed.
+
+**2. Bing (1.9)**
+1. Open [bing.com/webmasters](https://www.bing.com/webmasters) and sign in.
+2. Choose **Import from Google Search Console** → allow access → select the property → **Import**.
+
+**3. Check GA4 records conversions (1.11, 1.12)**
+1. Open [analytics.google.com](https://analytics.google.com) → **Reports → Realtime**.
+2. In another tab, open realhiveconsultants.com (accept cookies if the banner shows), complete the instant quote and email it to yourself.
+3. Within a minute, `quote_emailed` should appear under "Event count by event name" in Realtime.
+4. **Admin → Data display → Events**: mark `book_consultation`, `quote_emailed` and `contact_form_submit` as key events (star or toggle).
+5. **Admin → Data collection and modification → Data retention** → 14 months → **Save**.
+6. **Admin → Product links → Search Console links → Link** → choose the property → choose the web stream → **Submit**.
+
+**4. Change the admin password**
+1. Go to realhiveconsultants.com/admin/forgot-password and enter georgekibew@gmail.com.
+2. Enter the code from the email and a new password (at least 12 characters).
+3. The temporary password Claude created then stops working.
+
+**5. Publish the first two blog posts (4.1)**
+1. Sign in at /admin/login → **Blog**.
+2. Open "React Native vs Flutter vs Native", read it and edit anything you'd say differently.
+3. Choose an **Author**, tick **Published**, **Save**.
+4. Do the same for "How Much Does a Mobile App Cost in 2026?" on the same day (it links to the first).
+5. Next month: "MVP or Production-Grade" and "Data Engineering vs Data Science". The month after: "AI automation for small business" and "Hiring offshore developers".
+
+**6. Confirm the service-page claims (2.4–2.6)**
+Read the four `/services/...` pages and reply "confirmed", or send corrections, for: code ownership; the fixed-price scope and short build cycles; the technology lists; UK/EU hosting and AI data handling; the AI page artwork. (Details under "For George to confirm" below.)
+
+**7. Check the test emails arrived**
+- georgekibew@gmail.com: "New enquiry from E2E Prod Test (SES…)" and "New consultation: E2E…".
+- realhiveconsultants@gmail.com: "New quote request: E2E…".
+If any are missing, check Spam and tell Claude.
+
+### Soon (next 2–4 weeks)
+
+**8. Team bios for named authors (3.6)**
+For each person send: 2–3 sentences (years of experience, what they build, certifications), their LinkedIn URL, and a photo if you have a better one. Also confirm whether **Trent George** is a current team member. Claude adds them to `src/constants/team.js`.
+
+**9. Company social links (2.3)**
+Send the URLs of the company X, Facebook and YouTube profiles (and LinkedIn once it exists, step 11). They go in the footer and in Google's company data.
+
+**10. Case study notes (3.1)**
+For 3–5 projects (at least one data and one AI project), send:
+1. Client name and whether it can be named (or "a Nairobi logistics company").
+2. The problem they had.
+3. What you built and the technology used.
+4. How long it took.
+5. A measurable result (time saved, sales, users, errors cut).
+6. A one-line quote from the client, if possible, and 2–3 screenshots.
+Claude writes the case study pages from these notes.
+
+**11. LinkedIn company page (3.4)**
+1. On LinkedIn: **For Business → Create a Company Page → Company**.
+2. Name "RealHive Consultants", URL `linkedin.com/company/realhive-consultants`, website https://realhiveconsultants.com, industry "Software Development", logo and tagline.
+3. Add the About text (the footer description works) and send Claude the URL.
+
+**12. Google Business Profile (3.3)**
+1. Go to [business.google.com](https://business.google.com) → **Add business**.
+2. Name "RealHive Consultants", category **Software company**.
+3. When asked about a location customers can visit, choose **No**, then add service areas (Nairobi, Kenya and the others you serve).
+4. Add phone +254 795 288 155 and the website, then complete Google's verification (video, phone or code).
+5. Add the description, services, logo and a few photos; then send your share link to happy clients and ask for a review.
+
+**13. Testimonials (3.2)**
+1. Ask 3–5 clients for 2–3 sentences about working with you, plus their name, role, company, a photo and permission to publish.
+2. /admin/testimonials → **Add** → fill in, upload the photo, tick **Published** → **Save**. They appear on /services and every service page.
+
+**14. Clutch and GoodFirms (3.5)**
+1. [clutch.co](https://clutch.co) → **Get listed** → create the company profile (services, portfolio, rates), then use Clutch's review invitations to ask 2–3 clients for reviews.
+2. [goodfirms.co](https://www.goodfirms.co) → **Get listed** → same, and request reviews.
+3. Send Claude both profile URLs.
+
+**15. Keyword tool (1.15)**
+Free first: [ahrefs.com/webmaster-tools](https://ahrefs.com/webmaster-tools) → sign up → connect with Google Search Console. Take a paid tool (Semrush or Ahrefs) later if you want competitor research.
+
+### Recommended setup (one-off)
+
+**16. Make pushes deploy automatically**
+Today a `git push` does **not** update the site; it needs `vercel --prod`.
+1. [vercel.com](https://vercel.com) → project **realhive-consultants** → **Settings → Git**.
+2. **Connect Git Repository** → GitHub → `George-Kibe/RealHive-Website`; production branch `master`.
+3. From then on every push to master deploys. (Also reinstall the CLI: `npm i -g vercel`.)
+
+**17. A send-only AWS key**
+The SES key looks like an admin key; if it leaks, the whole AWS account is exposed.
+1. AWS console → **IAM → Users → Create user** "realhive-ses-sender" (no console access).
+2. Add an inline policy allowing `ses:SendEmail` and `ses:SendRawEmail` in eu-west-1 only.
+3. **Security credentials → Create access key**.
+4. In Vercel (Production) and `.env.local`, replace `AWS_SES_ADMIN_ACCESS_KEY_ID` and `AWS_SES_ADMIN_SECRET_KEY`, then redeploy.
+5. Send a test (e.g. the contact form), then deactivate and delete the old key.
+
+**18. A domain inbox, free (2.2)**
+1. Namecheap → **Domain List → Manage** realhiveconsultants.com → **Email Forwarding**.
+2. Add alias `info` → forward to realhiveconsultants@gmail.com.
+3. Tell Claude: the site's contact email switches to info@realhiveconsultants.com (one line).
+
+### Later / optional
+
+- **19. Google Meet links on bookings:** follow "Google Calendar + Meet" below, then add the three `GOOGLE_*` variables in Vercel and redeploy.
+- **20. Looker Studio dashboard (1.14):** after 2–4 weeks of data, Setup steps F.
+- **21. Custom MAIL FROM for SES:** optional; only if emails land in spam. Needs an MX and TXT record on `mail.realhiveconsultants.com` (ask Claude first: Namecheap's email forwarding and custom MX records interact).
+
+---
+
 ## Phase 1: Measure (weeks 1–2)
 
 Gate to move on: **tracking verified**, meaning real visits and at least one test conversion show in GA4, and Search Console shows the site with the sitemap read.
@@ -144,7 +260,8 @@ No event sends names, emails or phone numbers (Google's terms forbid it). Code: 
 
 | Date | Change |
 | --- | --- |
-| 2026-11-20 | 4.1: drafted the AI automation and offshore-hiring posts with covers (six drafts in /admin/blog). Commit 5ad4e94 (service pages, authors) is pushed but not yet deployed to production: pushes don't deploy, run `vercel --prod`. |
+| 2026-11-20 | Commits 5ad4e94 and 0ea8998 deployed to production with `vercel --prod` and verified (service pages live with Service + BreadcrumbList, real 404s, sitemap lists them, drafts private, SES email OK). Added George's to-do list. |
+| 2026-11-20 | 4.1: drafted the AI automation and offshore-hiring posts with covers (six drafts in /admin/blog).  |
 | 2026-11-20 | 4.1: two more drafts (MVP vs production-grade; data engineering vs data science) with covers. Four drafts now waiting in /admin/blog. |
 | 2026-11-20 | 4.1: first two mobile posts drafted (unpublished) with new covers; `seed-blog` supports `draft: true` seeds (created once, never overwritten); `scripts/seed/make-blog-covers.cjs` renders covers in the house style. |
 | 2026-11-20 | 3.6 built: named blog authors (team members, chosen per post in the admin editor) with byline, author box and Person JSON-LD; About page team cards from one `TEAM` list with anchors, bios and links. Contact/reply-to inbox kept at realhiveconsultants@gmail.com (no domain mailbox yet); 2.2 marked Blocked. |
