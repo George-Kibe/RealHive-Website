@@ -6,7 +6,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import React, { useState } from "react";
-import AnimatedText from "./AnimatedText";
 import { FAQS as questions } from "@/constants/faqs";
 
 
@@ -93,7 +92,7 @@ const FAQAccordion = () => {
               FAQS
             </span>
             <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl md:text-[40px]">
-              <AnimatedText text={"Any Questions?"} />
+              Any questions?
               
             </h2>
             <p className="text-base text-muted-foreground">

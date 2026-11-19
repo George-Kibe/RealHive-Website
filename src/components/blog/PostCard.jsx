@@ -2,7 +2,9 @@ import Link from "next/link";
 import BlogImage from "@/components/blog/BlogImage";
 import { formatPostDate } from "@/components/blog/formatPostDate";
 
-const PostCard = ({ post, priority = false }) => (
+const PostCard = ({ post, priority = false, headingLevel = 2 }) => {
+  const Heading = `h${headingLevel}`;
+  return (
   <article className="group flex flex-col overflow-hidden rounded-lg ring-1 ring-border transition-shadow hover:shadow-lg">
     <Link href={`/blog/${post.slug}`} className="flex flex-1 flex-col">
       {post.coverImage ? (
@@ -22,7 +24,7 @@ const PostCard = ({ post, priority = false }) => (
         {post.tags.length > 0 && (
           <p className="text-xs font-semibold uppercase tracking-wide text-brand">{post.tags.slice(0, 3).join(" · ")}</p>
         )}
-        <h2 className="mt-2 text-lg font-semibold leading-snug group-hover:underline">{post.title}</h2>
+        <Heading className="mt-2 text-lg font-semibold leading-snug group-hover:underline">{post.title}</Heading>
         {post.excerpt && <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">{post.excerpt}</p>}
         <p className="mt-auto pt-4 text-xs text-muted-foreground">
           <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time>
@@ -30,6 +32,7 @@ const PostCard = ({ post, priority = false }) => (
       </div>
     </Link>
   </article>
-);
+  );
+};
 
 export default PostCard;

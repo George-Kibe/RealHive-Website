@@ -2,7 +2,10 @@ import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import React from "react";
 
-const CallToAction = () => {
+const CallToAction = ({
+  eyebrow = "Leverage Technology and Get your services online",
+  title = "Get an Approximate Quotation",
+}) => {
   return (
     <>
       <section className="section-y max-container padding-container">
@@ -13,10 +16,10 @@ const CallToAction = () => {
             <div className="flex flex-wrap items-center -mx-4">
               <div className="w-full px-4 lg:w-2/3">
                 <span className="mb-2 text-base font-semibold">
-                  Leverage Technology and Get your services online
+                  {eyebrow}
                 </span>
                 <h2 className="mt-2 mb-6 text-3xl font-bold leading-tight sm:mb-8 sm:text-[38px] lg:mb-0">
-                  Get an Approximate Quotation
+                  {title}
                 </h2>
               </div>
               <div className="w-full px-4 lg:w-1/3">

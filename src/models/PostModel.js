@@ -36,6 +36,12 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'User',
   },
+  // the named author shown on the post: a slug from TEAM (constants/team.js).
+  // Unset = published under the company name.
+  authorSlug: {
+    type: String,
+    trim: true,
+  },
   published: {
     type: Boolean,
     default: false,

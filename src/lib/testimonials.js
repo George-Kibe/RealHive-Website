@@ -1,4 +1,5 @@
 import { revalidatePath } from "next/cache";
+import { SERVICE_PAGES, servicePath } from "@/constants/servicePages";
 import { connectDB } from "@/db/connectDB";
 import Testimonial from "@/models/TestimonialModel";
 
@@ -41,4 +42,5 @@ export const getPublishedTestimonials = async () => {
 // rebuild the pages that show testimonials after an admin change
 export const revalidateTestimonialPages = () => {
     revalidatePath("/services");
+    for (const page of SERVICE_PAGES) revalidatePath(servicePath(page.slug));
 };

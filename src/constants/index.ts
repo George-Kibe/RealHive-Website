@@ -8,46 +8,59 @@ export const NAV_LINKS = [
   { href: '/contacts', key: 'contact_us', label: 'Contact Us' },
 ];
 
-// SERVICES SECTION
-// Icons are static imports so next/image knows their size and can serve
-// AVIF/WebP at the requested width. The data artwork has a version per theme
-// (see FramerImage / ServiceIcon) because its grey/white text would vanish on
-// one of the two backgrounds.
+// SERVICES
+// Every offering, in display order: the homepage shows the ones with a page
+// (slug -> /services/<slug>, see constants/servicePages.js), /services shows all.
+// Icons are static imports so next/image knows their size. The data artwork has
+// a version per theme because its grey/white text would vanish on one background.
 import serviceWeb from "../../public/images/service-web.webp";
 import serviceMobile from "../../public/images/service-mobile.webp";
 import serviceDataLight from "../../public/images/service-data-light.webp";
 import serviceDataDark from "../../public/images/service-data-dark.webp";
 import serviceBigDataLight from "../../public/images/service-bigdata-light.webp";
 import serviceBigDataDark from "../../public/images/service-bigdata-dark.webp";
+import serviceCloud from "../../public/images/service-cloud.webp";
 
 export const SERVICES = [
   {
-    title: 'Web Application Development',
-    icon: serviceWeb,
-    variant: 'green',
-    description:
-      'We offer custom web application development services, creating responsive, user-friendly web solutions for our clients. Our team of experienced developers and designers work closely with clients to build web applications tailored to their specific needs.',
-  },
-  {
-    title: 'Mobile Application Development',
+    title: "Mobile App Development",
+    slug: "mobile-app-development",
     icon: serviceMobile,
-    variant: 'green',
     description:
-      "We specialize in developing mobile applications for iOS and Android platforms. We create native and cross-platform apps, focusing on user experience and functionality.",
+      "iOS and Android apps built with React Native, Flutter or native code, from a first MVP to a production app with payments, maps, chat and offline mode.",
   },
   {
-    title: 'Data Science Solutions',
-    icon: { light: serviceDataLight, dark: serviceDataDark },
-    variant: 'green',
+    title: "Web Development",
+    slug: "web-development",
+    icon: serviceWeb,
     description:
-      'We provide data science services, including data analysis, machine learning, predictive analytics, and data visualization. Our expertise helps clients harness the power of their data to make informed business decisions.',
+      "Custom web applications, SaaS products, portals and online stores built with Next.js and React: fast, secure, search-friendly and easy to manage.",
   },
   {
-    title: 'Data Engineering and Cloud Computing Consultancy',
+    title: "Data Engineering",
+    slug: "data-engineering",
     icon: { light: serviceBigDataLight, dark: serviceBigDataDark },
-    variant: 'orange',
     description:
-      'Our data engineering experts assist clients in setting up data pipelines, data warehousing, and ETL (Extract, Transform, Load) processes. We ensure data is well-structured, accessible, and ready for analysis.',
+      "Data pipelines, ETL, data warehouses and dashboards that bring scattered data together into reporting your team can trust.",
+  },
+  {
+    title: "AI & Automation",
+    slug: "ai-automation",
+    icon: { light: serviceDataLight, dark: serviceDataDark },
+    description:
+      "AI chatbots and document Q&A built on your own data, workflow automation, predictive models and AI features for your app.",
+  },
+  {
+    title: "Cloud Consultancy",
+    icon: serviceCloud,
+    description:
+      "Migration to the cloud, infrastructure as code and CI/CD, and security and cost reviews of the cloud setup you already have.",
+  },
+  {
+    title: "Support and Maintenance",
+    icon: serviceMobile,
+    description:
+      "We keep your website, app or data platform running after launch: security patches, dependency and OS updates, monitoring, bug fixes and new features.",
   },
 ];
 
@@ -80,15 +93,9 @@ export const FOOTER_LINKS = [
     ],
   },
   {
-    // Each service gets its own page in phase 2 of the SEO plan; until then they all open /services.
+    // Each service with its own page links there; the rest open the /services overview.
     title: 'Our Services',
-    links: [
-      { href: '/services', name: 'Web Application Development' },
-      { href: '/services', name: 'Mobile App Development' },
-      { href: '/services', name: 'Data Engineering' },
-      { href: '/services', name: 'AI & Automation' },
-      { href: '/services', name: 'Cloud Consultancy' },
-    ],
+    links: SERVICES.slice(0, 5).map((s) => ({ href: s.slug ? `/services/${s.slug}` : '/services', name: s.title })),
   },
 ];
 

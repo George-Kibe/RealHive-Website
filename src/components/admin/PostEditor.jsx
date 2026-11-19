@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { TEAM } from "@/constants/team";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BlogImage from "@/components/blog/BlogImage";
@@ -36,6 +37,7 @@ const PostEditor = ({ post }) => {
     content: post?.content ?? "",
     tags: (post?.tags ?? []).join(", "),
     published: post?.published ?? false,
+    authorSlug: post?.authorSlug ?? "",
   });
   const [cover, setCover] = useState(post?.coverImage ?? null);
   const [slugTouched, setSlugTouched] = useState(!isNew);
@@ -115,6 +117,14 @@ const PostEditor = ({ post }) => {
               className="min-w-0 flex-1 border-0 bg-transparent py-2 pr-3.5 text-foreground focus:ring-0 sm:text-sm"
             />
           </div>
+        </div>
+        <div>
+          <label htmlFor="p-author" className="block text-sm font-medium">Author</label>
+          <select id="p-author" value={form.authorSlug} onChange={update("authorSlug")} className={inputClass}>
+            <option value="">RealHive Consultants (company)</option>
+            {TEAM.map((member) => <option key={member.slug} value={member.slug}>{member.name}, {member.role}</option>)}
+          </select>
+          <p className="mt-1 text-xs text-muted-foreground">A named author with a bio helps readers and search engines trust the post.</p>
         </div>
         <div>
           <label htmlFor="p-tags" className="block text-sm font-medium">Tags</label>

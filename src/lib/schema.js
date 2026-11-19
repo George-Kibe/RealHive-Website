@@ -19,6 +19,8 @@
 
 import { SITE, absoluteUrl } from "@/lib/seo";
 import { SERVICES } from "@/constants";
+import { SERVICE_PAGES, servicePath } from "@/constants/servicePages";
+import { memberPath } from "@/constants/team";
 
 export const ORG_ID = `${SITE.url}/#organization`;
 export const WEBSITE_ID = `${SITE.url}/#website`;
@@ -26,6 +28,7 @@ export const WEBSITE_ID = `${SITE.url}/#website`;
 /** Verified contact details (used by the footer, the contacts page, emails and PDFs). */
 export const CONTACT = {
   telephone: "+254795288155",
+  // the company inbox; mail is sent from no-reply@realhiveconsultants.com (no mailbox on the domain yet)
   email: "realhiveconsultants@gmail.com",
 };
 
@@ -99,25 +102,65 @@ export function websiteSchema() {
   };
 }
 
+/** The Service node for one dedicated service page (same @id wherever it appears). */
+function serviceNode(page) {
+  const url = absoluteUrl(servicePath(page.slug));
+  return {
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: page.name,
+    serviceType: page.serviceType,
+    description: page.metaDescription,
+    provider: { "@id": ORG_ID },
+    areaServed: AREA_SERVED,
+    url,
+  };
+}
+
 /**
- * One Service node per offering actually listed on /services, generated from
- * the same SERVICES constant that renders the page so the two cannot diverge.
+ * /services: an ItemList of the dedicated service pages (the overview links to
+ * each), plus a Service node for each offering on the overview that has no page
+ * of its own yet. Built from the same constants that render the page.
  */
 export function servicesSchema() {
   return {
     "@context": "https://schema.org",
-    "@graph": SERVICES.map((service) => ({
-      "@type": "Service",
-      "@id": `${absoluteUrl("/services")}#${service.title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "")}`,
-      name: service.title,
-      serviceType: service.title,
-      description: service.description,
-      provider: { "@id": ORG_ID },
-      areaServed: AREA_SERVED,
-      url: absoluteUrl("/services"),
+    "@graph": [
+      {
+        "@type": "ItemList",
+        "@id": `${absoluteUrl("/services")}#services`,
+        name: "Software development services",
+        itemListElement: SERVICE_PAGES.map((page, i) => ({ "@type": "ListItem", position: i + 1, item: serviceNode(page) })),
+      },
+      ...SERVICES.filter((s) => !s.slug).map((service) => ({
+        "@type": "Service",
+        "@id": `${absoluteUrl("/services")}#${service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
+        name: service.title,
+        serviceType: service.title,
+        description: service.description,
+        provider: { "@id": ORG_ID },
+        areaServed: AREA_SERVED,
+        url: absoluteUrl("/services"),
+      })),
+    ],
+  };
+}
+
+/** One dedicated service page: its Service node. */
+export function servicePageSchema(page) {
+  return { "@context": "https://schema.org", ...serviceNode(page) };
+}
+
+/** BreadcrumbList from [{ name, path }], home first. Matches the visible breadcrumbs. */
+export function breadcrumbSchema(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
     })),
   };
 }
@@ -144,10 +187,26 @@ export function servicesSchema() {
 
 /**
  * BlogPosting for one published post. Every field comes from the post record
- * itself; the publisher is the organisation node above. The author is the
- * organisation too, because posts are published under the company name.
+ * itself; the publisher is the organisation node above. The author is the named
+ * team member (a Person who works for the organisation, with the same @id as
+ * their card on /aboutus) or, for posts without one, the organisation.
  */
-export function blogPostingSchema(post, { imageUrl } = {}) {
+function personNode(member) {
+  const sameAs = member.links.map((l) => l.href);
+  return {
+    "@type": "Person",
+    "@id": absoluteUrl(memberPath(member.slug)),
+    name: member.name,
+    jobTitle: member.role,
+    url: absoluteUrl(memberPath(member.slug)),
+    image: absoluteUrl(member.image.src),
+    worksFor: { "@id": ORG_ID },
+    ...(member.bio ? { description: member.bio } : {}),
+    ...(sameAs.length ? { sameAs } : {}),
+  };
+}
+
+export function blogPostingSchema(post, { imageUrl, author } = {}) {
   const url = absoluteUrl(`/blog/${post.slug}`);
   return {
     "@context": "https://schema.org",
@@ -161,7 +220,7 @@ export function blogPostingSchema(post, { imageUrl } = {}) {
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     ...(post.tags.length ? { keywords: post.tags.join(", ") } : {}),
-    author: { "@id": ORG_ID },
+    author: author ? personNode(author) : { "@id": ORG_ID },
     publisher: { "@id": ORG_ID },
     isPartOf: { "@id": WEBSITE_ID },
     inLanguage: "en",

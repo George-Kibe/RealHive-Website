@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { absoluteUrl } from "@/lib/seo";
 import { getPublishedPosts } from "@/lib/blog";
+import { SERVICE_PAGES, servicePath } from "@/constants/servicePages";
 
 /**
  * Served at /sitemap.xml.
@@ -72,8 +73,8 @@ function collectRoutes(dir = APP_DIR, segments = []) {
     // Private folders (_foo), parallel routes (@foo) and api never route.
     if (name.startsWith("_") || name.startsWith("@")) continue;
     if (EXCLUDED_SEGMENTS.has(name)) continue;
-    // Dynamic segments can't be enumerated from the filesystem; blog posts
-    // are added from the database in sitemap() below.
+    // Dynamic segments can't be enumerated from the filesystem; service pages
+    // (from SERVICE_PAGES) and blog posts (from the database) are added below.
     if (name.startsWith("[")) continue;
 
     // Route groups (foo) organise files without adding a URL segment.
@@ -98,6 +99,13 @@ export default async function sitemap() {
       ...(HINTS[route] ?? DEFAULT_HINT),
     }));
 
+  const services = SERVICE_PAGES.map((page) => ({
+    url: absoluteUrl(servicePath(page.slug)),
+    lastModified: fs.statSync(path.join(APP_DIR, "services", "[slug]", "page.js")).mtime,
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
+
   // getPublishedPosts() returns [] if the database is unreachable, so the
   // static pages are still listed.
   const posts = (await getPublishedPosts()).map((post) => ({
@@ -107,5 +115,5 @@ export default async function sitemap() {
     priority: 0.7,
   }));
 
-  return [...pages, ...posts];
+  return [...pages, ...services, ...posts];
 }

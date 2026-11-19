@@ -7,6 +7,9 @@ import Markdown from '@/components/blog/Markdown'
 import { formatPostDate } from '@/components/blog/formatPostDate'
 import JsonLd from '@/components/JsonLd'
 import { getPublishedPostBySlug, getPublishedPosts, readingMinutes } from '@/lib/blog'
+import { serviceForTags, servicePath } from '@/constants/servicePages'
+import { TEAM_BY_SLUG, memberPath } from '@/constants/team'
+import Image from 'next/image'
 import { blogPostingSchema } from '@/lib/schema'
 import { buildMetadata } from '@/lib/seo'
 
@@ -62,10 +65,14 @@ const BlogPostPage = async ({ params }) => {
   // The root loading.jsx streams every page, so this renders not-found.js with
   // a 200 status and a noindex tag (Next's soft 404), not an HTTP 404.
   if (!post) notFound()
+  // every post links to the service it relates to (SEO plan 2.7)
+  const service = serviceForTags(post.tags)
+  // the named author (SEO plan 3.6); without one the post is the company's
+  const author = TEAM_BY_SLUG[post.authorSlug] ?? null
 
   return (
     <article className='max-container padding-container page-y'>
-      <JsonLd schema={blogPostingSchema(post, { imageUrl: socialImageUrl(post) })} />
+      <JsonLd schema={blogPostingSchema(post, { imageUrl: socialImageUrl(post), author })} />
       <div className='mx-auto max-w-3xl'>
         <Link href='/blog' className='text-sm text-muted-foreground hover:text-foreground'>&larr; All posts</Link>
         {post.tags.length > 0 && (
@@ -76,7 +83,10 @@ const BlogPostPage = async ({ params }) => {
         <p className='mt-4 text-sm text-muted-foreground'>
           <time dateTime={post.publishedAt}>{formatPostDate(post.publishedAt)}</time>
           {' · '}{readingMinutes(post.content)} min read
-          {post.author && <>{' · '}By {post.author}</>}
+          {' · '}By{' '}
+          {author
+            ? <Link href={memberPath(author.slug)} rel='author' className='font-medium text-foreground hover:text-brand hover:underline'>{author.name}</Link>
+            : 'RealHive Consultants'}
         </p>
       </div>
 
@@ -94,6 +104,36 @@ const BlogPostPage = async ({ params }) => {
 
       <div className='mx-auto mt-10 max-w-3xl'>
         <Markdown>{post.content}</Markdown>
+        {author && (
+          <aside aria-label='About the author' className='mt-12 flex gap-5 border-t border-border pt-8'>
+            <Image src={author.image} alt='' width={72} quality={60} className='h-18 w-18 shrink-0 rounded-full bg-muted object-cover object-top ring-1 ring-border' />
+            <div>
+              <p className='text-sm text-muted-foreground'>Written by</p>
+              <p className='text-lg font-semibold'>
+                <Link href={memberPath(author.slug)} rel='author' className='hover:text-brand hover:underline'>{author.name}</Link>
+              </p>
+              <p className='text-sm text-muted-foreground'>{author.role} at RealHive Consultants</p>
+              {author.bio && <p className='mt-3 text-muted-foreground'>{author.bio}</p>}
+              {author.links.length > 0 && (
+                <p className='mt-3 flex flex-wrap gap-x-4 text-sm'>
+                  {author.links.map((link) => (
+                    <a key={link.href} href={link.href} target='_blank' rel='noopener noreferrer' className='font-medium text-brand hover:underline'>{link.name}</a>
+                  ))}
+                </p>
+              )}
+            </div>
+          </aside>
+        )}
+        {service && (
+          <aside aria-label='Related service' className='mt-12 rounded-2xl bg-muted p-6 ring-1 ring-border sm:p-8'>
+            <p className='text-sm font-semibold text-brand'>Need help with this?</p>
+            <p className='mt-2 text-xl font-semibold'>{service.name} at RealHive Consultants</p>
+            <p className='mt-2 text-muted-foreground'>{service.metaDescription}</p>
+            <Link href={servicePath(service.slug)} className='mt-4 inline-block font-medium text-brand hover:underline'>
+              Explore our {service.name.toLowerCase()} services <span aria-hidden='true'>&rarr;</span>
+            </Link>
+          </aside>
+        )}
         <Comments postId={post._id} postPath={`/blog/${post.slug}`} />
       </div>
     </article>

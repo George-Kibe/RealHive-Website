@@ -8,6 +8,10 @@
  * updates the matching post as published, authored by the first admin.
  * Safe to re-run: posts are matched by slug and covers are overwritten.
  *
+ * Seeds marked `draft: true` are created unpublished (review and publish them
+ * in /admin/blog, which sets the publish date) and, once they exist, are never
+ * touched again, so edits made in the admin aren't overwritten.
+ *
  * The site caches blog pages for up to an hour, so seeded changes appear after
  * that, on the next deploy, or immediately after any edit in /admin/blog.
  */
@@ -35,7 +39,13 @@ try {
   const admin = await User.findOne({ role: ROLES.ADMIN }).sort({ createdAt: 1 });
   if (!admin) fail("No admin user found. Run `npm run create-admin -- you@example.com` first.");
 
+  let seeded = 0;
   for (const seed of SEED_POSTS) {
+    const existing = await Post.findOne({ slug: seed.slug });
+    if (existing && seed.draft) {
+      console.log(`Skipped  ${seed.slug} (draft already created; edit it in /admin/blog)`);
+      continue;
+    }
     const upload = await cloudinary.uploader.upload(path.join(COVERS_DIR, `${seed.slug}.png`), {
       public_id: `realhive/blog/seed/${seed.slug}`,
       overwrite: true,
@@ -50,19 +60,20 @@ try {
       tags: seed.tags,
       coverImage: { publicId: upload.public_id, alt: seed.coverAlt },
       author: admin._id,
-      published: true,
+      ...(seed.authorSlug ? { authorSlug: seed.authorSlug } : {}),
+      published: !seed.draft,
     };
-    const existing = await Post.findOne({ slug: seed.slug });
+    seeded++;
     if (existing) {
       existing.set(fields);
       await existing.save();
       console.log(`Updated  ${seed.slug}`);
     } else {
-      await Post.create({ ...fields, slug: seed.slug, publishedAt: new Date(Date.now() - seed.daysAgo * DAY_MS) });
-      console.log(`Created  ${seed.slug}`);
+      await Post.create({ ...fields, slug: seed.slug, ...(seed.draft ? {} : { publishedAt: new Date(Date.now() - seed.daysAgo * DAY_MS) }) });
+      console.log(`Created  ${seed.slug}${seed.draft ? " (draft)" : ""}`);
     }
   }
-  console.log(`\nSeeded ${SEED_POSTS.length} posts. View them at /blog.`);
+  console.log(`\nSeeded ${seeded} posts. View them at /blog; drafts are in /admin/blog.`);
 } catch (error) {
   fail(`Seeding failed: ${error.message ?? error.error?.message ?? error}`);
 } finally {

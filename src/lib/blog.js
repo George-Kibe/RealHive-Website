@@ -1,5 +1,7 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
+import { SERVICE_PAGES, servicePath } from "@/constants/servicePages";
+import { TEAM_BY_SLUG } from "@/constants/team";
 import { connectDB } from "@/db/connectDB";
 import Post from "@/models/PostModel";
 import "@/models/UserModel"; // registers the User model for populate()
@@ -23,6 +25,11 @@ export const pickPostFields = (body = {}, { partial = false } = {}) => {
     if (body.excerpt !== undefined) fields.excerpt = String(body.excerpt).trim();
     if (body.content !== undefined) fields.content = String(body.content);
     if (body.published !== undefined) fields.published = Boolean(body.published);
+    if (body.authorSlug !== undefined) {
+        const slug = String(body.authorSlug ?? "").trim();
+        if (slug && !TEAM_BY_SLUG[slug]) throw new Error("Unknown author");
+        fields.authorSlug = slug || undefined;
+    }
     if (body.tags !== undefined) {
         const tags = Array.isArray(body.tags) ? body.tags : String(body.tags).split(",");
         fields.tags = [...new Set(tags.map((t) => String(t).trim()).filter(Boolean))].slice(0, MAX_TAGS);
@@ -56,6 +63,7 @@ const serializePost = (post) => ({
     coverImage: post.coverImage?.publicId ? { publicId: post.coverImage.publicId, alt: post.coverImage.alt ?? "" } : null,
     tags: post.tags ?? [],
     author: post.author?.username ?? null,
+    authorSlug: TEAM_BY_SLUG[post.authorSlug] ? post.authorSlug : null,
     published: post.published,
     publishedAt: post.publishedAt ? post.publishedAt.toISOString() : null,
     updatedAt: post.updatedAt.toISOString(),
@@ -95,4 +103,6 @@ export const revalidateBlog = (...slugs) => {
     revalidatePath("/blog");
     for (const slug of new Set(slugs.filter(Boolean))) revalidatePath(`/blog/${slug}`);
     revalidatePath("/sitemap.xml");
+    // service pages list related posts
+    for (const page of SERVICE_PAGES) revalidatePath(servicePath(page.slug));
 };

@@ -20,12 +20,12 @@ Gate to move on: **tracking verified**, meaning real visits and at least one tes
 | 1.4 | Search Console and Bing verification support (meta tags from env vars) | Claude | Done | 2026-10-03 | Not needed if you verify Search Console by DNS |
 | 1.5 | Vercel Speed Insights (cookie-free Core Web Vitals) | Claude | Done | 2026-10-03 | Needs enabling in the Vercel dashboard (1.10) |
 | 1.6 | Privacy policy rewritten for analytics, forms, providers and rights | Claude | Done | 2026-10-03 | Review the wording before launch (1.13) |
-| 1.7 | Create GA4 property and web data stream; add the Measurement ID to Vercel | George | In progress | 2026-10-03 | Property created, ID `G-S75PPTR9CL` (in `.env.local`, verified locally). Still to do: add it in Vercel and redeploy |
-| 1.8 | Search Console: domain property, verify by DNS, submit the sitemap | George | Waiting on George | | Setup steps B |
+| 1.7 | Create GA4 property and web data stream; add the Measurement ID to Vercel | George | Done | 2026-11-19 | `G-S75PPTR9CL` set in Vercel (Production + Preview); the tag is in the live pages since the 2026-11-19 deploy |
+| 1.8 | Search Console: domain property, verify by DNS, submit the sitemap | George | In progress | 2026-11-20 | The google-site-verification TXT record is live on the domain. Confirm the property shows as verified and submit the sitemap (Setup steps B) |
 | 1.9 | Bing Webmaster Tools: import the site from Search Console | George | Waiting on George | | Setup steps C |
-| 1.10 | Enable Speed Insights in the Vercel project | George | Waiting on George | | Setup steps D |
+| 1.10 | Enable Speed Insights in the Vercel project | George | Done | 2026-11-20 | The Speed Insights script is served on production |
 | 1.11 | GA4 settings: mark key events, 14-month retention, link Search Console | George | Waiting on George | | Setup steps E, after the first events arrive |
-| 1.12 | Deploy and verify: test booking/quote shows in GA4 Realtime | George + Claude | Not started | | After 1.7 |
+| 1.12 | Deploy and verify: test booking/quote shows in GA4 Realtime | George + Claude | In progress | 2026-11-19 | Deployed with GA4 live. Still to do: accept cookies, make a test booking/quote, and check it in GA4 Realtime |
 | 1.13 | Review the new privacy policy (`/privacy-policy`) | George | Waiting on George | | Not legal advice; adjust as needed |
 | 1.14 | Looker Studio dashboard (GA4 + Search Console) | George + Claude | Not started | | Setup steps F; after 2–4 weeks of data |
 | 1.15 | Pick and subscribe to one paid SEO tool for keyword research | George | Not started | | e.g. Semrush or Ahrefs; Ahrefs Webmaster Tools is free for your own site |
@@ -36,17 +36,25 @@ Gate: **service pages indexed** in Search Console.
 
 | # | Task | Owner | Status | Date | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 2.1 | Remove Lorem Ipsum on `/services`; remove "Award winning" claim; fix footer email typo; remove duplicate portfolio item | Claude | In progress | 2026-10-04 | Booking: 30% of free slots shown as taken (stable, adjustable in admin). Google Calendar/Meet integration built (event + Meet link + client invite on booking, deleted on cancel), stored on the booking and shown in admin and both emails; tested end to end with the fallback path and with a mocked Google API. Waiting on the Google setup steps above. |
-| 2026-10-04 | Footer email typo fixed (footer redesign); the rest to do |
-| 2.2 | Switch contact details to the `@realhiveconsultants.com` email | George + Claude | Not started | | |
+| 2.1 | Remove Lorem Ipsum on `/services`; remove "Award winning" claim; fix footer email typo; remove duplicate portfolio item | Claude | Done | 2026-11-20 | All four done (checked in the code and on the live site) |
+| 2.2 | Switch contact details to the `@realhiveconsultants.com` email | George + Claude | Blocked | 2026-11-20 | No mailbox on the domain yet, so the contact email stays realhiveconsultants@gmail.com (`CONTACT.email`, used everywhere incl. reply-to). Mail is already *sent* from no-reply@realhiveconsultants.com via Amazon SES. When a domain inbox exists, change `CONTACT.email` only |
 | 2.3 | Add company X, Facebook, YouTube links (footer + `sameAs`) | George + Claude | Not started | | Need the profile URLs |
-| 2.4 | Homepage headline and sections that name services, audience and proof | Claude drafts, George reviews | Not started | | |
-| 2.5 | `/services/mobile-app-development` page (first; UK/EU buyers) | Claude drafts, George reviews | Not started | | |
-| 2.6 | `/services/web-development`, `/services/data-engineering`, `/services/ai-automation` pages | Claude drafts, George reviews | Not started | | |
-| 2.7 | Internal links: footer "Our Focus" and blog posts to service pages | Claude | In progress | 2026-10-04 | WhatsApp: floating "Chat with us" button on every public page (company number, pre-filled message; tracked as `contact_click`); WhatsApp replaces Facebook in the footer socials; new Instagram and YouTube icons; footer tagline in quotes and italics. |
-| 2026-10-04 | Footer redesigned: "Our Services" column now links to `/services` (not `/portfolio`); switch each to its own page when 2.5/2.6 land. Blog links still to do |
-| 2.8 | Structured data: Service per page, breadcrumbs, `areaServed` = target markets | Claude | Not started | | |
+| 2.4 | Homepage headline and sections that name services, audience and proof | Claude drafts, George reviews | Waiting on George | 2026-11-20 | Drafted: h1 "Web, mobile, data and AI engineering for startups and growing companies", quote + consultation buttons, "Why teams work with us", service cards linking to their pages. Review the wording |
+| 2.5 | `/services/mobile-app-development` page (first; UK/EU buyers) | Claude drafts, George reviews | Waiting on George | 2026-11-20 | Drafted (content in `src/constants/servicePages.js`). Review the claims under "For George to confirm" below |
+| 2.6 | `/services/web-development`, `/services/data-engineering`, `/services/ai-automation` pages | Claude drafts, George reviews | Waiting on George | 2026-11-20 | Drafted, same structure. Data engineering and AI have no case study yet (phase 3.1) |
+| 2.7 | Internal links: footer "Our Focus" and blog posts to service pages | Claude | Done | 2026-11-20 | Footer "Our Services", the homepage cards, the `/services` overview and "Other services" on each page link to the service pages; every blog post has a related-service box (by tag) and each service page lists related posts |
+| 2.8 | Structured data: Service per page, breadcrumbs, `areaServed` = target markets | Claude | Done | 2026-11-20 | Service + BreadcrumbList on each service page (with visible breadcrumbs), ItemList on `/services`; `areaServed` already lists the target markets |
 | 2.9 | Validate keyword lists with Search Console + SEO tool data | George + Claude | Not started | | |
+
+### For George to confirm (service pages, 2.4–2.6)
+
+The pages only use facts from the site: the portfolio projects, the quote tool's options and its "from N weeks" timelines, and the engagement models on the About page. They show no prices, because those depend on the visitor's location; the pages link to `/quote` instead. Confirm or correct these before the pages go live:
+
+1. **Code ownership:** "You own the code, designs and accounts from day one" (homepage, mobile and web FAQs).
+2. **Process:** a written scope with a fixed price after the consultation, and short build cycles with working software shown as you go.
+3. **Technology lists:** especially data engineering (Airflow, dbt, Kafka, BigQuery, Snowflake, Power BI) and AI (OpenAI, Claude, Gemini, pgvector). Remove anything you wouldn't take a project in.
+4. **Data handling:** UK/EU hosting on request, GDPR-aware builds, data kept in the client's own cloud accounts, and AI providers' business APIs not training on client data.
+5. **Artwork:** the AI page reuses the "big data" illustration; an AI-specific image would fit better.
 
 ## Phase 3: Prove (months 2–4)
 
@@ -59,7 +67,7 @@ Gate: **proof on each service** (a case study and at least one testimonial per s
 | 3.3 | Google Business Profile as a service-area business; ask clients for reviews | George | Not started | | |
 | 3.4 | Company LinkedIn page | George | Not started | | |
 | 3.5 | Clutch and GoodFirms profiles with client reviews | George | Not started | | |
-| 3.6 | Team bios and named blog authors | George + Claude | Not started | | |
+| 3.6 | Team bios and named blog authors | George + Claude | Waiting on George | 2026-11-20 | Built: team in `src/constants/team.js` (About page cards with `#slug` anchors), an Author field in the post editor, byline + "Written by" box on posts, and a Person author (works for the organisation) in the BlogPosting JSON-LD. To do (George): a 2–3 sentence bio and LinkedIn for each person in `team.js`, then pick an author for each post in /admin/blog |
 
 ## Phase 4: Grow (months 3–12)
 
@@ -67,7 +75,7 @@ Gate: **monthly enquiries grow** from target markets.
 
 | # | Task | Owner | Status | Date | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 4.1 | Two blog posts a month, one keyword cluster each (start: app cost guide, React Native vs Flutter) | Mix | Not started | | |
+| 4.1 | Two blog posts a month, one keyword cluster each (start: app cost guide, React Native vs Flutter) | Mix | Waiting on George | 2026-11-20 | First two drafted as unpublished posts in /admin/blog: "React Native vs Flutter vs Native: How to Choose for Your App" and "How Much Does a Mobile App Cost in 2026? What Drives the Price" (both link to the mobile service page, the quote tool and booking). The cost guide gives no RealHive prices (they are location-based): it explains what drives cost, uses the quote tool's timelines and sends readers to /quote. Then drafted the next two: "MVP or Production-Grade: Which Should You Build First?" (links to the mobile and web pages) and "Data Engineering vs Data Science: Which Does Your Company Need?" (links to the data engineering and AI pages). Suggested schedule at two a month: the two mobile posts now, MVP and data next month. To do (George): review, pick an author, publish. Next topics: React Native vs Flutter done; then "Five processes small businesses can automate with AI this month" and "Hiring offshore developers: what to check" |
 | 4.2 | Use-case pages (MVP development, M-Pesa integration, AI chatbots, automation, dashboards, data pipelines) | Claude drafts | Not started | | |
 | 4.3 | Industry pages: real estate, e-commerce/retail, fintech/payments | Claude drafts | Not started | | |
 | 4.4 | Links and PR: tech press, expert-quote platforms, partner directories | George | Not started | | |
@@ -136,6 +144,12 @@ No event sends names, emails or phone numbers (Google's terms forbid it). Code: 
 
 | Date | Change |
 | --- | --- |
+| 2026-11-20 | 4.1: two more drafts (MVP vs production-grade; data engineering vs data science) with covers. Four drafts now waiting in /admin/blog. |
+| 2026-11-20 | 4.1: first two mobile posts drafted (unpublished) with new covers; `seed-blog` supports `draft: true` seeds (created once, never overwritten); `scripts/seed/make-blog-covers.cjs` renders covers in the house style. |
+| 2026-11-20 | 3.6 built: named blog authors (team members, chosen per post in the admin editor) with byline, author box and Person JSON-LD; About page team cards from one `TEAM` list with anchors, bios and links. Contact/reply-to inbox kept at realhiveconsultants@gmail.com (no domain mailbox yet); 2.2 marked Blocked. |
+| 2026-11-20 | Phase 2 build: four service pages (`/services/mobile-app-development`, `web-development`, `data-engineering`, `ai-automation`), each with its own title, description, h1, Service + BreadcrumbList JSON-LD, plain-HTML FAQs, timelines, tech, real projects and related posts; unknown slugs are a real 404; all four in the sitemap. Homepage hero rewritten with an h1 and both calls to action. `/services` now has one h1 (it had two, nested in h2s) and links to each page. Footer and blog posts link to the service pages. Contact email stays realhiveconsultants@gmail.com (no domain inbox yet). Waiting on George's review before deploy. |
+| 2026-11-19 | All site email moved to Amazon SES (from no-reply@realhiveconsultants.com, replies to realhiveconsultants@gmail.com). The old MongoDB cluster no longer existed (production was returning 500s): new Atlas project and cluster `realhive-website`, re-seeded (admin, 5 posts, indexes), Vercel env updated and redeployed. GA4 confirmed live in production. |
+| 2026-10-04 | Footer redesigned: "Our Services" column linked to `/services` (not `/portfolio`) until the service pages existed. |
 | 2026-10-04 | Footer redesigned: company description + tagline, four columns (brand · Our Company · Our Services · Contact Us with socials), real phone/WhatsApp/email links, footer email typo fixed, location shown as Nairobi, Kenya (no street address). |
 | 2026-10-03 | All 11 site emails rebuilt on one branded layout (account, contact form, quotes, bookings): removed the old real-estate wording, green theme, wrong senders and placeholders; all user input escaped. Supports 2.1 (consistent contact details). |
 | 2026-10-03 | GA4 property created (`G-S75PPTR9CL`); ID added locally and verified in a local build. Waiting on the Vercel env var + redeploy. |

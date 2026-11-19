@@ -34,6 +34,7 @@ export default async function EditPostPage({ params }) {
           tags: post.tags ?? [],
           coverImage: post.coverImage?.publicId ? { publicId: post.coverImage.publicId, alt: post.coverImage.alt ?? "" } : null,
           published: post.published,
+          authorSlug: post.authorSlug ?? "",
         }}
       />
       <AdminComments

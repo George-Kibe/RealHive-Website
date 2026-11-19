@@ -34,7 +34,7 @@ export const SITE = {
    */
   defaultTitle: "Custom Software Development Company | RealHive Consultants",
   defaultDescription:
-    "RealHive Consultants builds custom web and mobile applications, data pipelines and cloud platforms for founders and product teams. Talk to our engineers.",
+    "RealHive Consultants builds mobile apps, web applications, data pipelines and AI solutions for startups and growing companies. Get an instant estimate.",
   locale: "en_US",
 };
 

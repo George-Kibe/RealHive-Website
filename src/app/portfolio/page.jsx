@@ -4,11 +4,7 @@ import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import { SocialIcon } from 'react-social-icons';
 import React from 'react'
-import MernBnbImage from "../../../public/projects/mernbnb.png"
-import EcommerceImage from "../../../public/projects/ecommerce1.png"
-import CompanyImage from "../../../public/projects/company.png"
-import RealHiveImage from "../../../public/projects/realhive.jpg"
-import HauteCornerImage from "../../../public/projects/haute-corner.jpg"
+import { PROJECTS } from '@/constants/projects'
 import { FramerImage } from '@/utils/FramerImage';
 import { buildMetadata } from '@/lib/seo'
 
@@ -88,56 +84,21 @@ const page = () => {
       <div className='flex flex-col gap-6 md:gap-8'>
         <AnimatedText text={"A demo is worth a thousand words"}/> 
         <div>
-          <FeaturedProject 
-            type={"Web Application"}
-            title={"Buenas Electronics Store"}
-            summary={"An online store for an electronics shop with the full shopping flow: product catalogue, latest arrivals, browsing by category, a cart and Stripe checkout."}
-            image={EcommerceImage}
-            link={"https://buenas-ecommerce.vercel.app"}
-            github={"https://github.com/George-Kibe/Ecommerce-next"}  
-          />
+          <FeaturedProject {...PROJECTS.buenasStore} />
         </div>
         <div className="flex flex-col md:flex-row gap-6 md:gap-8">
           <div className="md:w-1/2">
-            <Project 
-              type={"Mobile Application"}
-              title={"RealHive"}
-              summary={"Inspired by Airbnb, a React Native app that matches property seekers with property owners, and tenants with landlords."}
-              image={RealHiveImage}
-              link={"https://play.google.com/store/apps/details?id=com.realhive.app"}
-              github={"https://github.com/George-Kibe"}
-            />
+            <Project {...PROJECTS.realhiveApp} />
           </div>
           <div className="md:w-1/2">
-            <Project 
-              type={"Website"}
-              title={"Buenas Consultants"}
-              summary={"A company website for an IT consultancy, presenting its services and projects, with a blog on trends in the industry."}
-              image={CompanyImage}
-              link={"https://buenas-portfolio.vercel.app/"}
-              github={"https://github.com/George-Kibe/Nextjs"}
-            />
+            <Project {...PROJECTS.buenasConsultants} />
           </div>
         </div>
         <div>
-          <FeaturedProject 
-            type={"Mobile Application"}
-            title={"Haute Corner"}
-            summary={"An e-commerce mobile app built with React Native and AWS Amplify: product catalogue, latest arrivals, browsing by category, a cart and Stripe checkout."}
-            image={HauteCornerImage}
-            link={"https://play.google.com/store/apps/details?id=com.hautecorner.app"}
-            github={"https://github.com/George-Kibe/Haute-corner"}  
-          />
+          <FeaturedProject {...PROJECTS.hauteCorner} />
         </div>
         <div>
-          <FeaturedProject
-            type={"Web Application"}
-            title={"Mernbnb"}
-            summary={"Inspired by Airbnb, a web app for booking holiday homes, where guests book stays and view their accommodation. Built on the MERN stack (MongoDB, Express, React, Node.js) with AWS for cloud storage."}
-            image={MernBnbImage}
-            link={"https://mernbnb.vercel.app/"}
-            github={"https://github.com/George-Kibe/Mernbnbclone"}
-          />
+          <FeaturedProject {...PROJECTS.mernbnb} />
         </div>
       </div>
     </div>

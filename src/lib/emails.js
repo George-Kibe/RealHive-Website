@@ -14,6 +14,7 @@ import {
     verificationEmail,
     welcomeEmail,
 } from "./emailTemplates";
+import { CONTACT } from "./schema";
 
 /**
  * Sending every email the site sends. Templates (and their HTML escaping) live
@@ -22,8 +23,8 @@ import {
  *
  * The From address must be on an SES-verified identity: realhiveconsultants.com
  * is verified with DKIM, so mail from it passes DMARC. Replies go to the team
- * mailbox (info@), or to the visitor on team notifications. EMAIL_FROM /
- * EMAIL_REPLY_TO override the two addresses.
+ * mailbox (CONTACT.email, the company Gmail inbox: the domain has no mailbox), or to
+ * the visitor on team notifications. EMAIL_FROM / EMAIL_REPLY_TO override the two.
  */
 
 // One client per server instance; nodemailer builds the MIME (attachments, .ics)
@@ -46,7 +47,7 @@ const transport = () => {
 };
 
 const FROM_ADDRESS = () => process.env.EMAIL_FROM || "no-reply@realhiveconsultants.com";
-export const teamMailbox = () => process.env.EMAIL_REPLY_TO || "info@realhiveconsultants.com";
+export const teamMailbox = () => process.env.EMAIL_REPLY_TO || CONTACT.email;
 
 // Visitor-facing mail comes from the company; team notifications from "the website".
 const fromCompany = () => `"RealHive Consultants" <${FROM_ADDRESS()}>`;

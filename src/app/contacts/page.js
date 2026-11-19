@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
 import { trackEvent } from "@/lib/analytics"
 import { WHATSAPP } from "@/constants"
+import { CONTACT } from "@/lib/schema"
 import { buttonVariants } from "@/components/ui/button";
 import { inputClass } from "@/components/account/shared";
 
@@ -59,8 +60,8 @@ const ContactPage = () => {
           <div className={card}>
             <MdOutlineEmail className="text-[25px] md:text-[40px]"/>
             <h2 className="font-semibold">Email</h2>
-            <p>realhiveconsultants@gmail.com</p>
-            <a href="mailto:realhiveconsultants@gmail.com" target="_blank" rel="noreferrer" className="text-brand hover:underline">Send an Email</a>
+            <p>{CONTACT.email}</p>
+            <a href={`mailto:${CONTACT.email}`} target="_blank" rel="noreferrer" className="text-brand hover:underline">Send an Email</a>
           </div>
           <article className={card}>
             <FaXTwitter className="text-[25px] md:text-[40px]"/>
